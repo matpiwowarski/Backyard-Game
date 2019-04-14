@@ -21,6 +21,11 @@ Game::~Game()
 
 // funtions
 
+void Game::updateDt()
+{
+	this->dt = this->dtClock.restart().asSeconds();
+}
+
 void Game::updateSFMLEvents()
 {
 	while (this->window->pollEvent(this->sfEvent))
@@ -47,6 +52,7 @@ void Game::run()
 {
 	while (this->window->isOpen())
 	{
+		this->updateDt();
 		this->update();
 		this->render();
 	}
