@@ -31,7 +31,7 @@ Game::~Game()
 	}
 }
 
-// funtions
+// methods
 
 void Game::updateDt()
 {
@@ -52,7 +52,21 @@ void Game::update()
 	this->updateSFMLEvents();
 
 	if (!this->states.empty())
+	{
 		this->states.top()->update(this->dt);
+
+		if (this->states.top()->getQuit()) // if getQuit() == true
+		{
+			this->states.top()->endState();
+			delete this->states.top();
+			this->states.pop();
+		}
+	}
+	else // end program
+	{
+		this->endGame();
+	}
+
 }
 
 void Game::render()
@@ -74,4 +88,10 @@ void Game::run()
 		this->update();
 		this->render();
 	}
+}
+
+void Game::endGame()
+{
+	std::cout << "GAME OVER" << std::endl;
+	this->window->close();
 }

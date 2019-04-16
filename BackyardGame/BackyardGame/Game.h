@@ -10,7 +10,7 @@ private:
 	sf::Event sfEvent;
 
 	sf::Clock dtClock;
-	float dt;
+	double dt;
 
 	std::stack<State*> states;
 
@@ -22,12 +22,15 @@ public:
 	Game();
 	virtual ~Game();
 
-	// methods
+	// update
 	void updateDt();
 	void updateSFMLEvents();
 	void update();
+	// render
 	void render();
+	// other
 	void run();
+	void endGame();
 
 };
 

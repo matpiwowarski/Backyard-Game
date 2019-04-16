@@ -10,7 +10,8 @@ public:
 
 	// methods
 	void endState();
-	void update(const float& dt);
+	void updateKeybinds(const double& dt);
+	void update(const double& dt);
 	void render(sf::RenderTarget* target = nullptr);
 };
 
