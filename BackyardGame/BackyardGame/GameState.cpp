@@ -22,10 +22,13 @@ void GameState::updateKeybinds(const double & dt)
 void GameState::update(const double& dt)
 {
 	this->updateKeybinds(dt);
+	this->map.update(dt);
 	this->player.update(dt);
 }
 
 void GameState::render(sf::RenderTarget* target)
 {
+	// the order matters
+	this->map.render(this->window);
 	this->player.render(this->window);
 }

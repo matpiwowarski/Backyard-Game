@@ -1,9 +1,11 @@
 #pragma once
 #include "State.h"
+
 class GameState : public State
 {
 private:
 	Entity player;
+	Map map;
 public:
 	GameState(sf::RenderWindow* window);
 	virtual ~GameState();

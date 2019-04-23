@@ -1,7 +1,5 @@
 #include "Entity.h"
 
-
-
 Entity::Entity()
 {
 	this->shape.setSize(sf::Vector2f(16.f, 16.f));
