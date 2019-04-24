@@ -2,7 +2,7 @@
 
 Entity::Entity()
 {
-	this->shape.setSize(sf::Vector2f(16.f, 16.f));
+	this->shape.setSize(sf::Vector2f(32.f, 32.f));
 	this->movementSpeed = 100.f;
 }
 
