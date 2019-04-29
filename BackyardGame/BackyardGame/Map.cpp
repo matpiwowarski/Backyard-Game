@@ -24,7 +24,7 @@ Map::Map()
 		0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	6,	15,	0,	0,	0,
 		27,	26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27
 	};
-	if (!this->load("../Assets/map.png", sf::Vector2u(16, 16), map, 25, 19))
+	if (!this->load("../Assets/map.png", sf::Vector2u(16, 16), map, 25, 19))    //path to file, dimension of one tile, table with map, width, height
 	{
 		std::cout << " The map hasn't been loaded correctly";
 	}
