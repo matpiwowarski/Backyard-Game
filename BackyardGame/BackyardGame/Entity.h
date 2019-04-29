@@ -13,12 +13,19 @@ class Entity
 {
 protected:
 	sf::RectangleShape shape;
+	sf::Sprite sprite;
+	
 public:
 	Entity();
 	virtual ~Entity();
 
+	// getters/setters
+	void setPositionAndSize(float xPosition, float yPosition, float xSize, float ySize);
+	void setTexture(const sf::Texture texture);
+	sf::RectangleShape getShape() const;
+
 	// methods
-	virtual void update(const double& dt) = 0;
+	virtual void update(const double& dt);
 	virtual void render(sf::RenderTarget * target);// = 0;
 };
 

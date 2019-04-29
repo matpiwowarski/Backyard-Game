@@ -5,6 +5,7 @@ class GameState : public State
 {
 private:
 	Player player;
+	Entity house;
 	Map map;
 public:
 	GameState(sf::RenderWindow* window);
