@@ -66,4 +66,9 @@
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="house.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

@@ -2,12 +2,13 @@
 
 State::State(sf::RenderWindow * window): window(window), quit(false)
 {
-	sf::Texture house;
-	if (!house.loadFromFile("house.png"))
+	sf::Texture house, player;
+	if (!house.loadFromFile("../Assets/house.png") || !player.loadFromFile("../Assets/player.png"))
 	{
 		// throw exception
 	}
 	textures.push_back(house);
+	textures.push_back(player);
 }
 
 State::~State()

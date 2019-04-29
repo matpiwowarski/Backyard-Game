@@ -12,9 +12,7 @@
 class Entity
 {
 protected:
-	sf::RectangleShape shape;
 	sf::Sprite sprite;
-	
 public:
 	Entity();
 	virtual ~Entity();
@@ -22,7 +20,7 @@ public:
 	// getters/setters
 	void setPositionAndSize(float xPosition, float yPosition, float xSize, float ySize);
 	void setTexture(const sf::Texture texture);
-	sf::RectangleShape getShape() const;
+	sf::Sprite & getSprite();
 
 	// methods
 	virtual void update(const double& dt);

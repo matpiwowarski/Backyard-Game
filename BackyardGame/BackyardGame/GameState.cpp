@@ -4,7 +4,8 @@ GameState::GameState(sf::RenderWindow* window): State(window)
 {
 	house.setPositionAndSize(350, 115, 140, 176);
 
-	house.setTexture(textures[0]);
+	house.getSprite().setTexture(textures[0]);
+	player.getSprite().setTexture(textures[1]);
 }
 
 GameState::~GameState()
@@ -27,7 +28,7 @@ void GameState::update(const double& dt)
 	this->map.update(dt);
 	this->house.update(dt);
 	this->player.update(dt);
-	if (player.getShape().getGlobalBounds().intersects(house.getShape().getGlobalBounds()))
+	if (player.getSprite().getGlobalBounds().intersects(house.getSprite().getGlobalBounds()))
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
