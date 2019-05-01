@@ -4,7 +4,7 @@
 
 Player::Player()
 {
-	this->movementSpeed = 100.f;
+	this->movementSpeed = 1000.f;
 }
 
 

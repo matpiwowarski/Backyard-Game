@@ -5,7 +5,7 @@ class GameState : public State
 {
 private:
 	Player player;
-	Entity house;
+	Entity house, lake;
 	Map map;
 public:
 	GameState(sf::RenderWindow* window);
@@ -13,6 +13,7 @@ public:
 
 	// methods
 	void endState();
+	void colisionPreventing(Player & player, Entity & object, const double &dt);
 	void updateKeybinds(const double& dt);
 	void update(const double& dt);
 	void render(sf::RenderTarget* target = nullptr);
