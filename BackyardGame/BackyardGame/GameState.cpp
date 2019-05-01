@@ -4,6 +4,7 @@ GameState::GameState(sf::RenderWindow* window): State(window)
 {
 	house.setPositionAndSize(350, 115, 140, 176);
 	lake.setPositionAndSize(80, 450, 110, 78);
+	lake.getSprite().setScale(6.f, 3.5f);
 
 	house.getSprite().setTexture(textures[0]);
 	player.getSprite().setTexture(textures[1]);
@@ -63,7 +64,7 @@ void GameState::update(const double& dt)
 	this->house.update(dt);
 	this->lake.update(dt);
 	this->player.update(dt);
-	rotatingPlayer(player, dt);
+	rotatingPlayer(player,dt);
 	colisionPreventing(player, house, dt);
 	colisionPreventing(player, lake, dt);
 }
