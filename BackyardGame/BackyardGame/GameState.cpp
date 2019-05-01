@@ -7,7 +7,7 @@ GameState::GameState(sf::RenderWindow* window): State(window)
 
 	house.getSprite().setTexture(textures[0]);
 	player.getSprite().setTexture(textures[1]);
-	lake.getSprite().setTexture(textures[2]);
+	lake.getSprite().setTexture(textures[3]);
 }
 
 GameState::~GameState()
@@ -42,6 +42,15 @@ void GameState::colisionPreventing(Player & player, Entity & object, const doubl
 	}
 }
 
+void GameState::rotatingPlayer(Player & player, const double& dt)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		player.getSprite().setTexture(textures[2]);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		player.getSprite().setTexture(textures[1]);
+			
+}
+
 void GameState::updateKeybinds(const double & dt)
 {
 	this->checkQuit();
@@ -54,6 +63,7 @@ void GameState::update(const double& dt)
 	this->house.update(dt);
 	this->lake.update(dt);
 	this->player.update(dt);
+	rotatingPlayer(player, dt);
 	colisionPreventing(player, house, dt);
 	colisionPreventing(player, lake, dt);
 }
