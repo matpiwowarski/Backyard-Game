@@ -76,4 +76,5 @@ void GameState::render(sf::RenderTarget* target)
 	this->house.render(this->window);
 	this->lake.render(this->window);
 	this->player.render(this->window);
+	this->score.render(this->window);
 }

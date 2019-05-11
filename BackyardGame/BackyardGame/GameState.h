@@ -7,6 +7,7 @@ private:
 	Player player;
 	Entity house, lake;
 	Map map;
+	Score score;
 public:
 	GameState(sf::RenderWindow* window);
 	virtual ~GameState();

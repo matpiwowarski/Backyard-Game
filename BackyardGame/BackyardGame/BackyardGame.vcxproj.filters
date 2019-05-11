@@ -22,6 +22,9 @@
     <Filter Include="Map">
       <UniqueIdentifier>{14f3ec54-6ba7-41fb-95e9-270ac64f8988}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{912f32da-2a7f-440f-b900-77743c9cabbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -43,7 +46,10 @@
       <Filter>Map</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,7 +69,10 @@
       <Filter>Map</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Game</Filter>
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
+      <Filter>Other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
