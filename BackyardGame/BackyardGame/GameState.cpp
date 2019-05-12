@@ -64,6 +64,7 @@ void GameState::update(const double& dt)
 	this->house.update(dt);
 	this->lake.update(dt);
 	this->player.update(dt);
+	this->score.update(dt);
 	rotatingPlayer(player,dt);
 	colisionPreventing(player, house, dt);
 	colisionPreventing(player, lake, dt);

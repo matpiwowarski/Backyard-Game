@@ -10,7 +10,7 @@ class Score
 private:
 	sf::Font font;
 	sf::Text text;
-	int score = 0;
+	int score = 10; // starting score
 public:
 	Score();
 	~Score();
@@ -19,5 +19,8 @@ public:
 	void setText(std::string text);
 	void setScore(int score);
 	void render(sf::RenderTarget * target);
+	void update(const double & dt);
+	void add(int score);
+	void subtract(int score);
 };
 
