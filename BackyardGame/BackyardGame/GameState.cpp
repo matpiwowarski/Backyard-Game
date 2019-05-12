@@ -63,7 +63,7 @@ void GameState::checkDoor(Player & player, const double& dt)
 		if(player.getPosition().x > 380 && player.getPosition().x < 430)
 			if(player.getPosition().y > 200)
 				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-					house.getSprite().setTexture(textures[4]);
+					house.getSprite().setTexture(textures[6]);
 	}
 }
 
