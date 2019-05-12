@@ -12,6 +12,7 @@ public:
 	//methods
 	void move(const double &dt, const double xDirection, const double yDirection);
 	void update(const double& dt);
+	
 
 };
 

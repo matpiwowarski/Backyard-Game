@@ -56,6 +56,17 @@ void GameState::rotatingPlayer(Player & player, const double& dt)
 			
 }
 
+void GameState::checkDoor(Player & player, const double& dt)
+{
+	if(player.getSprite().getGlobalBounds().intersects(this->house.getSprite().getGlobalBounds()))
+	{
+		if(player.getPosition().x > 380 && player.getPosition().x < 430)
+			if(player.getPosition().y > 200)
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+					house.getSprite().setTexture(textures[6]);
+	}
+}
+
 void GameState::updateKeybinds(const double & dt)
 {
 	this->checkQuit();
@@ -72,6 +83,7 @@ void GameState::update(const double& dt)
 	this->red_tree.update(dt);
 	this->score.update(dt);
 	rotatingPlayer(player,dt);
+	checkDoor(player, dt);
 	colisionPreventing(player, house, dt);
 	colisionPreventing(player, lake, dt);
 	colisionPreventing(player, old_man, dt);
