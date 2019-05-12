@@ -4,23 +4,28 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include "Entity.h"
 
 class Score
 {
 private:
 	sf::Font font;
 	sf::Text text;
+	sf::Texture BoardTexture;
+	Entity board;
 	int score = 10; // starting score
 public:
 	Score();
 	~Score();
-
-	// methods
+	// getters/setters
 	void setText(std::string text);
 	void setScore(int score);
+	Entity & getEntity();
+	// methods
 	void render(sf::RenderTarget * target);
 	void update(const double & dt);
 	void add(int score);
 	void subtract(int score);
+
 };
 
