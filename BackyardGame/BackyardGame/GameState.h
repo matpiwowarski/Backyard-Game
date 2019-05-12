@@ -16,6 +16,7 @@ public:
 	void endState();
 	void colisionPreventing(Player & player, Entity & object, const double &dt);
 	void rotatingPlayer(Player & player, const double& dt);
+	void checkDoor(Player & player, const double& dt);
 	void updateKeybinds(const double& dt);
 	void update(const double& dt);
 	void render(sf::RenderTarget* target = nullptr);

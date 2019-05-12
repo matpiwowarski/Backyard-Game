@@ -52,6 +52,16 @@ void GameState::rotatingPlayer(Player & player, const double& dt)
 			
 }
 
+void GameState::checkDoor(Player & player, const double& dt)
+{
+	if(player.getSprite().getGlobalBounds().intersects(this->house.getSprite().getGlobalBounds()))
+	{
+		if(player.getPosition().x > 400 && player.getPosition().x < 430)
+			if(player.getPosition().y > 200)
+				house.getSprite().setTexture(textures[4]);
+	}
+}
+
 void GameState::updateKeybinds(const double & dt)
 {
 	this->checkQuit();
@@ -66,6 +76,7 @@ void GameState::update(const double& dt)
 	this->player.update(dt);
 	this->score.update(dt);
 	rotatingPlayer(player,dt);
+	checkDoor(player, dt);
 	colisionPreventing(player, house, dt);
 	colisionPreventing(player, lake, dt);
 }
