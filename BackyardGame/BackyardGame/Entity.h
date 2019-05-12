@@ -21,6 +21,7 @@ public:
 	void setPositionAndSize(float xPosition, float yPosition, float xSize, float ySize);
 	void setTexture(const sf::Texture texture);
 	sf::Sprite & getSprite();
+	sf::Vector2f getPosition() const;
 
 	// methods
 	virtual void update(const double& dt);
