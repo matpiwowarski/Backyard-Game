@@ -56,9 +56,10 @@ void GameState::checkDoor(Player & player, const double& dt)
 {
 	if(player.getSprite().getGlobalBounds().intersects(this->house.getSprite().getGlobalBounds()))
 	{
-		if(player.getPosition().x > 400 && player.getPosition().x < 430)
+		if(player.getPosition().x > 380 && player.getPosition().x < 430)
 			if(player.getPosition().y > 200)
-				house.getSprite().setTexture(textures[4]);
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+					house.getSprite().setTexture(textures[4]);
 	}
 }
 
