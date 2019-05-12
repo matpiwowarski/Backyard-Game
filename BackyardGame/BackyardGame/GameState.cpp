@@ -88,6 +88,7 @@ void GameState::update(const double& dt)
 	colisionPreventing(player, lake, dt);
 	colisionPreventing(player, old_man, dt);
 	colisionPreventing(player, red_tree, dt);
+	colisionPreventing(player, score.getEntity(), dt);
 	if (player.getSprite().getGlobalBounds().intersects(old_man.getSprite().getGlobalBounds()))
 	{
 		//NPC_do_something
