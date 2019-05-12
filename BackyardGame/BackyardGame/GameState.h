@@ -5,7 +5,8 @@ class GameState : public State
 {
 private:
 	Player player;
-	Entity house, lake;
+	Entity house, lake, red_tree;
+	NPC old_man;
 	Map map;
 	Score score;
 public:

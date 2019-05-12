@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include "Player.h"
+#include "NPC.h"
 #include "Map.h"
 #include "Score.h"
 
