@@ -1,5 +1,26 @@
 #include "GameState.h"
 
+void GameState::drawRPSSprites()
+{
+	std::vector<sf::Sprite>::iterator it = GameRPSToDraw.begin();
+	for (it; it != GameRPSToDraw.end(); it++)
+	{
+		this->window->draw(*it);
+	}
+	
+}
+
+void GameState::checkToBlockPlayer()
+{
+	if (GameRPSToDraw.size() > 0)
+	{
+		if (GameRPSToDraw[0].getTexture() != nullptr)
+			player.block();
+		else
+			player.unblock();
+	}
+}
+
 GameState::GameState(sf::RenderWindow* window): State(window)
 {
 	house.setPositionAndSize(350, 115, 140, 176);
@@ -76,11 +97,7 @@ void GameState::updateKeybinds(const double & dt)
 
 void GameState::update(const double& dt)
 {
-	if (gameBoard.getTexture() != nullptr)
-		player.block();
-	else
-		player.unblock();
-
+	checkToBlockPlayer();
 	this->updateKeybinds(dt);
 	this->map.update(dt);
 	this->house.update(dt);
@@ -95,7 +112,8 @@ void GameState::update(const double& dt)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		{
-			gameBoard = old_man.playRockPaperScissors(this->window);
+			GameRPSToDraw = old_man.playRockPaperScissors();
+			this->NPCMessage = old_man.getNPCMessage();
 			score.add(10);
 		}
 	}
@@ -116,5 +134,6 @@ void GameState::render(sf::RenderTarget* target)
 	this->old_man.render(this->window);
 	this->red_tree.render(this->window);
 	this->score.render(this->window);
-	window->draw(gameBoard);
+	drawRPSSprites();
+	this->window->draw(NPCMessage);
 }

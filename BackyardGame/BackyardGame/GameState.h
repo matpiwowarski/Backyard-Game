@@ -9,7 +9,10 @@ private:
 	NPC old_man;
 	Map map;
 	Score score;
-	sf::Sprite gameBoard;
+	std::vector <sf::Sprite> GameRPSToDraw;
+	sf::Text NPCMessage;
+	void drawRPSSprites();
+	void checkToBlockPlayer();
 public:
 	GameState(sf::RenderWindow* window);
 	virtual ~GameState();
