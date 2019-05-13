@@ -9,6 +9,7 @@ private:
 	NPC old_man;
 	Map map;
 	Score score;
+	sf::Sprite gameBoard;
 public:
 	GameState(sf::RenderWindow* window);
 	virtual ~GameState();

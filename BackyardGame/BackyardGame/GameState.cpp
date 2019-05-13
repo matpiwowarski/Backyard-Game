@@ -49,11 +49,13 @@ void GameState::colisionPreventing(Player & player, Entity & object, const doubl
 
 void GameState::rotatingPlayer(Player & player, const double& dt)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		player.getSprite().setTexture(textures[2]);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		player.getSprite().setTexture(textures[1]);
-			
+	if (!player.getIsBlocked())
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			player.getSprite().setTexture(textures[2]);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			player.getSprite().setTexture(textures[1]);
+	}			
 }
 
 void GameState::checkDoor(Player & player, const double& dt)
@@ -74,6 +76,11 @@ void GameState::updateKeybinds(const double & dt)
 
 void GameState::update(const double& dt)
 {
+	if (gameBoard.getTexture() != nullptr)
+		player.block();
+	else
+		player.unblock();
+
 	this->updateKeybinds(dt);
 	this->map.update(dt);
 	this->house.update(dt);
@@ -84,16 +91,19 @@ void GameState::update(const double& dt)
 	this->score.update(dt);
 	rotatingPlayer(player,dt);
 	checkDoor(player, dt);
+	if (player.getSprite().getGlobalBounds().intersects(old_man.getSprite().getGlobalBounds()))
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			gameBoard = old_man.playRockPaperScissors(this->window);
+			score.add(10);
+		}
+	}
 	colisionPreventing(player, house, dt);
 	colisionPreventing(player, lake, dt);
 	colisionPreventing(player, old_man, dt);
 	colisionPreventing(player, red_tree, dt);
 	colisionPreventing(player, score.getEntity(), dt);
-	if (player.getSprite().getGlobalBounds().intersects(old_man.getSprite().getGlobalBounds()))
-	{
-		//NPC_do_something
-		score.add(10);
-	}
 }
 
 void GameState::render(sf::RenderTarget* target)
@@ -106,4 +116,5 @@ void GameState::render(sf::RenderTarget* target)
 	this->old_man.render(this->window);
 	this->red_tree.render(this->window);
 	this->score.render(this->window);
+	window->draw(gameBoard);
 }
