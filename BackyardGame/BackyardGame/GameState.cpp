@@ -14,10 +14,24 @@ void GameState::checkToBlockPlayer()
 {
 	if (GameRPSToDraw.size() > 0)
 	{
-		if (GameRPSToDraw[0].getTexture() != nullptr)
 			player.block();
-		else
-			player.unblock();
+	}
+	else
+		player.unblock();
+}
+
+void GameState::moveCursor()
+{
+	if (player.getIsBlocked())
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			GameRPSToDraw[1] = old_man.leftPressed();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			GameRPSToDraw[1] = old_man.rightPressed();
+		}
 	}
 }
 
@@ -112,11 +126,17 @@ void GameState::update(const double& dt)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		{
-			GameRPSToDraw = old_man.playRockPaperScissors();
-			this->NPCMessage = old_man.getNPCMessage();
+			this->GameRPSToDraw.push_back(this->old_man.getBoardSprite());
+			this->GameRPSToDraw.push_back(this->old_man.getCursorSprite()); // cursor to draw
+
+			
+			this->old_man.playRockPaperScissors(); // draw NPC's choice
+			this->GameRPSToDraw.push_back(old_man.getNPCChoiceSprite()); // NPC choice to draw
+			this->NPCMessage = old_man.getNPCMessage(); // NPC message to draw
 			score.add(10);
 		}
 	}
+	moveCursor();
 	colisionPreventing(player, house, dt);
 	colisionPreventing(player, lake, dt);
 	colisionPreventing(player, old_man, dt);

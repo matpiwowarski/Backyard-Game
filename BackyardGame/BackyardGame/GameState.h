@@ -13,6 +13,7 @@ private:
 	sf::Text NPCMessage;
 	void drawRPSSprites();
 	void checkToBlockPlayer();
+	void moveCursor();
 public:
 	GameState(sf::RenderWindow* window);
 	virtual ~GameState();

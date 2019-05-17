@@ -21,14 +21,20 @@ private:
 	void randomChoice();
 	void uploadNPCChoiceTexture();
 	void loadCursorTexture();
+	void loadBoardTexture();
+	void updateCursorSpritePosition();
 public:
 	NPC();
 	~NPC();
 // getters / setters
+	sf::Sprite getBoardSprite() const;
+	sf::Sprite getNPCChoiceSprite() const;
+	sf::Sprite getCursorSprite() const;
 	sf::Text getNPCMessage() const;
 
 // methods
-std::vector<sf::Sprite> playRockPaperScissors();
-
+void playRockPaperScissors(); // return cursor sprite
+sf::Sprite rightPressed(); // return cursor sprite
+sf::Sprite leftPressed(); // return cursor sprite
 };
 

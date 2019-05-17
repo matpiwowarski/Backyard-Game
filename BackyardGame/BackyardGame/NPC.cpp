@@ -1,6 +1,33 @@
 #include "NPC.h"
 
+NPC::NPC()
+{
+	if (!this->messageFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+	{
+		throw; // error;
+	}
+	else
+	{
+		loadBoardTexture();
+		loadCursorTexture();
+		this->message.setFont(messageFont);
+		this->message.setString(" OLD MAN'S CHOICE");
+		this->message.setCharacterSize(24);
+		this->message.setFillColor(sf::Color::Black);
+		sf::Vector2f position(290.f, 450.f);
+		this->message.setPosition(position);
+		boardSprite.setTexture(boardTexture);
+		boardSprite.setScale(sf::Vector2f(3.f, 3.f));
+		boardSprite.setPosition(sf::Vector2f(230.f, 252.f));
+		cursorSprite.setTexture(cursorTexture);
+		cursorSprite.setScale(sf::Vector2f(1 / 8.f, 1 / 8.f));
+		updateCursorSpritePosition();
+	}
+}
 
+NPC::~NPC()
+{
+}
 
 void NPC::randomChoice()
 {
@@ -30,27 +57,28 @@ void NPC::loadCursorTexture()
 	}
 }
 
-
-NPC::NPC()
+void NPC::loadBoardTexture()
 {
-	if (!this->messageFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+	if (!boardTexture.loadFromFile("../Assets/board_rps.png"))
 	{
-		throw; // error;
-	}
-	else
-	{
-		this->message.setFont(messageFont);
-		this->message.setString(" OLD MAN'S CHOICE");
-		this->message.setCharacterSize(24);
-		this->message.setFillColor(sf::Color::Black);
-		sf::Vector2f position(290.f, 450.f);
-		this->message.setPosition(position);
+	throw; // error;
 	}
 }
 
-
-NPC::~NPC()
+void NPC::updateCursorSpritePosition()
 {
+	if (cursorIndex == 0)
+	{
+		cursorSprite.setPosition(sf::Vector2f(275.f, 325.f));
+	}
+	else if (cursorIndex == 1)
+	{
+		cursorSprite.setPosition(sf::Vector2f(390.f, 325.f));
+	}
+	else if (cursorIndex == 2)
+	{
+		cursorSprite.setPosition(sf::Vector2f(490.f, 325.f));
+	}
 }
 
 sf::Text NPC::getNPCMessage() const
@@ -58,32 +86,42 @@ sf::Text NPC::getNPCMessage() const
 	return this->message;
 }
 
-std::vector<sf::Sprite> NPC::playRockPaperScissors()
+sf::Sprite NPC::getBoardSprite() const
 {
-	if (!boardTexture.loadFromFile("../Assets/board_rps.png"))
-	{
-		throw; // error
-	}
-	else
-	{
-		randomChoice();
-		loadCursorTexture();
-		uploadNPCChoiceTexture();
-		cursorSprite.setTexture(cursorTexture);
-		choiceSprite.setTexture(choiceTexture);
-		boardSprite.setTexture(boardTexture);
-		choiceSprite.setScale(sf::Vector2f(3.f, 3.f));
-		boardSprite.setScale(sf::Vector2f(3.f, 3.f));
-		cursorSprite.setScale(sf::Vector2f(1/8.f, 1/8.f));
-		choiceSprite.setPosition(sf::Vector2f(340.f, 350.f));
-		boardSprite.setPosition(sf::Vector2f(230.f, 252.f));
-		cursorSprite.setPosition(sf::Vector2f(275.f, 325.f));
+	return boardSprite;
+}
 
-		std::vector<sf::Sprite> toDraw;
-		toDraw.push_back(boardSprite);
-		toDraw.push_back(choiceSprite);
-		toDraw.push_back(cursorSprite);
+sf::Sprite NPC::getNPCChoiceSprite() const
+{
+	return this->choiceSprite;
+}
 
-		return toDraw;
-	}
+sf::Sprite NPC::getCursorSprite() const
+{
+	return cursorSprite;
+}
+
+void NPC::playRockPaperScissors()
+{
+	randomChoice();
+	uploadNPCChoiceTexture();
+	choiceSprite.setTexture(choiceTexture);
+	choiceSprite.setScale(sf::Vector2f(3.f, 3.f));
+	choiceSprite.setPosition(sf::Vector2f(340.f, 350.f));
+}
+
+sf::Sprite NPC::rightPressed()
+{
+	if (this->cursorIndex < 2)
+		cursorIndex++;
+	updateCursorSpritePosition();
+	return cursorSprite;
+}
+
+sf::Sprite NPC::leftPressed()
+{
+	if (this->cursorIndex > 0)
+		cursorIndex--;
+	updateCursorSpritePosition();
+	return cursorSprite;
 }
