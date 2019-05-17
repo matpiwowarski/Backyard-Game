@@ -14,13 +14,22 @@ void NPC::randomChoice()
 	this->choice = random % 3;
 }
 
-void NPC::uploadChoiceTexture()
+void NPC::uploadNPCChoiceTexture()
 {
 	if (!choiceTexture.loadFromFile("../Assets/" + std::to_string(choice) + ".png"))
 	{
 		throw; // error
 	}
 }
+
+void NPC::loadCursorTexture()
+{
+	if (!cursorTexture.loadFromFile("../Assets/cursor.png"))
+	{
+		throw; // error
+	}
+}
+
 
 NPC::NPC()
 {
@@ -58,17 +67,22 @@ std::vector<sf::Sprite> NPC::playRockPaperScissors()
 	else
 	{
 		randomChoice();
-		uploadChoiceTexture();
+		loadCursorTexture();
+		uploadNPCChoiceTexture();
+		cursorSprite.setTexture(cursorTexture);
 		choiceSprite.setTexture(choiceTexture);
 		boardSprite.setTexture(boardTexture);
 		choiceSprite.setScale(sf::Vector2f(3.f, 3.f));
 		boardSprite.setScale(sf::Vector2f(3.f, 3.f));
+		cursorSprite.setScale(sf::Vector2f(1/8.f, 1/8.f));
 		choiceSprite.setPosition(sf::Vector2f(340.f, 350.f));
 		boardSprite.setPosition(sf::Vector2f(230.f, 252.f));
+		cursorSprite.setPosition(sf::Vector2f(275.f, 325.f));
 
 		std::vector<sf::Sprite> toDraw;
 		toDraw.push_back(boardSprite);
 		toDraw.push_back(choiceSprite);
+		toDraw.push_back(cursorSprite);
 
 		return toDraw;
 	}
