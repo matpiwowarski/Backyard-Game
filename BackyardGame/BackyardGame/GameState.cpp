@@ -10,29 +10,57 @@ void GameState::drawRPSSprites()
 	
 }
 
-void GameState::checkToBlockPlayer()
+void GameState::blockPlayer()
 {
-	if (GameRPSToDraw.size() > 0)
-	{
-			player.block();
-	}
-	else
-		player.unblock();
+	player.block();
+}
+
+void GameState::unblockPlayer()
+{
+	player.unblock();
 }
 
 void GameState::moveCursor()
 {
 	if (player.getIsBlocked())
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			GameRPSToDraw[1] = old_man.leftPressed();
-		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				// to ignore long time press
+			}
 			GameRPSToDraw[1] = old_man.rightPressed();
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+				// to ignore long time press
+			}
+			GameRPSToDraw[1] = old_man.leftPressed();
+		}
+
 	}
+}
+
+void GameState::activateOldMan()
+{
+	this->GameRPSToDraw.push_back(this->old_man.getBoardSprite()); // board to draw
+	this->GameRPSToDraw.push_back(this->old_man.getCursorSprite()); // cursor to draw	
+}
+
+void GameState::playWithOldMan()
+{
+	activateOldMan();	
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+	{
+		while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) { } // to ignore long time press
+		this->old_man.playRockPaperScissors(); // draw NPC's choice
+		this->GameRPSToDraw.push_back(old_man.getNPCChoiceSprite()); // NPC choice to draw
+		this->NPCMessage = old_man.getNPCMessage(); // NPC message to draw
+	}
+ 	score.add(10);
 }
 
 GameState::GameState(sf::RenderWindow* window): State(window)
@@ -111,7 +139,6 @@ void GameState::updateKeybinds(const double & dt)
 
 void GameState::update(const double& dt)
 {
-	checkToBlockPlayer();
 	this->updateKeybinds(dt);
 	this->map.update(dt);
 	this->house.update(dt);
@@ -122,21 +149,29 @@ void GameState::update(const double& dt)
 	this->score.update(dt);
 	rotatingPlayer(player,dt);
 	checkDoor(player, dt);
+	if (player.getIsBlocked())
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
+			unblockPlayer();
+			this->GameRPSToDraw.clear();
+			this->NPCMessage.setString("");
+		}
+	}
+
+	moveCursor();
 	if (player.getSprite().getGlobalBounds().intersects(old_man.getSprite().getGlobalBounds()))
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		{
-			this->GameRPSToDraw.push_back(this->old_man.getBoardSprite());
-			this->GameRPSToDraw.push_back(this->old_man.getCursorSprite()); // cursor to draw
-
-			
-			this->old_man.playRockPaperScissors(); // draw NPC's choice
-			this->GameRPSToDraw.push_back(old_man.getNPCChoiceSprite()); // NPC choice to draw
-			this->NPCMessage = old_man.getNPCMessage(); // NPC message to draw
-			score.add(10);
-		}
+			blockPlayer();
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) { } // to ignore long time press
+			playWithOldMan();
+			return;
+		}	
 	}
-	moveCursor();
+
 	colisionPreventing(player, house, dt);
 	colisionPreventing(player, lake, dt);
 	colisionPreventing(player, old_man, dt);

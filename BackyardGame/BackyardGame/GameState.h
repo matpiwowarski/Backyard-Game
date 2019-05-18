@@ -12,8 +12,11 @@ private:
 	std::vector <sf::Sprite> GameRPSToDraw;
 	sf::Text NPCMessage;
 	void drawRPSSprites();
-	void checkToBlockPlayer();
+	void blockPlayer();
+	void unblockPlayer();
 	void moveCursor();
+	void activateOldMan();
+	void playWithOldMan();
 public:
 	GameState(sf::RenderWindow* window);
 	virtual ~GameState();
