@@ -11,9 +11,11 @@ NPC::NPC()
 		loadBoardTexture();
 		loadCursorTexture();
 		this->message.setFont(messageFont);
-		this->message.setString(" OLD MAN'S CHOICE");
+		this->result.setFont(messageFont);
 		this->message.setCharacterSize(24);
+		this->result.setCharacterSize(24);
 		this->message.setFillColor(sf::Color::Black);
+		this->result.setFillColor(sf::Color::Black);
 		sf::Vector2f position(290.f, 450.f);
 		this->message.setPosition(position);
 		boardSprite.setTexture(boardTexture);
@@ -86,6 +88,38 @@ sf::Text NPC::getNPCMessage() const
 	return this->message;
 }
 
+sf::Text NPC::getNPCResultText()
+{
+	// kamien papier nozyce
+	sf::Vector2f position(340.f, 500.f);
+	this->result.setPosition(position);
+	if(cursorIndex == 0 && this->choice == 0)
+		this->result.setString("IT'S A DRAW");
+	if(cursorIndex == 1 && this->choice == 1)
+		this->result.setString("IT'S A DRAW");
+	if (cursorIndex == 2 && this->choice == 2)
+		this->result.setString("IT'S A DRAW");
+	if (cursorIndex == 0 && this->choice == 1)
+		this->result.setString("YOU LOST");
+	if (cursorIndex == 0 && this->choice == 2)
+		this->result.setString("YOU WON");
+	if (cursorIndex == 1 && this->choice == 0)
+		this->result.setString("YOU WON");
+	if (cursorIndex == 1 && this->choice == 2)
+		this->result.setString("YOU LOST");
+	if (cursorIndex == 2 && this->choice == 0)
+		this->result.setString("YOU LOST");
+	if (cursorIndex == 2 && this->choice == 1)
+		this->result.setString("YOU WON");
+
+	return result;
+}
+
+sf::Font NPC::getMessageFont() const
+{
+	return messageFont;
+}
+
 sf::Sprite NPC::getBoardSprite() const
 {
 	return boardSprite;
@@ -108,6 +142,7 @@ void NPC::playRockPaperScissors()
 	choiceSprite.setTexture(choiceTexture);
 	choiceSprite.setScale(sf::Vector2f(3.f, 3.f));
 	choiceSprite.setPosition(sf::Vector2f(340.f, 350.f));
+	this->message.setString(" OLD MAN'S CHOICE");
 }
 
 sf::Sprite NPC::rightPressed()
@@ -124,4 +159,9 @@ sf::Sprite NPC::leftPressed()
 		cursorIndex--;
 	updateCursorSpritePosition();
 	return cursorSprite;
+}
+
+void NPC::notEnoughCoins()
+{
+	this->message.setString("You don't have enough coins");
 }

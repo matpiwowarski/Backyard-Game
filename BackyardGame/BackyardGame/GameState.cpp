@@ -40,7 +40,6 @@ void GameState::moveCursor()
 			}
 			GameRPSToDraw[1] = old_man.leftPressed();
 		}
-
 	}
 }
 
@@ -53,14 +52,20 @@ void GameState::activateOldMan()
 void GameState::playWithOldMan()
 {
 	activateOldMan();	
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+	this->old_man.playRockPaperScissors(); // draw NPC's choice	
+}
+
+void GameState::setNPCFontMessage()
+{
+	sf::Font messageFont;
+	if (!messageFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
 	{
-		while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) { } // to ignore long time press
-		this->old_man.playRockPaperScissors(); // draw NPC's choice
-		this->GameRPSToDraw.push_back(old_man.getNPCChoiceSprite()); // NPC choice to draw
-		this->NPCMessage = old_man.getNPCMessage(); // NPC message to draw
+		throw; // error;
 	}
- 	score.add(10);
+	else
+	{
+		NPCMessage.setFont(messageFont);
+	}
 }
 
 GameState::GameState(sf::RenderWindow* window): State(window)
@@ -149,26 +154,61 @@ void GameState::update(const double& dt)
 	this->score.update(dt);
 	rotatingPlayer(player,dt);
 	checkDoor(player, dt);
-	if (player.getIsBlocked())
+	if (player.getIsBlocked() && finishedMiniGame)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		{
 			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
-			unblockPlayer();
 			this->GameRPSToDraw.clear();
 			this->NPCMessage.setString("");
+			this->NPCResultText.setString("");
+			finishedMiniGame = false;
+			unblockPlayer();
 		}
 	}
-
-	moveCursor();
+	if (player.getIsBlocked())
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) { } // to ignore long time press
+			this->GameRPSToDraw.erase(GameRPSToDraw.begin() + 1);
+			this->GameRPSToDraw.push_back(old_man.getNPCChoiceSprite()); // NPC choice to draw
+			this->NPCMessage = old_man.getNPCMessage(); // NPC message to draw
+			this->NPCResultText = old_man.getNPCResultText(); // result to draw
+			if(this->NPCResultText.getString() == "YOU WON")
+				score.add(5);
+			else if (this->NPCResultText.getString() == "YOU LOST")
+				score.subtract(5);
+			finishedMiniGame = true;
+		}
+	}
+	if(player.getIsBlocked() && !finishedMiniGame)
+		moveCursor();
 	if (player.getSprite().getGlobalBounds().intersects(old_man.getSprite().getGlobalBounds()))
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		{
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
 			blockPlayer();
-			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) { } // to ignore long time press
-			playWithOldMan();
-			return;
+			if (score.getScore() >= 5)
+			{
+				blockPlayer();
+				playWithOldMan();
+			}
+			else
+			{
+				sf::Font font;
+				if (!font.loadFromFile("../Assets/fonts/CarterOne.ttf"))
+				{
+					throw;// error...
+				}
+				else
+				{
+					old_man.notEnoughCoins();
+					this->NPCMessage = old_man.getNPCMessage();
+					finishedMiniGame = true;
+				}	
+			}
 		}	
 	}
 
@@ -185,10 +225,11 @@ void GameState::render(sf::RenderTarget* target)
 	this->map.render(this->window);
 	this->house.render(this->window);
 	this->lake.render(this->window);
-	this->player.render(this->window);
 	this->old_man.render(this->window);
 	this->red_tree.render(this->window);
 	this->score.render(this->window);
 	drawRPSSprites();
 	this->window->draw(NPCMessage);
+	this->window->draw(NPCResultText);
+	this->player.render(this->window);
 }

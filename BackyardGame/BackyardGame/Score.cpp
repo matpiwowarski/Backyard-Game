@@ -40,6 +40,11 @@ void Score::setScore(int score)
 	this->text.setString(std::to_string(score));
 }
 
+int Score::getScore() const
+{
+	return score;
+}
+
 Entity & Score::getEntity()
 {
 	return this->board;

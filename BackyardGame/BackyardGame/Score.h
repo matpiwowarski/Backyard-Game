@@ -20,6 +20,7 @@ public:
 	// getters/setters
 	void setText(std::string text);
 	void setScore(int score);
+	int getScore() const;
 	Entity & getEntity();
 	// methods
 	void render(sf::RenderTarget * target);

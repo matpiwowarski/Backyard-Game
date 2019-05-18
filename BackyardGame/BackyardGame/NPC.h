@@ -17,6 +17,7 @@ private:
 	sf::Sprite choiceSprite;
 	sf::Sprite cursorSprite;
 	sf::Text message;
+	sf::Text result;
 	sf::Font messageFont;
 	void randomChoice();
 	void uploadNPCChoiceTexture();
@@ -31,10 +32,13 @@ public:
 	sf::Sprite getNPCChoiceSprite() const;
 	sf::Sprite getCursorSprite() const;
 	sf::Text getNPCMessage() const;
+	sf::Text getNPCResultText();
+	sf::Font getMessageFont() const;
 
 // methods
 void playRockPaperScissors(); // return cursor sprite
 sf::Sprite rightPressed(); // return cursor sprite
 sf::Sprite leftPressed(); // return cursor sprite
+void notEnoughCoins(); // change message
 };
 

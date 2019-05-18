@@ -11,12 +11,15 @@ private:
 	Score score;
 	std::vector <sf::Sprite> GameRPSToDraw;
 	sf::Text NPCMessage;
+	sf::Text NPCResultText;
+	bool finishedMiniGame = false;
 	void drawRPSSprites();
 	void blockPlayer();
 	void unblockPlayer();
 	void moveCursor();
 	void activateOldMan();
 	void playWithOldMan();
+	void setNPCFontMessage();
 public:
 	GameState(sf::RenderWindow* window);
 	virtual ~GameState();

@@ -19,7 +19,8 @@ bool Player::getIsBlocked() const
 
 void Player::move(const double &dt, const double xDirection, const double yDirection)
 {
-	this->sprite.move(xDirection * this->movementSpeed * dt, yDirection * this->movementSpeed * dt);
+	if(!this->isBlocked)
+		this->sprite.move(xDirection * this->movementSpeed * dt, yDirection * this->movementSpeed * dt);
 }
 
 void Player::update(const double & dt)
