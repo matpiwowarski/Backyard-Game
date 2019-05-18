@@ -1,13 +1,27 @@
 #include "GameState.h"
 
-void GameState::drawRPSSprites()
+GameState::GameState(sf::RenderWindow* window) : State(window)
 {
-	std::vector<sf::Sprite>::iterator it = GameRPSToDraw.begin();
-	for (it; it != GameRPSToDraw.end(); it++)
-	{
-		this->window->draw(*it);
-	}
-	
+	house.setPositionAndSize(350, 115, 140, 176);
+	lake.setPositionAndSize(80, 450, 110, 78);
+	lake.getSprite().setScale(6.f, 3.5f);
+	old_man.setPositionAndSize(655, 525, 32, 46);
+	red_tree.setPositionAndSize(620, 100, 106, 148);
+
+	house.getSprite().setTexture(textures[0]);
+	player.getSprite().setTexture(textures[1]);
+	lake.getSprite().setTexture(textures[3]);
+	old_man.getSprite().setTexture(textures[4]);
+	red_tree.getSprite().setTexture(textures[5]);
+}
+
+GameState::~GameState()
+{
+}
+
+void GameState::endState()
+{
+	std::cout << "THE END" << std::endl;
 }
 
 void GameState::blockPlayer()
@@ -49,47 +63,79 @@ void GameState::activateOldMan()
 	this->GameRPSToDraw.push_back(this->old_man.getCursorSprite()); // cursor to draw	
 }
 
-void GameState::playWithOldMan()
+void GameState::drawOldManChoice()
 {
 	activateOldMan();	
-	this->old_man.playRockPaperScissors(); // draw NPC's choice	
+	this->old_man.drawNPCChoice(); // draw NPC's choice	
 }
 
-void GameState::setNPCFontMessage()
+void GameState::playRPS()
 {
-	sf::Font messageFont;
-	if (!messageFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
+	blockPlayer();
+	if (score.getScore() >= 5)
 	{
-		throw; // error;
+		blockPlayer();
+		drawOldManChoice();
 	}
 	else
 	{
-		NPCMessage.setFont(messageFont);
+		old_man.notEnoughCoins();
+		this->NPCMessage = old_man.getNPCMessage();
+		finishedMiniGame = true;
 	}
 }
 
-GameState::GameState(sf::RenderWindow* window): State(window)
+void GameState::RPSResult()
 {
-	house.setPositionAndSize(350, 115, 140, 176);
-	lake.setPositionAndSize(80, 450, 110, 78);
-	lake.getSprite().setScale(6.f, 3.5f);
-	old_man.setPositionAndSize(655, 525, 32, 46);
-	red_tree.setPositionAndSize(620, 100, 106, 148);
-
-	house.getSprite().setTexture(textures[0]);
-	player.getSprite().setTexture(textures[1]);
-	lake.getSprite().setTexture(textures[3]);
-	old_man.getSprite().setTexture(textures[4]);
-	red_tree.getSprite().setTexture(textures[5]);
+	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
+	this->GameRPSToDraw.erase(GameRPSToDraw.begin() + 1);
+	this->GameRPSToDraw.push_back(old_man.getNPCChoiceSprite()); // NPC choice to draw
+	this->NPCMessage = old_man.getNPCMessage(); // NPC message to draw
+	this->NPCResultText = old_man.getNPCResultText(); // result to draw
+	if (this->NPCResultText.getString() == "YOU WON")
+		score.add(5);
+	else if (this->NPCResultText.getString() == "YOU LOST")
+		score.subtract(5);
+	finishedMiniGame = true;
+	
 }
 
-GameState::~GameState()
+void GameState::finishRPS()
 {
+	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
+	this->GameRPSToDraw.clear();
+	this->NPCMessage.setString("");
+	this->NPCResultText.setString("");
+	finishedMiniGame = false;
+	unblockPlayer();
 }
 
-void GameState::endState()
+void GameState::checkRPSAction()
 {
-	std::cout << "THE END" << std::endl;
+	if (player.getIsBlocked() && finishedMiniGame)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			finishRPS();
+		}
+	}
+	if (player.getIsBlocked())
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			RPSResult();
+		}
+	}
+	if (player.getIsBlocked() && !finishedMiniGame)
+		moveCursor();
+	if (player.getSprite().getGlobalBounds().intersects(old_man.getSprite().getGlobalBounds()))
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			playRPS();
+		}
+	}
 }
 
 void GameState::colisionPreventing(Player & player, Entity & object, const double &dt)
@@ -113,6 +159,15 @@ void GameState::colisionPreventing(Player & player, Entity & object, const doubl
 			player.move(dt, 0.f, -1.f);
 		}
 	}
+}
+
+void GameState::colisionPreventing(const double &dt)
+{
+	colisionPreventing(player, house, dt);
+	colisionPreventing(player, lake, dt);
+	colisionPreventing(player, old_man, dt);
+	colisionPreventing(player, red_tree, dt);
+	colisionPreventing(player, score.getEntity(), dt);
 }
 
 void GameState::rotatingPlayer(Player & player, const double& dt)
@@ -144,79 +199,19 @@ void GameState::updateKeybinds(const double & dt)
 
 void GameState::update(const double& dt)
 {
-	this->updateKeybinds(dt);
-	this->map.update(dt);
-	this->house.update(dt);
-	this->lake.update(dt);
-	this->player.update(dt);
-	this->old_man.update(dt);
-	this->red_tree.update(dt);
-	this->score.update(dt);
+	this->updateKeybinds(dt); // works
+	this->map.update(dt); // ?
+	this->house.update(dt); // ?
+	this->lake.update(dt); // ?
+	this->player.update(dt); // works
+	this->old_man.update(dt); // ?
+	this->red_tree.update(dt); // ?
+	this->score.update(dt); // works
+	// other
 	rotatingPlayer(player,dt);
 	checkDoor(player, dt);
-	if (player.getIsBlocked() && finishedMiniGame)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-		{
-			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
-			this->GameRPSToDraw.clear();
-			this->NPCMessage.setString("");
-			this->NPCResultText.setString("");
-			finishedMiniGame = false;
-			unblockPlayer();
-		}
-	}
-	if (player.getIsBlocked())
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-		{
-			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) { } // to ignore long time press
-			this->GameRPSToDraw.erase(GameRPSToDraw.begin() + 1);
-			this->GameRPSToDraw.push_back(old_man.getNPCChoiceSprite()); // NPC choice to draw
-			this->NPCMessage = old_man.getNPCMessage(); // NPC message to draw
-			this->NPCResultText = old_man.getNPCResultText(); // result to draw
-			if(this->NPCResultText.getString() == "YOU WON")
-				score.add(5);
-			else if (this->NPCResultText.getString() == "YOU LOST")
-				score.subtract(5);
-			finishedMiniGame = true;
-		}
-	}
-	if(player.getIsBlocked() && !finishedMiniGame)
-		moveCursor();
-	if (player.getSprite().getGlobalBounds().intersects(old_man.getSprite().getGlobalBounds()))
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-		{
-			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
-			blockPlayer();
-			if (score.getScore() >= 5)
-			{
-				blockPlayer();
-				playWithOldMan();
-			}
-			else
-			{
-				sf::Font font;
-				if (!font.loadFromFile("../Assets/fonts/CarterOne.ttf"))
-				{
-					throw;// error...
-				}
-				else
-				{
-					old_man.notEnoughCoins();
-					this->NPCMessage = old_man.getNPCMessage();
-					finishedMiniGame = true;
-				}	
-			}
-		}	
-	}
-
-	colisionPreventing(player, house, dt);
-	colisionPreventing(player, lake, dt);
-	colisionPreventing(player, old_man, dt);
-	colisionPreventing(player, red_tree, dt);
-	colisionPreventing(player, score.getEntity(), dt);
+	checkRPSAction(); // <-- function with whole RPS mini game
+	colisionPreventing(dt); // <-- preventing collisions with all objects
 }
 
 void GameState::render(sf::RenderTarget* target)
@@ -232,4 +227,13 @@ void GameState::render(sf::RenderTarget* target)
 	this->window->draw(NPCMessage);
 	this->window->draw(NPCResultText);
 	this->player.render(this->window);
+}
+
+void GameState::drawRPSSprites()
+{
+	std::vector<sf::Sprite>::iterator it = GameRPSToDraw.begin();
+	for (it; it != GameRPSToDraw.end(); it++)
+	{
+		this->window->draw(*it);
+	}
 }

@@ -13,13 +13,19 @@ private:
 	sf::Text NPCMessage;
 	sf::Text NPCResultText;
 	bool finishedMiniGame = false;
-	void drawRPSSprites();
+	// private methods:
 	void blockPlayer();
 	void unblockPlayer();
+		// RPS:
 	void moveCursor();
 	void activateOldMan();
-	void playWithOldMan();
-	void setNPCFontMessage();
+	void drawOldManChoice();
+	void drawRPSSprites();
+	void playRPS();
+	void RPSResult();
+	void finishRPS();
+	void checkRPSAction();
+	
 public:
 	GameState(sf::RenderWindow* window);
 	virtual ~GameState();
@@ -27,6 +33,7 @@ public:
 	// methods
 	void endState();
 	void colisionPreventing(Player & player, Entity & object, const double &dt);
+	void colisionPreventing(const double &dt);
 	void rotatingPlayer(Player & player, const double& dt);
 	void checkDoor(Player & player, const double& dt);
 	void updateKeybinds(const double& dt);

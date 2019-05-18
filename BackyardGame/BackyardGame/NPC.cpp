@@ -90,7 +90,6 @@ sf::Text NPC::getNPCMessage() const
 
 sf::Text NPC::getNPCResultText()
 {
-	// kamien papier nozyce
 	sf::Vector2f position(340.f, 500.f);
 	this->result.setPosition(position);
 	if(cursorIndex == 0 && this->choice == 0)
@@ -135,7 +134,7 @@ sf::Sprite NPC::getCursorSprite() const
 	return cursorSprite;
 }
 
-void NPC::playRockPaperScissors()
+void NPC::drawNPCChoice()
 {
 	randomChoice();
 	uploadNPCChoiceTexture();

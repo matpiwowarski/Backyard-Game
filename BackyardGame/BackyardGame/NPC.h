@@ -36,7 +36,7 @@ public:
 	sf::Font getMessageFont() const;
 
 // methods
-void playRockPaperScissors(); // return cursor sprite
+void drawNPCChoice();
 sf::Sprite rightPressed(); // return cursor sprite
 sf::Sprite leftPressed(); // return cursor sprite
 void notEnoughCoins(); // change message
