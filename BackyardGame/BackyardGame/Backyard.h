@@ -4,7 +4,8 @@ class Backyard : public GameState
 {
 private:
 	Entity house, lake, red_tree;
-	NPC old_man;
+	RPS old_man;
+	bool areDoorOpen=false;
 	std::vector <sf::Sprite> GameRPSToDraw;
 	// RPS:
 	void moveCursor();

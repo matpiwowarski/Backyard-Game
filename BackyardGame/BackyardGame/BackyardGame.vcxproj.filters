@@ -25,11 +25,8 @@
     <Filter Include="Other">
       <UniqueIdentifier>{912f32da-2a7f-440f-b900-77743c9cabbe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MiniGames">
-      <UniqueIdentifier>{43e3b080-effd-4e8f-9b03-5a2ff1c25365}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entities\MiniGames">
-      <UniqueIdentifier>{e48f4e06-d750-492d-a5ac-6918abc7a48f}</UniqueIdentifier>
+      <UniqueIdentifier>{43e3b080-effd-4e8f-9b03-5a2ff1c25365}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,10 +57,11 @@
     <ClCompile Include="NPC.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="RPS.cpp">
+      <Filter>Entities\MiniGames</Filter>
+    </ClCompile>
     <ClCompile Include="Backyard.cpp">
       <Filter>States</Filter>
-    <ClCompile Include="RPS.cpp">
-      <Filter>MiniGames</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,10 +89,11 @@
     <ClInclude Include="NPC.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="RPS.h">
+      <Filter>Entities\MiniGames</Filter>
+    </ClInclude>
     <ClInclude Include="Backyard.h">
       <Filter>States</Filter>
-    <ClInclude Include="RPS.h">
-      <Filter>MiniGames</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -32,7 +32,16 @@ void Backyard::checkDoor(Player & player, const double & dt)
 		if (player.getPosition().x > 380 && player.getPosition().x < 430)
 			if (player.getPosition().y > 200)
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-					house.getSprite().setTexture(textures[6]);
+					if (areDoorOpen == false) {
+						while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {}
+						house.getSprite().setTexture(textures[6]);
+						areDoorOpen = true;
+					}
+					else {
+						while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {}
+						house.getSprite().setTexture(textures[0]);
+						areDoorOpen = false;
+					}
 	}
 }
 
