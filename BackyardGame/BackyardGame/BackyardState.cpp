@@ -29,29 +29,30 @@ BackyardState::~BackyardState()
 
 void BackyardState::checkDoor(Player & player, const double & dt)
 {
-	if (areDoorOpen == true)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		{
-			changedMap = true;
-		}
-	}
 	if (player.getPosition().x > 380 && player.getPosition().x < 430)
 		if (player.getPosition().y > 200 && player.getPosition().y < 300)
+		{
+			if (areDoorOpen == true)
+			{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+				{
+					changedMap = true;
+				}
+			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-				if (areDoorOpen == false) 
+				if (areDoorOpen == false)
 				{
 					while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {}
 					house.getSprite().setTexture(textures[6]);
 					areDoorOpen = true;
 				}
-				else 
+				else
 				{
 					while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {}
 					house.getSprite().setTexture(textures[0]);
 					areDoorOpen = false;
 				}
-
+		}
 }
 
 void BackyardState::colisionPreventEverything(const double & dt)
