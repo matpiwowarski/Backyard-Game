@@ -6,7 +6,7 @@ class GameState : public State
 private:
 	Player player;
 	Entity house, lake, red_tree;
-	NPC old_man;
+	RPS old_man;
 	Map map;
 	Score score;
 	std::vector <sf::Sprite> GameRPSToDraw;
