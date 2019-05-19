@@ -63,6 +63,9 @@
     <ClCompile Include="Backyard.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="Soundtrack.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Backyard.h">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Soundtrack.h">
+      <Filter>Other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,7 @@ Backyard::Backyard()
 
 Backyard::Backyard(sf::RenderWindow * window) : GameState(window)
 {
+	//setting sprites
 	house.setPositionAndSize(350, 115, 140, 176);
 	lake.setPositionAndSize(80, 450, 110, 78);
 	lake.getSprite().setScale(6.f, 3.5f);
@@ -18,6 +19,9 @@ Backyard::Backyard(sf::RenderWindow * window) : GameState(window)
 	lake.getSprite().setTexture(textures[3]);
 	old_man.getSprite().setTexture(textures[4]);
 	red_tree.getSprite().setTexture(textures[5]);
+
+	//setting music
+	music.PlayOutsideSoundtrack();
 }
 
 

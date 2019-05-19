@@ -5,12 +5,14 @@
 #include "RPS.h"
 #include "Map.h"
 #include "Score.h"
+#include "Soundtrack.h"
 
 class State
 {
 protected:
 	sf::RenderWindow* window;
 	std::vector<sf::Texture> textures;
+	Soundtrack music;
 	bool quit;
 public:
 	State();

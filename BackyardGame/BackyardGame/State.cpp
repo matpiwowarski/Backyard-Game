@@ -22,6 +22,7 @@ State::State(sf::RenderWindow * window): window(window), quit(false)
 	textures.push_back(old_man);		// 4
 	textures.push_back(red_tree);		// 5
 	textures.push_back(open_house);		// 6
+
 }
 
 State::~State()
