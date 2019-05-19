@@ -1,6 +1,6 @@
 #pragma once
 #include "GameState.h"
-class Backyard : public GameState
+class BackyardState : public GameState
 {
 private:
 	Entity house, lake, red_tree;
@@ -17,9 +17,9 @@ private:
 	void finishRPS();
 	void checkRPSAction();
 public:
-	Backyard();
-	Backyard(sf::RenderWindow* window);
-	~Backyard();
+	BackyardState();
+	BackyardState(sf::RenderWindow* window);
+	~BackyardState();
 	void checkDoor(Player & player, const double& dt);
 	void colisionPreventEverything(const double &dt);
 	void update(const double& dt);

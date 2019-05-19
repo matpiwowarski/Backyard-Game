@@ -9,7 +9,7 @@ void Game::initWindow()
 
 void Game::initStates()
 {
-	this->states.push(new Backyard(this->window));
+	this->states.push(new BackyardState(this->window));
 }
 
 // constructors/destructors
@@ -53,6 +53,11 @@ void Game::update()
 
 	if (!this->states.empty())
 	{
+		if (this->states.top()->isChangedMap())
+		{
+			this->states.push(new BackyardState(this->window)); // CHANGE TO GARDENSTATE
+		}
+
 		this->states.top()->update(this->dt);
 
 		if (this->states.top()->getQuit()) // if getQuit() == true

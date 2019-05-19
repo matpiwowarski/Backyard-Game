@@ -7,7 +7,7 @@ GameState::GameState()
 
 GameState::GameState(sf::RenderWindow * window): State(window)
 {
-	map.LoadBackyardMap();
+
 }
 
 GameState::~GameState()

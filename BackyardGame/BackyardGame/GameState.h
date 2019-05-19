@@ -13,7 +13,6 @@ protected:
 	// private methods:
 	void blockPlayer();
 	void unblockPlayer();
-	
 public:
 	GameState();
 	GameState(sf::RenderWindow* window);

@@ -1,12 +1,14 @@
-#include "Backyard.h"
+#include "BackyardState.h"
 
-Backyard::Backyard()
+BackyardState::BackyardState()
 {
 
 }
 
-Backyard::Backyard(sf::RenderWindow * window) : GameState(window)
+BackyardState::BackyardState(sf::RenderWindow * window) : GameState(window)
 {
+	map.LoadBackyardMap(); // load map
+
 	house.setPositionAndSize(350, 115, 140, 176);
 	lake.setPositionAndSize(80, 450, 110, 78);
 	lake.getSprite().setScale(6.f, 3.5f);
@@ -21,31 +23,38 @@ Backyard::Backyard(sf::RenderWindow * window) : GameState(window)
 }
 
 
-Backyard::~Backyard()
+BackyardState::~BackyardState()
 {
 }
 
-void Backyard::checkDoor(Player & player, const double & dt)
+void BackyardState::checkDoor(Player & player, const double & dt)
 {
-	if (player.getSprite().getGlobalBounds().intersects(this->house.getSprite().getGlobalBounds()))
+	if (areDoorOpen == true)
 	{
-		if (player.getPosition().x > 380 && player.getPosition().x < 430)
-			if (player.getPosition().y > 200)
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-					if (areDoorOpen == false) {
-						while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {}
-						house.getSprite().setTexture(textures[6]);
-						areDoorOpen = true;
-					}
-					else {
-						while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {}
-						house.getSprite().setTexture(textures[0]);
-						areDoorOpen = false;
-					}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			changedMap = true;
+		}
 	}
+	if (player.getPosition().x > 380 && player.getPosition().x < 430)
+		if (player.getPosition().y > 200 && player.getPosition().y < 300)
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+				if (areDoorOpen == false) 
+				{
+					while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {}
+					house.getSprite().setTexture(textures[6]);
+					areDoorOpen = true;
+				}
+				else 
+				{
+					while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {}
+					house.getSprite().setTexture(textures[0]);
+					areDoorOpen = false;
+				}
+
 }
 
-void Backyard::colisionPreventEverything(const double & dt)
+void BackyardState::colisionPreventEverything(const double & dt)
 {
 	colisionPreventing(player, house, dt);
 	colisionPreventing(player, lake, dt);
@@ -54,7 +63,7 @@ void Backyard::colisionPreventEverything(const double & dt)
 	colisionPreventing(player, score.getEntity(), dt);
 }
 
-void Backyard::update(const double & dt)
+void BackyardState::update(const double & dt)
 {
 	this->updateKeybinds(dt); // works
 	this->map.update(dt); // ?
@@ -71,7 +80,7 @@ void Backyard::update(const double & dt)
 	colisionPreventEverything(dt); // <-- preventing collisions with all objects
 }
 
-void Backyard::render(sf::RenderTarget * target)
+void BackyardState::render(sf::RenderTarget * target)
 {
 	// the order matters
 	this->map.render(this->window);
@@ -86,7 +95,7 @@ void Backyard::render(sf::RenderTarget * target)
 	this->player.render(this->window);
 }
 
-void Backyard::moveCursor()
+void BackyardState::moveCursor()
 {
 	if (this->player.getIsBlocked())
 	{
@@ -109,19 +118,19 @@ void Backyard::moveCursor()
 	}
 }
 
-void Backyard::activateOldMan()
+void BackyardState::activateOldMan()
 {
 	this->GameRPSToDraw.push_back(this->old_man.getBoardSprite()); // board to draw
 	this->GameRPSToDraw.push_back(this->old_man.getCursorSprite()); // cursor to draw	
 }
 
-void Backyard::drawOldManChoice()
+void BackyardState::drawOldManChoice()
 {
 	activateOldMan();
 	this->old_man.drawNPCChoice(); // draw NPC's choice	
 }
 
-void Backyard::drawRPSSprites()
+void BackyardState::drawRPSSprites()
 {
 	std::vector<sf::Sprite>::iterator it = GameRPSToDraw.begin();
 	for (it; it != GameRPSToDraw.end(); it++)
@@ -130,7 +139,7 @@ void Backyard::drawRPSSprites()
 	}
 }
 
-void Backyard::playRPS()
+void BackyardState::playRPS()
 {
 	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
 	blockPlayer();
@@ -147,7 +156,7 @@ void Backyard::playRPS()
 	}
 }
 
-void Backyard::RPSResult()
+void BackyardState::RPSResult()
 {
 	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
 	this->GameRPSToDraw.erase(GameRPSToDraw.begin() + 1); // delete cursor
@@ -161,7 +170,7 @@ void Backyard::RPSResult()
 	finishedMiniGame = true;
 }
 
-void Backyard::finishRPS()
+void BackyardState::finishRPS()
 {
 	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
 	this->GameRPSToDraw.clear();
@@ -171,7 +180,7 @@ void Backyard::finishRPS()
 	unblockPlayer();
 }
 
-void Backyard::checkRPSAction()
+void BackyardState::checkRPSAction()
 {
 	if (player.getIsBlocked() && finishedMiniGame)
 	{

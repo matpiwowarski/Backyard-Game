@@ -1,5 +1,10 @@
 #include "State.h"
 
+bool State::isChangedMap() const
+{
+	return changedMap;
+}
+
 State::State()
 {
 

@@ -12,11 +12,13 @@ protected:
 	sf::RenderWindow* window;
 	std::vector<sf::Texture> textures;
 	bool quit;
+	bool changedMap = false;
 public:
 	State();
 	State(sf::RenderWindow* window);
 	virtual ~State();
 
+	bool isChangedMap() const;
 	bool getQuit() const;
 
 	virtual void checkQuit();
