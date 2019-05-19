@@ -3,41 +3,29 @@
 
 class GameState : public State
 {
-private:
+protected:
 	Player player;
-	Entity house, lake, red_tree;
-	NPC old_man;
 	Map map;
 	Score score;
-	std::vector <sf::Sprite> GameRPSToDraw;
 	sf::Text NPCMessage;
 	sf::Text NPCResultText;
 	bool finishedMiniGame = false;
 	// private methods:
 	void blockPlayer();
 	void unblockPlayer();
-		// RPS:
-	void moveCursor();
-	void activateOldMan();
-	void drawOldManChoice();
-	void drawRPSSprites();
-	void playRPS();
-	void RPSResult();
-	void finishRPS();
-	void checkRPSAction();
 	
 public:
+	GameState();
 	GameState(sf::RenderWindow* window);
 	virtual ~GameState();
 
 	// methods
 	void endState();
-	void colisionPreventing(Player & player, Entity & object, const double &dt);
-	void colisionPreventing(const double &dt);
+	void colisionPreventing(Player & player, Entity & object, const double &dt);;
 	void rotatingPlayer(Player & player, const double& dt);
-	void checkDoor(Player & player, const double& dt);
 	void updateKeybinds(const double& dt);
-	void update(const double& dt);
-	void render(sf::RenderTarget* target = nullptr);
+	virtual void colisionPreventEverything(const double &dt) = 0;
+	virtual void update(const double& dt) = 0;
+	virtual void render(sf::RenderTarget* target = nullptr) = 0;
 };
 

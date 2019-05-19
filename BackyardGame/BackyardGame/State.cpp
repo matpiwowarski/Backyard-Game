@@ -1,5 +1,10 @@
 #include "State.h"
 
+State::State()
+{
+
+}
+
 State::State(sf::RenderWindow * window): window(window), quit(false)
 {
 	sf::Texture house, player_right, player_left, lake, old_man, red_tree, open_house;

@@ -9,7 +9,7 @@ void Game::initWindow()
 
 void Game::initStates()
 {
-	this->states.push(new GameState(this->window));
+	this->states.push(new Backyard(this->window));
 }
 
 // constructors/destructors

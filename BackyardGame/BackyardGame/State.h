@@ -12,6 +12,7 @@ protected:
 	std::vector<sf::Texture> textures;
 	bool quit;
 public:
+	State();
 	State(sf::RenderWindow* window);
 	virtual ~State();
 
