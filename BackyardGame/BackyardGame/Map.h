@@ -17,6 +17,9 @@ private:
 	sf::Texture m_tileset;
 
 public:
+	void LoadBackyardMap();
+	void LoadGardenMap();
+	void LoadHouseMap();
 	Map();
 	~Map();
 

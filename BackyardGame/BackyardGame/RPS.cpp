@@ -20,7 +20,6 @@ RPS::RPS()
 	updateCursorSpritePosition();
 }
 
-
 RPS::~RPS()
 {
 }
@@ -59,9 +58,6 @@ sf::Text RPS::getNPCResultText()
 	return result;
 }
 
-
-
-
 void RPS::randomChoice()
 {
 	std::default_random_engine engine;
@@ -73,7 +69,6 @@ void RPS::randomChoice()
 	int random = distribution(engine) * 100;
 	this->choice = random % 3;
 }
-
 
 void RPS::loadBoardTexture()
 {
@@ -99,7 +94,6 @@ void RPS::updateCursorSpritePosition()
 	}
 }
 
-
 void RPS::drawNPCChoice()
 {
 	randomChoice();
@@ -109,7 +103,6 @@ void RPS::drawNPCChoice()
 	choiceSprite.setPosition(sf::Vector2f(340.f, 350.f));
 	this->message.setString(" OLD MAN'S CHOICE");
 }
-
 
 sf::Sprite RPS::rightPressed()
 {

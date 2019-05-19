@@ -12,8 +12,6 @@ public:
 	RPS();
 	~RPS();
 
-
-
 	//getters / setters
 	sf::Text getNPCResultText();
 

@@ -16,9 +16,6 @@ NPC::~NPC()
 {
 }
 
-
-
-
 void NPC::loadCursorTexture()
 {
 	if (!cursorTexture.loadFromFile("../Assets/cursor.png"))
@@ -26,8 +23,6 @@ void NPC::loadCursorTexture()
 		throw; // error
 	}
 }
-
-
 
 sf::Text NPC::getNPCMessage() const
 {
@@ -58,9 +53,6 @@ sf::Sprite NPC::getCursorSprite() const
 {
 	return cursorSprite;
 }
-
-
-
 
 void NPC::notEnoughCoins()
 {
