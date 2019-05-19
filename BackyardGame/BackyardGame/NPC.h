@@ -7,7 +7,7 @@
 
 class NPC : public Entity
 {
-private: 
+protected: 
 	int choice;
 	int cursorIndex = 0;
 	sf::Texture boardTexture;
@@ -19,26 +19,26 @@ private:
 	sf::Text message;
 	sf::Text result;
 	sf::Font messageFont;
-	void randomChoice();
-	void uploadNPCChoiceTexture();
+	virtual void uploadNPCChoiceTexture()=0;
 	void loadCursorTexture();
-	void loadBoardTexture();
-	void updateCursorSpritePosition();
+	virtual void randomChoice()=0;
+	virtual void loadBoardTexture()=0;
+	virtual void updateCursorSpritePosition()=0;
 public:
 	NPC();
 	~NPC();
 // getters / setters
-	sf::Sprite getBoardSprite() const;
-	sf::Sprite getNPCChoiceSprite() const;
-	sf::Sprite getCursorSprite() const;
-	sf::Text getNPCMessage() const;
-	sf::Text getNPCResultText();
-	sf::Font getMessageFont() const;
+	virtual sf::Sprite getBoardSprite() const;
+	virtual sf::Sprite getNPCChoiceSprite() const;
+	virtual sf::Sprite getCursorSprite() const;
+	virtual sf::Text getNPCMessage() const;
+	virtual sf::Text getNPCResultText();
+	virtual sf::Font getMessageFont() const;
 
 // methods
-void drawNPCChoice();
-sf::Sprite rightPressed(); // return cursor sprite
-sf::Sprite leftPressed(); // return cursor sprite
+virtual void drawNPCChoice()=0;
+virtual sf::Sprite rightPressed()=0; // return cursor sprite
+virtual sf::Sprite leftPressed()=0; // return cursor sprite
 void notEnoughCoins(); // change message
 };
 

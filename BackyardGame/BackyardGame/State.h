@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "Player.h"
 #include "NPC.h"
+#include "RPS.h"
 #include "Map.h"
 #include "Score.h"
 
