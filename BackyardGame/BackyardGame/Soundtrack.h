@@ -9,6 +9,7 @@ sf::Music backgroundMusic;
 
 public:
 	void PlayOutsideSoundtrack();
+	void PlayBattleSoundtrack();
 	Soundtrack();
 	~Soundtrack();
 };

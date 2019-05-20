@@ -147,6 +147,7 @@ void BackyardState::drawRPSSprites()
 void BackyardState::playRPS()
 {
 	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
+	music.PlayBattleSoundtrack();
 	blockPlayer();
 	if (score.getScore() >= 5)
 	{
@@ -158,6 +159,7 @@ void BackyardState::playRPS()
 		old_man.notEnoughCoins();
 		this->NPCMessage = old_man.getNPCMessage();
 		finishedMiniGame = true;
+		music.PlayOutsideSoundtrack();
 	}
 }
 
@@ -183,6 +185,7 @@ void BackyardState::finishRPS()
 	this->NPCResultText.setString("");
 	finishedMiniGame = false;
 	unblockPlayer();
+	music.PlayOutsideSoundtrack();
 }
 
 void BackyardState::checkRPSAction()
