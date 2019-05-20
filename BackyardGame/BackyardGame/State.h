@@ -14,13 +14,21 @@ protected:
 	std::vector<sf::Texture> textures;
 	Soundtrack music;
 	bool quit;
-	bool changedMap = false;
+	bool enteredHouse = false;
+	bool enteredGarden = false;
+	bool backToBackyard = false;
 public:
 	State();
 	State(sf::RenderWindow* window);
 	virtual ~State();
 
-	bool isChangedMap() const;
+	// setters / getters
+	void setEnetredHouse(bool enteredHouse);
+	void setEnteredGarden(bool enteredGarden);
+	void setBackToBackyard(bool backToBackyard);
+	bool hasEnteredHouse() const;
+	bool hasEnteredGarden() const;
+	bool hasBackToBackyard() const;
 	bool getQuit() const;
 
 	virtual void checkQuit();

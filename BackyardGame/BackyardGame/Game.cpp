@@ -53,9 +53,20 @@ void Game::update()
 
 	if (!this->states.empty())
 	{
-		if (this->states.top()->isChangedMap())
+		if (this->states.top()->hasEnteredHouse())
+		{
+			this->states.push(new BackyardState(this->window)); // CHANGE TO HOUSESTATE
+		}
+		else if (this->states.top()->hasEnteredGarden())
 		{
 			this->states.push(new BackyardState(this->window)); // CHANGE TO GARDENSTATE
+		}
+		else if (this->states.top()->hasBackToBackyard())
+		{
+			this->states.pop(); // DELETE HOUSESTATE/GARDENSTATE
+			this->states.top()->setBackToBackyard(false);
+			this->states.top()->setEnetredHouse(false);
+			this->states.top()->setEnteredGarden(false);
 		}
 
 		this->states.top()->update(this->dt);
