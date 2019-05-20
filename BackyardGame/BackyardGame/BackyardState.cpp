@@ -36,7 +36,7 @@ void BackyardState::checkDoor(Player & player, const double & dt)
 			{
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 				{
-					changedMap = true;
+					enteredHouse = true;
 				}
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))

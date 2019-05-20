@@ -1,10 +1,5 @@
 #include "State.h"
 
-bool State::isChangedMap() const
-{
-	return changedMap;
-}
-
 State::State()
 {
 
@@ -33,12 +28,42 @@ State::~State()
 {
 }
 
+void State::setEnetredHouse(bool enteredHouse)
+{
+	this->enteredHouse = enteredHouse;
+}
+
+void State::setEnteredGarden(bool enteredGarden)
+{
+	this->enteredGarden = enteredGarden;
+}
+
+void State::setBackToBackyard(bool backToBackyard)
+{
+	this->backToBackyard = backToBackyard;
+}
+
 void State::checkQuit()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
 		this->quit = true;
 	}
+}
+
+bool State::hasEnteredHouse() const
+{
+	return enteredHouse;
+}
+
+bool State::hasEnteredGarden() const
+{
+	return enteredGarden;
+}
+
+bool State::hasBackToBackyard() const
+{
+	return backToBackyard;
 }
 
 bool State::getQuit() const
