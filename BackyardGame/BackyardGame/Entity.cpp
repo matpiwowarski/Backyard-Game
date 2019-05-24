@@ -9,7 +9,7 @@ Entity::~Entity()
 {
 }
 
-void Entity::setPositionAndSize(float xPosition, float yPosition, float xSize, float ySize)
+void Entity::setSpritePosition(double xPosition, double yPosition)
 {
 	this->sprite.setPosition(sf::Vector2f(xPosition, yPosition));
 }

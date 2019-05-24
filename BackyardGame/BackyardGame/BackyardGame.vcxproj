@@ -181,6 +181,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="HouseState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Soundtrack.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="HouseState.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Soundtrack.h" />
     <ClInclude Include="NPC.h" />
@@ -202,9 +204,6 @@
     <ClInclude Include="RPS.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="State.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="house.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

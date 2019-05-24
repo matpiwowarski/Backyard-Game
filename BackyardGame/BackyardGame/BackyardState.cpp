@@ -7,14 +7,15 @@ BackyardState::BackyardState()
 
 BackyardState::BackyardState(sf::RenderWindow * window) : GameState(window)
 {
+	score.setScore(10);
 	map.LoadBackyardMap(); // load map
-
 	//entities settings
-	house.setPositionAndSize(350, 115, 140, 176);
-	lake.setPositionAndSize(80, 450, 110, 78);
+	player.setSpritePosition(50, 150);
+	house.setSpritePosition(350, 115);
+	lake.setSpritePosition(80, 450);
 	lake.getSprite().setScale(6.f, 3.5f);
-	old_man.setPositionAndSize(655, 525, 32, 46);
-	red_tree.setPositionAndSize(620, 100, 106, 148);
+	old_man.setSpritePosition(655, 525);
+	red_tree.setSpritePosition(620, 100);
 
 	house.getSprite().setTexture(textures[0]);
 	player.getSprite().setTexture(textures[1]);
@@ -34,7 +35,7 @@ BackyardState::~BackyardState()
 void BackyardState::checkDoor(Player & player, const double & dt)
 {
 	if (player.getPosition().x > 380 && player.getPosition().x < 430)
-		if (player.getPosition().y > 200 && player.getPosition().y < 300)
+		if (player.getPosition().y > 170 && player.getPosition().y < 300)
 		{
 			if (areDoorOpen == true)
 			{

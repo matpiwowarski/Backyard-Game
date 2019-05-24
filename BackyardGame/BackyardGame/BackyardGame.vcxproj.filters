@@ -1,81 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="BackyardState.cpp">
       <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Map</Filter>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Score.cpp">
-      <Filter>Other</Filter>
+    <ClCompile Include="GameState.cpp">
+      <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="NPC.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="RPS.cpp">
-      <Filter>Entities\MiniGames</Filter>
+    <ClCompile Include="Player.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Backyard.cpp">
+    <ClCompile Include="RPS.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
       <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Other</Filter>
     </ClCompile>
     <ClCompile Include="Soundtrack.cpp">
       <Filter>Other</Filter>
     </ClCompile>
+    <ClCompile Include="HouseState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
+    <ClInclude Include="BackyardState.h">
       <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Map</Filter>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Score.h">
-      <Filter>Other</Filter>
+    <ClInclude Include="GameState.h">
+      <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="NPC.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="RPS.h">
-      <Filter>Entities\MiniGames</Filter>
+    <ClInclude Include="Player.h">
+      <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Backyard.h">
+    <ClInclude Include="RPS.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
+      <Filter>Other</Filter>
     </ClInclude>
     <ClInclude Include="Soundtrack.h">
       <Filter>Other</Filter>
     </ClInclude>
+    <ClInclude Include="HouseState.h">
+      <Filter>States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="house.png">
-      <Filter>Pliki zasobów</Filter>
-    </Image>
+    <Filter Include="States">
+      <UniqueIdentifier>{eae5896c-db87-4eb8-9aff-286dd9ca9d74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{bd117c23-2d1f-458e-9d55-d5c2f1347f15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{c1ac92a6-0bf2-4cf1-b313-1608cfbcac8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{734bdcf4-8398-4b49-9d64-e8a665b1fecf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

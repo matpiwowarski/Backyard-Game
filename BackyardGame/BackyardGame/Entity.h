@@ -18,7 +18,7 @@ public:
 	virtual ~Entity();
 
 	// getters/setters
-	void setPositionAndSize(float xPosition, float yPosition, float xSize, float ySize);
+	void setSpritePosition(double xPosition, double yPosition);
 	void setTexture(const sf::Texture texture);
 	sf::Sprite & getSprite();
 	sf::Vector2f getPosition() const;
