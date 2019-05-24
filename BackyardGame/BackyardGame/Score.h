@@ -13,8 +13,8 @@ private:
 	sf::Text text;
 	sf::Texture BoardTexture;
 	Entity board;
-	int score = 10; // starting score
 public:
+	static int score; // starting score
 	Score();
 	~Score();
 	// getters/setters
@@ -29,4 +29,3 @@ public:
 	void subtract(int score);
 
 };
-
