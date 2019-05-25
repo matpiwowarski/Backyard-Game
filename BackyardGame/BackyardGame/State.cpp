@@ -7,13 +7,15 @@ State::State()
 
 State::State(sf::RenderWindow * window) : window(window), quit(false)
 {
-	sf::Texture house, player_right, player_left, lake, old_man, red_tree, open_house, fence_up, fence_left, fence_right, fence_down, flowers;
+	sf::Texture house, player_right, player_left, lake, old_man, red_tree, open_house, fence_up, fence_left, fence_right,
+		fence_down, flowers, chest, rock, dice_guy;
 	if (!house.loadFromFile("../Assets/house.png") || !player_right.loadFromFile("../Assets/player_right.png") ||
 		!player_left.loadFromFile("../Assets/player_left.png") || !lake.loadFromFile("../Assets/lake.png")
 		|| !old_man.loadFromFile("../Assets/old_man.png") || !red_tree.loadFromFile("../Assets/red_tree.png")
 		|| !open_house.loadFromFile("../Assets/open_house.png")||!fence_up.loadFromFile("../Assets/fence_up.png")
 		|| !fence_left.loadFromFile("../Assets/fence_left.png") || !fence_right.loadFromFile("../Assets/fence_right.png")
-		|| !fence_down.loadFromFile("../Assets/fence_down.png") || !flowers.loadFromFile("../Assets/flowers.png"))
+		|| !fence_down.loadFromFile("../Assets/fence_down.png") || !flowers.loadFromFile("../Assets/flowers.png")
+		|| !chest.loadFromFile("../Assets/chest.png") || !rock.loadFromFile("../Assets/rock.png") || !dice_guy.loadFromFile("../Assets/dice_guy.png"))
 	{
 		// throw exception
 	}
@@ -29,6 +31,9 @@ State::State(sf::RenderWindow * window) : window(window), quit(false)
 	textures.push_back(fence_left);		// 9
 	textures.push_back(fence_right);	// 10
 	textures.push_back(flowers);		// 11
+	textures.push_back(chest);			// 12
+	textures.push_back(rock);			// 13
+	textures.push_back(dice_guy);		// 14
 }
 
 State::~State()
