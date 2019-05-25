@@ -6,7 +6,6 @@ void HouseState::checkIfPlayerLeftHouse()
 	{
 		if (player.getPosition().y > 545)
 		{
-			music.StopPlayingSoundtrack();
 			backToBackyard = true;
 		}
 	}
@@ -21,8 +20,6 @@ HouseState::HouseState(sf::RenderWindow * window): GameState(window)
 	map.LoadHouseMap(); // load map
 	player.setSpritePosition(420, 530);
 	player.getSprite().setTexture(textures[1]);
-
-	music.PlayOutsideSoundtrack();
 }
 
 HouseState::~HouseState()

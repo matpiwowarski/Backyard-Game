@@ -41,7 +41,6 @@ void BackyardState::checkDoor(Player & player, const double & dt)
 			{
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 				{
-					music.StopPlayingSoundtrack();
 					enteredHouse = true;
 				}
 			}
@@ -106,7 +105,6 @@ void BackyardState::render(sf::RenderTarget * target)
 void BackyardState::checkIfPlayerEnteredGarden()
 {
 	if (player.getPosition().x > 750) {
-		music.StopPlayingSoundtrack();
 		enteredGarden = true;
 	}
 }

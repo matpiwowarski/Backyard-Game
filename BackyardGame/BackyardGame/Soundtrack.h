@@ -10,6 +10,7 @@ sf::Music battleMusic;
 public:
 	void PlayOutsideSoundtrack();
 	void PlayBattleSoundtrack();
+	bool CheckIfSoundtrackIsPlayed();
 	void StopPlayingSoundtrack();
 	Soundtrack();
 	~Soundtrack();

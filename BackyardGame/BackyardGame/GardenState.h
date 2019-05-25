@@ -4,6 +4,7 @@ class GardenState :
 	public GameState
 {
 private:
+	Entity fence_up, fence_down1, fence_down2, fence_left, fence_right;
 	std::vector <sf::Sprite> miniGameSpritesToDraw;
 	void checkIfPlayerLeftGarden();
 public:

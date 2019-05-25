@@ -38,9 +38,16 @@ void Soundtrack::PlayBattleSoundtrack()
 	battleMusic.setLoop(true);
 }
 
+bool Soundtrack::CheckIfSoundtrackIsPlayed() 
+{
+	if (backgroundMusic.getStatus() == 0)
+		return false;
+	else return true;
+}
+
 void Soundtrack::StopPlayingSoundtrack()
 {
-	backgroundMusic.stop();
+	backgroundMusic.pause();
 	battleMusic.stop();
 }
 
