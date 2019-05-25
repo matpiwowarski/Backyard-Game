@@ -55,11 +55,11 @@ void Game::update()
 	{
 		if (this->states.top()->hasEnteredHouse())
 		{
-			this->states.push(new HouseState(this->window)); // CHANGE TO HOUSESTATE
+			this->states.push(new HouseState(this->window)); 
 		}
 		else if (this->states.top()->hasEnteredGarden())
 		{
-			this->states.push(new BackyardState(this->window)); // CHANGE TO GARDENSTATE
+			this->states.push(new GardenState(this->window)); 
 		}
 		else if (this->states.top()->hasBackToBackyard())
 		{

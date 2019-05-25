@@ -18,7 +18,7 @@ Soundtrack::~Soundtrack()
 
 void Soundtrack::PlayOutsideSoundtrack()
 {
-	backgroundMusic.stop();
+	battleMusic.stop();
 	if (!backgroundMusic.openFromFile("../Assets/rpg-pack/soundtrack/WindlessSlopes.wav"))
 	{
 		throw;
@@ -30,10 +30,17 @@ void Soundtrack::PlayOutsideSoundtrack()
 void Soundtrack::PlayBattleSoundtrack()
 {
 	backgroundMusic.stop();
-	if (!backgroundMusic.openFromFile("../Assets/rpg-pack/soundtrack/The Arrival (BATTLE II).wav"))
+	if (!battleMusic.openFromFile("../Assets/rpg-pack/soundtrack/The Arrival (BATTLE II).wav"))
 	{
 		throw;
 	}
-	backgroundMusic.play();
-	backgroundMusic.setLoop(true);
+	battleMusic.play();
+	battleMusic.setLoop(true);
 }
+
+void Soundtrack::StopPlayingSoundtrack()
+{
+	backgroundMusic.stop();
+	battleMusic.stop();
+}
+

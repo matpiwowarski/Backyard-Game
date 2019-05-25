@@ -7,6 +7,7 @@ private:
 	RPS old_man;
 	bool areDoorOpen=false;
 	std::vector <sf::Sprite> GameRPSToDraw;
+	void checkIfPlayerEnteredGarden();
 	// RPS:
 	void moveCursor();
 	void activateOldMan();

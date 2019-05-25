@@ -54,7 +54,7 @@ void Map::LoadGardenMap()
 		0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
 		0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
 	};
-	if (!this->load(2, "../Assets/map.png", sf::Vector2u(16, 16), map, 25, 19))    //path to file, dimension of one tile, table with map, width, height
+	if (!this->load(2, "../Assets/backyardmap.png", sf::Vector2u(16, 16), map, 25, 19))    //path to file, dimension of one tile, table with map, width, height
 	{
 		std::cout << " The map hasn't been loaded correctly";
 	}

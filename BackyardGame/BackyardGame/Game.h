@@ -1,6 +1,7 @@
 #pragma once
 #include "BackyardState.h"
 #include "HouseState.h"
+#include "GardenState.h"
 
 class Game
 {

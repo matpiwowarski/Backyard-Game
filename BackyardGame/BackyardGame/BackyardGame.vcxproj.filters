@@ -38,6 +38,9 @@
     <ClCompile Include="HouseState.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="GardenState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackyardState.h">
@@ -74,6 +77,9 @@
       <Filter>Other</Filter>
     </ClInclude>
     <ClInclude Include="HouseState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="GardenState.h">
       <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>

@@ -41,6 +41,7 @@ void BackyardState::checkDoor(Player & player, const double & dt)
 			{
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 				{
+					music.StopPlayingSoundtrack();
 					enteredHouse = true;
 				}
 			}
@@ -84,6 +85,7 @@ void BackyardState::update(const double & dt)
 	checkDoor(player, dt);
 	checkRPSAction(); // <-- function with whole RPS mini game
 	colisionPreventEverything(dt); // <-- preventing collisions with all objects
+	checkIfPlayerEnteredGarden();
 }
 
 void BackyardState::render(sf::RenderTarget * target)
@@ -99,6 +101,14 @@ void BackyardState::render(sf::RenderTarget * target)
 	this->window->draw(NPCMessage);
 	this->window->draw(NPCResultText);
 	this->player.render(this->window);
+}
+
+void BackyardState::checkIfPlayerEnteredGarden()
+{
+	if (player.getPosition().x > 750) {
+		music.StopPlayingSoundtrack();
+		enteredGarden = true;
+	}
 }
 
 void BackyardState::moveCursor()
