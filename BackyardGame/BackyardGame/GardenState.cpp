@@ -23,8 +23,12 @@ GardenState::GardenState(sf::RenderWindow * window) : GameState(window)
 	fence_left.setSpritePosition(50, 50);
 	fence_right.setSpritePosition(745, 50);
 	fence_up.setSpritePosition(50, 50);
-	fence_down1.setSpritePosition(50, 300);
-	fence_down2.setSpritePosition(440, 300);
+	fence_down1.setSpritePosition(50, 305);
+	fence_down2.setSpritePosition(440, 305);
+	flowers1.setSpritePosition(120, 130);
+	flowers1.getSprite().setScale(4.f, 4.f);
+	flowers2.setSpritePosition(465, 130);
+	flowers2.getSprite().setScale(4.f, 4.f);
 	player.setSpritePosition(10, 400);
 
 	fence_left.getSprite().setTexture(textures[9]);
@@ -32,6 +36,8 @@ GardenState::GardenState(sf::RenderWindow * window) : GameState(window)
 	fence_up.getSprite().setTexture(textures[7]);
 	fence_down1.getSprite().setTexture(textures[8]);
 	fence_down2.getSprite().setTexture(textures[8]);
+	flowers1.getSprite().setTexture(textures[11]);
+	flowers2.getSprite().setTexture(textures[11]);
 	player.getSprite().setTexture(textures[1]);
 }
 
@@ -59,6 +65,8 @@ void GardenState::update(const double & dt)
 	this->fence_right.update(dt);
 	this->fence_down1.update(dt);
 	this->fence_down2.update(dt);
+	this->flowers1.update(dt);
+	this->flowers2.update(dt);
 	rotatingPlayer(player, dt);
 	colisionPreventEverything(dt); // <-- preventing collisions with all objects
 	checkIfPlayerLeftGarden();
@@ -73,6 +81,8 @@ void GardenState::render(sf::RenderTarget * target)
 	this->fence_right.render(this->window);
 	this->fence_down1.render(this->window);
 	this->fence_down2.render(this->window);
+	this->flowers1.render(this->window);
+	this->flowers2.render(this->window);
 	this->score.render(this->window);
 	this->window->draw(NPCMessage);
 	this->window->draw(NPCResultText);
