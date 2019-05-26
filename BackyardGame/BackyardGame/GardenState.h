@@ -16,6 +16,7 @@ public:
 	//setters/getters
 
 	//methods
+	void checkMovementLimits(const double& dt); /// TO DO
 	void colisionPreventEverything(const double &dt);
 	void update(const double& dt);
 	void render(sf::RenderTarget* target = nullptr);

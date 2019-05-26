@@ -23,6 +23,7 @@ public:
 	void colisionPreventing(Player & player, Entity & object, const double &dt);;
 	void rotatingPlayer(Player & player, const double& dt);
 	void updateKeybinds(const double& dt);
+	virtual void checkMovementLimits(const double& dt) = 0;
 	virtual void colisionPreventEverything(const double &dt) = 0;
 	virtual void update(const double& dt) = 0;
 	virtual void render(sf::RenderTarget* target = nullptr) = 0;

@@ -19,11 +19,8 @@ protected:
 	sf::Text message;
 	sf::Text result;
 	sf::Font messageFont;
-	virtual void uploadNPCChoiceTexture()=0;
 	void loadCursorTexture();
-	virtual void randomChoice()=0;
 	virtual void loadBoardTexture()=0;
-	virtual void updateCursorSpritePosition()=0;
 public:
 	NPC();
 	~NPC();
@@ -36,9 +33,6 @@ public:
 	virtual sf::Font getMessageFont() const;
 
 // methods
-virtual void drawNPCChoice()=0;
-virtual sf::Sprite rightPressed()=0; // return cursor sprite
-virtual sf::Sprite leftPressed()=0; // return cursor sprite
 void notEnoughCoins(); // change message
 };
 

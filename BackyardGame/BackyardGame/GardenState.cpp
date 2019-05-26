@@ -53,6 +53,10 @@ GardenState::~GardenState()
 {
 }
 
+void GardenState::checkMovementLimits(const double & dt)
+{
+}
+
 void GardenState::colisionPreventEverything(const double & dt)
 {
 	colisionPreventing(player, fence_left, dt);
@@ -68,6 +72,7 @@ void GardenState::colisionPreventEverything(const double & dt)
 void GardenState::update(const double & dt)
 {
 	this->updateKeybinds(dt); // works
+	checkMovementLimits(dt); // works ///NEW
 	this->map.update(dt); // ?
 	this->player.update(dt); // works
 	this->score.update(dt); 

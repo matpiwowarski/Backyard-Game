@@ -32,6 +32,18 @@ BackyardState::~BackyardState()
 {
 }
 
+void BackyardState::checkMovementLimits(const double& dt)
+{
+	if (this->player.getPosition().x <= 0)
+		this->player.move(dt, 1.f, 0.f);
+	if (this->player.getPosition().x >= 768)
+		this->player.move(dt, -1.f, 0.f);
+	if (this->player.getPosition().y <= 0)
+		this->player.move(dt, 0.f, 1.f);
+	if (this->player.getPosition().y >= 545)
+		this->player.move(dt, 0.f, -1.f);
+}
+
 void BackyardState::checkDoor(Player & player, const double & dt)
 {
 	if (player.getPosition().x > 380 && player.getPosition().x < 430)
@@ -72,6 +84,7 @@ void BackyardState::colisionPreventEverything(const double & dt)
 void BackyardState::update(const double & dt)
 {
 	this->updateKeybinds(dt); // works
+	this->checkMovementLimits(dt); // works
 	this->map.update(dt); // ?
 	this->house.update(dt); // ?
 	this->lake.update(dt); // ?

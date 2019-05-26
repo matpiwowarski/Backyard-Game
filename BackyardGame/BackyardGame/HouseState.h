@@ -5,6 +5,7 @@ class HouseState : public GameState
 private:
 	std::vector <sf::Sprite> miniGameSpritesToDraw;
 	void checkIfPlayerLeftHouse();
+	ArmWrestler armwrestler;
 public:
 	HouseState();
 	HouseState(sf::RenderWindow* window);
@@ -13,6 +14,7 @@ public:
 	// setters/getters
 
 	// methods
+	void checkMovementLimits(const double& dt); /// TO DO
 	void colisionPreventEverything(const double &dt);
 	void update(const double& dt);
 	void render(sf::RenderTarget* target = nullptr);

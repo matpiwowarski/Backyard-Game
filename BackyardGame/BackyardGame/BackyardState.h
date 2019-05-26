@@ -21,6 +21,7 @@ public:
 	BackyardState();
 	BackyardState(sf::RenderWindow* window);
 	~BackyardState();
+	void checkMovementLimits(const double& dt);
 	void checkDoor(Player & player, const double& dt);
 	void colisionPreventEverything(const double &dt);
 	void update(const double& dt);

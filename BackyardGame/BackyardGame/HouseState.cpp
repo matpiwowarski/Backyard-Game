@@ -26,6 +26,18 @@ HouseState::~HouseState()
 {
 }
 
+void HouseState::checkMovementLimits(const double & dt)
+{
+	if (this->player.getPosition().x <= 30)
+		this->player.move(dt, 1.f, 0.f);
+	if (this->player.getPosition().x >= 738)
+		this->player.move(dt, -1.f, 0.f);
+	if (this->player.getPosition().y <= 30)
+		this->player.move(dt, 0.f, 1.f);
+	if (this->player.getPosition().y >= 555)
+		this->player.move(dt, 0.f, -1.f);
+}
+
 void HouseState::colisionPreventEverything(const double & dt)
 {
 }
@@ -33,6 +45,7 @@ void HouseState::colisionPreventEverything(const double & dt)
 void HouseState::update(const double & dt)
 {
 	this->updateKeybinds(dt); // works
+	this->checkMovementLimits(dt); // works
 	this->map.update(dt); // ?
 	this->player.update(dt); // works
 	this->score.update(dt); // works
