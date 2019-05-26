@@ -6,6 +6,8 @@
 #include <SFML/Network.hpp>
 #include "Entity.h"
 
+// Singleton pattern
+
 class Score
 {
 private:
@@ -13,10 +15,11 @@ private:
 	sf::Text text;
 	sf::Texture BoardTexture;
 	Entity board;
-public:
-	static int score; // starting score
+	int score = 10;
 	Score();
-	~Score();
+public:
+	static Score & getInstance();
+
 	// getters/setters
 	void setText(std::string text);
 	void setScore(int score);

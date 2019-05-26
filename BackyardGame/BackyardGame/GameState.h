@@ -6,7 +6,7 @@ class GameState : public State
 protected:
 	Player player;
 	Map map;
-	Score score;
+	Score & score = Score::getInstance();
 	sf::Text NPCMessage;
 	sf::Text NPCResultText;
 	bool finishedMiniGame = false;
