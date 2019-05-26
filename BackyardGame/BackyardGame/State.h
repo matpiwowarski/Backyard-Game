@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "NPC.h"
 #include "RPS.h"
+#include "Dices.h"
 #include "Map.h"
 #include "Score.h"
 #include "Soundtrack.h"

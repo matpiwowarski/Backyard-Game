@@ -82,6 +82,7 @@ void GardenState::update(const double & dt)
 	this->rock.update(dt);
 	this->dice_guy.update(dt);
 	rotatingPlayer(player, dt);
+	checkDicesAction();
 	colisionPreventEverything(dt); // <-- preventing collisions with all objects
 	checkIfPlayerLeftGarden();
 }
@@ -101,7 +102,134 @@ void GardenState::render(sf::RenderTarget * target)
 	this->rock.render(this->window);
 	this->score.render(this->window);
 	this->dice_guy.render(this->window);
+	drawDicesSprites();
 	this->window->draw(NPCMessage);
 	this->window->draw(NPCResultText);
 	this->player.render(this->window);
 }
+
+
+
+
+//Dices functions
+
+void GardenState::moveCursor()
+{
+	if (this->player.getIsBlocked())
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				// to ignore long time press
+			}
+			GameDicesToDraw[1] = dice_guy.rightPressed();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+				// to ignore long time press
+			}
+			GameDicesToDraw[1] = dice_guy.leftPressed();
+		}
+	}
+}
+
+void GardenState::activateDiceGuy()
+{	
+	this->GameDicesToDraw.push_back(this->dice_guy.getBoardSprite()); // board to draw						0
+	this->GameDicesToDraw.push_back(this->dice_guy.getCursorSprite()); // cursor to draw					1
+	this->GameDicesToDraw.push_back(this->dice_guy.getOponnentBoardSprite()); // oponnent board to draw		2
+}
+
+
+void GardenState::drawDiceGuyChoice()
+{
+	activateDiceGuy();
+	this->dice_guy.drawNPCChoice(); // draw NPC's choice	
+}
+
+void GardenState::drawDicesSprites()
+{
+	std::vector<sf::Sprite>::iterator it = GameDicesToDraw.begin();
+	for (it; it != GameDicesToDraw.end(); it++)
+	{
+		this->window->draw(*it);
+	}
+}
+void GardenState::playDices()
+{
+	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
+	music.PlayBattleSoundtrack();
+	blockPlayer();
+	if (score.getScore() >= 5)
+	{
+		blockPlayer();
+		drawDiceGuyChoice();
+	}
+	else
+	{
+		dice_guy.notEnoughCoins();
+		this->NPCMessage = dice_guy.getNPCMessage();
+		finishedMiniGame = true;
+		music.PlayOutsideSoundtrack();
+	}
+}
+
+void GardenState::DicesResult()
+{
+	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
+	this->GameDicesToDraw.erase(GameDicesToDraw.begin() + 1); // delete cursor
+	this->GameDicesToDraw.push_back(dice_guy.getNPCChoiceSprite()); // NPC choice to draw
+	this->GameDicesToDraw.push_back(dice_guy.getNPCChoice2Sprite());
+	this->GameDicesToDraw.push_back(dice_guy.getNPCChoice3Sprite());
+	this->GameDicesToDraw.push_back(dice_guy.getNPCChoice4Sprite());
+	this->GameDicesToDraw.push_back(dice_guy.getNPCChoice5Sprite());
+	this->NPCMessage = dice_guy.getNPCMessage(); // NPC message to draw
+	this->NPCResultText = dice_guy.getNPCResultText(); // result to draw
+	if (this->NPCResultText.getString() == "YOU WON")
+		score.add(10);
+	else if (this->NPCResultText.getString() == "YOU LOST")
+		score.subtract(10);
+	finishedMiniGame = true;
+}
+
+void GardenState::finishDices()
+{
+	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
+	this->GameDicesToDraw.clear();
+	this->NPCMessage.setString("");
+	this->NPCResultText.setString("");
+	finishedMiniGame = false;
+	unblockPlayer();
+	music.PlayOutsideSoundtrack();
+}
+
+void GardenState::checkDicesAction()
+{
+	if (player.getIsBlocked() && finishedMiniGame)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			finishDices();
+		}
+	}
+	if (player.getIsBlocked())
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			DicesResult();
+		}
+	}
+	if (player.getIsBlocked() && !finishedMiniGame)
+		moveCursor();
+	if (player.getSprite().getGlobalBounds().intersects(dice_guy.getSprite().getGlobalBounds()))
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			playDices();
+		}
+	}
+}
+
