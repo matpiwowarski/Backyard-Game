@@ -41,12 +41,14 @@
     <ClCompile Include="GardenState.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="ArmWrestler.cpp">
-    </ClCompile>
     <ClCompile Include="Dices.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="ArmWrestler.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
     <ClCompile Include="Dice.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,11 +91,15 @@
     <ClInclude Include="GardenState.h">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="ArmWrestler.h" />
     <ClInclude Include="Dices.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Dice.h" />
+    <ClInclude Include="ArmWrestler.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Dice.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="States">

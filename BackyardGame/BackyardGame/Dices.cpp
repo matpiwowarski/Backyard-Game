@@ -24,6 +24,7 @@ Dices::Dices()
 	cursorSprite.setTexture(cursorTexture);
 	cursorSprite.setScale(sf::Vector2f(1 / 8.f, 1 / 8.f));
 	updateCursorSpritePosition();
+	fillDicesVector();
 }
 
 
@@ -35,48 +36,48 @@ void Dices::uploadNPCChoiceTexture()
 {
 	sf::Texture textureForDice;
 	for (int i = 1;i <= 6;i++) {
-		if (this->oponnentDice1.getChoice() + 1 == i) {
+		if (this->oponnentDices[0].getChoice() + 1 == i) {
 			if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 			{
 				throw "ojojoj"; // error
 			}
-			else oponnentDice1.setDiceTexture(textureForDice);
+			else oponnentDices[0].setDiceTexture(textureForDice);
 		}
 	}
 	for (int i = 1;i <= 6;i++) {
-		if (this->oponnentDice2.getChoice() + 1 == i) {
+		if (this->oponnentDices[1].getChoice() + 1 == i) {
 			if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 			{
 				throw; // error
 			}
-			else oponnentDice2.setDiceTexture(textureForDice);
+			else oponnentDices[1].setDiceTexture(textureForDice);
 		}
 	}
 	for (int i = 1;i <= 6;i++) {
-		if (this->oponnentDice3.getChoice() + 1 == i) {
+		if (this->oponnentDices[2].getChoice() + 1 == i) {
 			if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 			{
 				throw; // error
 			}
-			else oponnentDice3.setDiceTexture(textureForDice);
+			else oponnentDices[2].setDiceTexture(textureForDice);
 		}
 	}
 	for (int i = 1;i <= 6;i++) {
-		if (this->oponnentDice4.getChoice() + 1 == i) {
+		if (this->oponnentDices[3].getChoice() + 1 == i) {
 			if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 			{
 				throw; // error
 			}
-			else oponnentDice4.setDiceTexture(textureForDice);
+			else oponnentDices[3].setDiceTexture(textureForDice);
 		}
 	}
 	for (int i = 1;i <= 6;i++) {
-		if (this->oponnentDice5.getChoice() + 1 == i) {
+		if (this->oponnentDices[4].getChoice() + 1 == i) {
 			if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 			{
 				throw; // error
 			}
-			else oponnentDice5.setDiceTexture(textureForDice);
+			else oponnentDices[4].setDiceTexture(textureForDice);
 		}
 	}
 }
@@ -104,55 +105,17 @@ sf::Sprite Dices::getOponnentBoardSprite() const
 	return this->oponnentBoardSprite;
 }
 
-Dice Dices::getPlayerDice1()
+Dice Dices::getPlayerDice(int diceNumber)
 {
-	return this->playerDice1;
+	return this->playerDices[diceNumber];
 }
 
-Dice Dices::getPlayerDice2()
+
+Dice Dices::getOponnentDice(int diceNumber)
 {
-	return this->playerDice2;
+	return this->oponnentDices[diceNumber];
 }
 
-Dice Dices::getPlayerDice3()
-{
-	return this->playerDice3;
-}
-
-Dice Dices::getPlayerDice4()
-{
-	return this->playerDice4;
-}
-
-Dice Dices::getPlayerDice5()
-{
-	return this->playerDice5;
-}
-
-Dice Dices::getOponnentDice1()
-{
-	return this->oponnentDice1;
-}
-
-Dice Dices::getOponnentDice2()
-{
-	return this->oponnentDice2;
-}
-
-Dice Dices::getOponnentDice3()
-{
-	return this->oponnentDice3;
-}
-
-Dice Dices::getOponnentDice4()
-{
-	return this->oponnentDice4;
-}
-
-Dice Dices::getOponnentDice5()
-{
-	return this->oponnentDice5;
-}
 
 
 //change later, with templates(?)
@@ -207,41 +170,57 @@ void Dices::updateCursorSpritePosition()
 	
 }
 
+void Dices::fillDicesVector()
+{
+	Dice playerDice1, playerDice2, playerDice3, playerDice4, playerDice5, oponnentDice1, oponnentDice2, oponnentDice3, oponnentDice4, oponnentDice5;
+	this->playerDices.push_back(playerDice1);
+	this->playerDices.push_back(playerDice2);
+	this->playerDices.push_back(playerDice3);
+	this->playerDices.push_back(playerDice4);
+	this->playerDices.push_back(playerDice5);
+
+	this->oponnentDices.push_back(oponnentDice1);
+	this->oponnentDices.push_back(oponnentDice2);
+	this->oponnentDices.push_back(oponnentDice3);
+	this->oponnentDices.push_back(oponnentDice4);
+	this->oponnentDices.push_back(oponnentDice5);
+}
+
 void Dices::drawNPCChoice()
 {
 	sf::Sprite spriteForDice;
 
-	this->oponnentDice1.randomChoice();
-	this->oponnentDice2.randomChoice();
-	this->oponnentDice3.randomChoice();
-	this->oponnentDice4.randomChoice();
-	this->oponnentDice5.randomChoice();
+	this->oponnentDices[0].randomChoice();
+	this->oponnentDices[1].randomChoice();
+	this->oponnentDices[2].randomChoice();
+	this->oponnentDices[3].randomChoice();
+	this->oponnentDices[4].randomChoice();
 	uploadNPCChoiceTexture();
 
-	spriteForDice.setTexture(oponnentDice1.getDiceTexture());
+	spriteForDice.setTexture(oponnentDices[0].getDiceTexture());
 	spriteForDice.setScale(sf::Vector2f(3.f, 3.f));
 	spriteForDice.setPosition(sf::Vector2f(255.f, 208.f));
-	oponnentDice1.setDiceSprite(spriteForDice);
+	oponnentDices[0].setDiceSprite(spriteForDice);
 
-	spriteForDice.setTexture(oponnentDice2.getDiceTexture());
+	spriteForDice.setTexture(oponnentDices[1].getDiceTexture());
 	spriteForDice.setScale(sf::Vector2f(3.f, 3.f));
 	spriteForDice.setPosition(sf::Vector2f(315.f, 208.f));
-	oponnentDice2.setDiceSprite(spriteForDice);
+	oponnentDices[1].setDiceSprite(spriteForDice);
 
-	spriteForDice.setTexture(oponnentDice3.getDiceTexture());
+	spriteForDice.setTexture(oponnentDices[2].getDiceTexture());
 	spriteForDice.setScale(sf::Vector2f(3.f, 3.f));
 	spriteForDice.setPosition(sf::Vector2f(375.f, 208.f));
-	oponnentDice3.setDiceSprite(spriteForDice);
+	oponnentDices[2].setDiceSprite(spriteForDice);
 
-	spriteForDice.setTexture(oponnentDice4.getDiceTexture());
+	spriteForDice.setTexture(oponnentDices[3].getDiceTexture());
 	spriteForDice.setScale(sf::Vector2f(3.f, 3.f));
 	spriteForDice.setPosition(sf::Vector2f(435.f, 208.f));
-	oponnentDice4.setDiceSprite(spriteForDice);
+	oponnentDices[3].setDiceSprite(spriteForDice);
 
-	spriteForDice.setTexture(oponnentDice5.getDiceTexture());
+	spriteForDice.setTexture(oponnentDices[4].getDiceTexture());
 	spriteForDice.setScale(sf::Vector2f(3.f, 3.f));
 	spriteForDice.setPosition(sf::Vector2f(495.f, 208.f));
-	oponnentDice5.setDiceSprite(spriteForDice);
+	oponnentDices[4].setDiceSprite(spriteForDice);
 
 	this->message.setString(" HAT GUY'S DRAW");
 }

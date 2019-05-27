@@ -186,11 +186,11 @@ void GardenState::DicesResult()
 {
 	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
 	this->GameDicesToDraw.erase(GameDicesToDraw.begin() + 1); // delete cursor
-	this->GameDicesToDraw.push_back(dice_guy.getOponnentDice1().getDiceSprite()); // NPC choice to draw
-	this->GameDicesToDraw.push_back(dice_guy.getOponnentDice2().getDiceSprite());
-	this->GameDicesToDraw.push_back(dice_guy.getOponnentDice3().getDiceSprite());
-	this->GameDicesToDraw.push_back(dice_guy.getOponnentDice4().getDiceSprite());
-	this->GameDicesToDraw.push_back(dice_guy.getOponnentDice5().getDiceSprite());
+	this->GameDicesToDraw.push_back(dice_guy.getOponnentDice(0).getDiceSprite()); // NPC choice to draw
+	this->GameDicesToDraw.push_back(dice_guy.getOponnentDice(1).getDiceSprite());
+	this->GameDicesToDraw.push_back(dice_guy.getOponnentDice(2).getDiceSprite());
+	this->GameDicesToDraw.push_back(dice_guy.getOponnentDice(3).getDiceSprite());
+	this->GameDicesToDraw.push_back(dice_guy.getOponnentDice(4).getDiceSprite());
 	this->NPCMessage = dice_guy.getNPCMessage(); // NPC message to draw
 	this->NPCResultText = dice_guy.getNPCResultText(); // result to draw
 	if (this->NPCResultText.getString() == "YOU WON")
