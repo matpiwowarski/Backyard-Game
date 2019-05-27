@@ -8,13 +8,13 @@
 class NPC : public Entity
 {
 protected: 
-	int choice, choice2, choice3, choice4, choice5;
+	int choice;
 	int cursorIndex = 0;
 	sf::Texture boardTexture, oponnentBoardTexture;
-	sf::Texture choiceTexture, choiceTexture2, choiceTexture3, choiceTexture4, choiceTexture5;
+	sf::Texture choiceTexture;
 	sf::Texture cursorTexture;
 	sf::Sprite boardSprite, oponnentBoardSprite;
-	sf::Sprite choiceSprite, choiceSprite2, choiceSprite3, choiceSprite4, choiceSprite5;
+	sf::Sprite choiceSprite;
 	sf::Sprite cursorSprite;
 	sf::Text message;
 	sf::Text result;
@@ -30,10 +30,7 @@ public:
 // getters / setters
 	virtual sf::Sprite getBoardSprite() const;
 	virtual sf::Sprite getNPCChoiceSprite() const;
-	virtual sf::Sprite getNPCChoice2Sprite() const;
-	virtual sf::Sprite getNPCChoice3Sprite() const;
-	virtual sf::Sprite getNPCChoice4Sprite() const;
-	virtual sf::Sprite getNPCChoice5Sprite() const;
+	virtual sf::Texture getNPCChoiceTexture() const;
 	virtual sf::Sprite getCursorSprite() const;
 	virtual sf::Text getNPCMessage() const;
 	virtual sf::Text getNPCResultText();

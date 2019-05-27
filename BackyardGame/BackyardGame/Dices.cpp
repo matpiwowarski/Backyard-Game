@@ -33,44 +33,50 @@ Dices::~Dices()
 
 void Dices::uploadNPCChoiceTexture()
 {
+	sf::Texture textureForDice;
 	for (int i = 1;i <= 6;i++) {
-		if (this->choice+1 == i) {
-			if (!choiceTexture.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
+		if (this->oponnentDice1.getChoice() + 1 == i) {
+			if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 			{
-				throw; // error
+				throw "ojojoj"; // error
 			}
+			else oponnentDice1.setDiceTexture(textureForDice);
 		}
 	}
 	for (int i = 1;i <= 6;i++) {
-		if (this->choice2+1 == i) {
-			if (!choiceTexture2.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
+		if (this->oponnentDice2.getChoice() + 1 == i) {
+			if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 			{
 				throw; // error
 			}
+			else oponnentDice2.setDiceTexture(textureForDice);
 		}
 	}
 	for (int i = 1;i <= 6;i++) {
-		if (this->choice3+1 == i) {
-			if (!choiceTexture3.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
+		if (this->oponnentDice3.getChoice() + 1 == i) {
+			if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 			{
 				throw; // error
 			}
+			else oponnentDice3.setDiceTexture(textureForDice);
 		}
 	}
 	for (int i = 1;i <= 6;i++) {
-		if (this->choice4+1 == i) {
-			if (!choiceTexture4.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
+		if (this->oponnentDice4.getChoice() + 1 == i) {
+			if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 			{
 				throw; // error
 			}
+			else oponnentDice4.setDiceTexture(textureForDice);
 		}
 	}
 	for (int i = 1;i <= 6;i++) {
-		if (this->choice5+1 == i) {
-			if (!choiceTexture5.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
+		if (this->oponnentDice5.getChoice() + 1 == i) {
+			if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 			{
 				throw; // error
 			}
+			else oponnentDice5.setDiceTexture(textureForDice);
 		}
 	}
 }
@@ -95,69 +101,66 @@ sf::Text Dices::getNPCResultText()
 
 sf::Sprite Dices::getOponnentBoardSprite() const
 {
-	return oponnentBoardSprite;
+	return this->oponnentBoardSprite;
 }
+
+Dice Dices::getPlayerDice1()
+{
+	return this->playerDice1;
+}
+
+Dice Dices::getPlayerDice2()
+{
+	return this->playerDice2;
+}
+
+Dice Dices::getPlayerDice3()
+{
+	return this->playerDice3;
+}
+
+Dice Dices::getPlayerDice4()
+{
+	return this->playerDice4;
+}
+
+Dice Dices::getPlayerDice5()
+{
+	return this->playerDice5;
+}
+
+Dice Dices::getOponnentDice1()
+{
+	return this->oponnentDice1;
+}
+
+Dice Dices::getOponnentDice2()
+{
+	return this->oponnentDice2;
+}
+
+Dice Dices::getOponnentDice3()
+{
+	return this->oponnentDice3;
+}
+
+Dice Dices::getOponnentDice4()
+{
+	return this->oponnentDice4;
+}
+
+Dice Dices::getOponnentDice5()
+{
+	return this->oponnentDice5;
+}
+
+
 //change later, with templates(?)
+//----------------------change later using another class Dice
 void Dices::randomChoice()
 {
-	std::default_random_engine engine;
-	std::uniform_real_distribution<double> distribution;
-	auto czas = std::chrono::system_clock::now();
-	auto interval = czas.time_since_epoch();
-	engine.seed(interval.count());
-
-	int random = distribution(engine) * 100;
-	this->choice = random % 6;
 }
 
-void Dices::randomChoice2()
-{
-	std::default_random_engine engine;
-	std::uniform_real_distribution<double> distribution;
-	auto czas = std::chrono::system_clock::now();
-	auto interval = czas.time_since_epoch();
-	engine.seed(interval.count());
-
-	int random = distribution(engine) * 100;
-	this->choice2 = random % 6;
-}
-
-
-void Dices::randomChoice3()
-{
-	std::default_random_engine engine;
-	std::uniform_real_distribution<double> distribution;
-	auto czas = std::chrono::system_clock::now();
-	auto interval = czas.time_since_epoch();
-	engine.seed(interval.count());
-
-	int random = distribution(engine) * 100;
-	this->choice3 = random % 6;
-}
-
-void Dices::randomChoice4()
-{
-	std::default_random_engine engine;
-	std::uniform_real_distribution<double> distribution;
-	auto czas = std::chrono::system_clock::now();
-	auto interval = czas.time_since_epoch();
-	engine.seed(interval.count());
-
-	int random = distribution(engine) * 100;
-	this->choice4 = random % 6;
-}
-
-void Dices::randomChoice5()
-{
-	std::default_random_engine engine;
-	std::uniform_real_distribution<double> distribution;
-	auto czas = std::chrono::system_clock::now();
-	auto interval = czas.time_since_epoch();
-	engine.seed(interval.count());
-
-	int random = distribution(engine) * 100;
-	this->choice5 = random % 6;
-}
 
 void Dices::loadBoardTexture()
 {
@@ -206,31 +209,39 @@ void Dices::updateCursorSpritePosition()
 
 void Dices::drawNPCChoice()
 {
-	randomChoice();
-	randomChoice2();
-	randomChoice3();
-	randomChoice4();
-	randomChoice5();
+	sf::Sprite spriteForDice;
+
+	this->oponnentDice1.randomChoice();
+	this->oponnentDice2.randomChoice();
+	this->oponnentDice3.randomChoice();
+	this->oponnentDice4.randomChoice();
+	this->oponnentDice5.randomChoice();
 	uploadNPCChoiceTexture();
-	choiceSprite.setTexture(choiceTexture);
-	choiceSprite.setScale(sf::Vector2f(3.f, 3.f));
-	choiceSprite.setPosition(sf::Vector2f(255.f, 208.f));
 
-	choiceSprite2.setTexture(choiceTexture2);
-	choiceSprite2.setScale(sf::Vector2f(3.f, 3.f));
-	choiceSprite2.setPosition(sf::Vector2f(315.f, 208.f));
+	spriteForDice.setTexture(oponnentDice1.getDiceTexture());
+	spriteForDice.setScale(sf::Vector2f(3.f, 3.f));
+	spriteForDice.setPosition(sf::Vector2f(255.f, 208.f));
+	oponnentDice1.setDiceSprite(spriteForDice);
 
-	choiceSprite3.setTexture(choiceTexture3);
-	choiceSprite3.setScale(sf::Vector2f(3.f, 3.f));
-	choiceSprite3.setPosition(sf::Vector2f(375.f, 208.f));
+	spriteForDice.setTexture(oponnentDice2.getDiceTexture());
+	spriteForDice.setScale(sf::Vector2f(3.f, 3.f));
+	spriteForDice.setPosition(sf::Vector2f(315.f, 208.f));
+	oponnentDice2.setDiceSprite(spriteForDice);
 
-	choiceSprite4.setTexture(choiceTexture4);
-	choiceSprite4.setScale(sf::Vector2f(3.f, 3.f));
-	choiceSprite4.setPosition(sf::Vector2f(435.f, 208.f));
+	spriteForDice.setTexture(oponnentDice3.getDiceTexture());
+	spriteForDice.setScale(sf::Vector2f(3.f, 3.f));
+	spriteForDice.setPosition(sf::Vector2f(375.f, 208.f));
+	oponnentDice3.setDiceSprite(spriteForDice);
 
-	choiceSprite5.setTexture(choiceTexture5);
-	choiceSprite5.setScale(sf::Vector2f(3.f, 3.f));
-	choiceSprite5.setPosition(sf::Vector2f(495.f, 208.f));
+	spriteForDice.setTexture(oponnentDice4.getDiceTexture());
+	spriteForDice.setScale(sf::Vector2f(3.f, 3.f));
+	spriteForDice.setPosition(sf::Vector2f(435.f, 208.f));
+	oponnentDice4.setDiceSprite(spriteForDice);
+
+	spriteForDice.setTexture(oponnentDice5.getDiceTexture());
+	spriteForDice.setScale(sf::Vector2f(3.f, 3.f));
+	spriteForDice.setPosition(sf::Vector2f(495.f, 208.f));
+	oponnentDice5.setDiceSprite(spriteForDice);
 
 	this->message.setString(" HAT GUY'S DRAW");
 }
