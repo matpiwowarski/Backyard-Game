@@ -5,7 +5,8 @@ class HouseState : public GameState
 private:
 	std::vector <sf::Sprite> miniGameSpritesToDraw;
 	void checkIfPlayerLeftHouse();
-	ArmWrestler armwrestler;
+	ArmWrestler skeleton;
+	void checkArmWrestlingAction();
 public:
 	HouseState();
 	HouseState(sf::RenderWindow* window);

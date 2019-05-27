@@ -14,7 +14,7 @@ class State
 protected:
 	sf::RenderWindow* window;
 	std::vector<sf::Texture> textures;
-	Soundtrack music;
+	Soundtrack & music = Soundtrack::getInstance();
 	bool quit;
 	bool enteredHouse = false;
 	bool enteredGarden = false;
@@ -38,5 +38,6 @@ public:
 	virtual void updateKeybinds(const double & dt) = 0;
 	virtual void update(const double & dt) = 0;
 	virtual void render(sf::RenderTarget* target = nullptr) = 0;
+	void PlayOutsideSoundtrack();
 };
 
