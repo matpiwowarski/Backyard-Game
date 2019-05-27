@@ -5,9 +5,18 @@ class GardenState :
 {
 private:
 	Entity fence_up, fence_down1, fence_down2, fence_left, fence_right, flowers1, flowers2, chest, rock;
-	RPS dice_guy;    ///change to dice class after making it
-	std::vector <sf::Sprite> miniGameSpritesToDraw;
+	Dices dice_guy;    
 	void checkIfPlayerLeftGarden();
+	//Dices
+	std::vector <sf::Sprite> GameDicesToDraw;
+	void moveCursor();
+	void activateDiceGuy();
+	void drawDiceGuyChoice();
+	void drawDicesSprites();
+	void playDices();
+	void DicesResult();
+	void finishDices();
+	void checkDicesAction();
 public:
 	GardenState();
 	GardenState(sf::RenderWindow* window);

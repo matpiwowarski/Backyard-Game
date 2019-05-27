@@ -48,6 +48,11 @@ sf::Sprite NPC::getNPCChoiceSprite() const
 {
 	return this->choiceSprite;
 }
+sf::Texture NPC::getNPCChoiceTexture() const
+{
+	return this->choiceTexture;
+}
+//to change later, maybe by using templates
 
 sf::Sprite NPC::getCursorSprite() const
 {
