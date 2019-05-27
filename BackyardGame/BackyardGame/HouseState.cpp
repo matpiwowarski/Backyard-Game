@@ -11,6 +11,10 @@ void HouseState::checkIfPlayerLeftHouse()
 	}
 }
 
+void HouseState::checkArmWrestlingAction()
+{
+}
+
 HouseState::HouseState()
 {
 }
@@ -20,6 +24,10 @@ HouseState::HouseState(sf::RenderWindow * window): GameState(window)
 	map.LoadHouseMap(); // load map
 	player.setSpritePosition(420, 530);
 	player.getSprite().setTexture(textures[1]);
+
+	skeleton.setSpritePosition(200, 100);
+	skeleton.getSprite().setTexture(textures[15]);
+	skeleton.getSprite().setScale(sf::Vector2f(4.f, 4.f));
 }
 
 HouseState::~HouseState()
@@ -40,6 +48,7 @@ void HouseState::checkMovementLimits(const double & dt)
 
 void HouseState::colisionPreventEverything(const double & dt)
 {
+	colisionPreventing(player, skeleton, dt);
 }
 
 void HouseState::update(const double & dt)
@@ -49,9 +58,11 @@ void HouseState::update(const double & dt)
 	this->map.update(dt); // ?
 	this->player.update(dt); // works
 	this->score.update(dt); // works
+	this->skeleton.update(dt); // ?
 	rotatingPlayer(player, dt);
 	colisionPreventEverything(dt); // <-- preventing collisions with all objects
 	checkIfPlayerLeftHouse();
+	checkArmWrestlingAction(); // <-- function with whole RPS mini game
 }
 
 void HouseState::render(sf::RenderTarget * target)
@@ -61,5 +72,6 @@ void HouseState::render(sf::RenderTarget * target)
 	this->score.render(this->window);
 	this->window->draw(NPCMessage);
 	this->window->draw(NPCResultText);
+	this->skeleton.render(this->window);
 	this->player.render(this->window);
 }

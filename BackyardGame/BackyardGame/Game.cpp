@@ -69,7 +69,7 @@ void Game::update()
 			this->states.top()->setEnteredGarden(false);
 		}
 
-		if (this->dt > 0.0003) // same speed on every computer
+		if (this->dt > 0.00025) // same speed on every computer
 		{
 			this->states.top()->update(this->dt);
 		}
