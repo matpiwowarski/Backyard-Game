@@ -65,6 +65,11 @@ void State::checkQuit()
 	}
 }
 
+void State::PlayOutsideSoundtrack()
+{
+	this->music.PlayOutsideSoundtrack();
+}
+
 bool State::hasEnteredHouse() const
 {
 	return enteredHouse;

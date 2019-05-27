@@ -1,24 +1,19 @@
 #include "Soundtrack.h"
 
-
-
-
 Soundtrack::Soundtrack()
 {
 	
-
 }
 
-
-Soundtrack::~Soundtrack()
+Soundtrack & Soundtrack::getInstance()
 {
+	static Soundtrack instance;
+	return instance;
 }
-
-
 
 void Soundtrack::PlayOutsideSoundtrack()
 {
-	battleMusic.stop();
+	StopPlayingSoundtrack();
 	if (!backgroundMusic.openFromFile("../Assets/rpg-pack/soundtrack/WindlessSlopes.wav"))
 	{
 		throw;
@@ -29,13 +24,24 @@ void Soundtrack::PlayOutsideSoundtrack()
 
 void Soundtrack::PlayBattleSoundtrack()
 {
-	backgroundMusic.stop();
+	StopPlayingSoundtrack();
 	if (!battleMusic.openFromFile("../Assets/rpg-pack/soundtrack/The Arrival (BATTLE II).wav"))
 	{
 		throw;
 	}
 	battleMusic.play();
 	battleMusic.setLoop(true);
+}
+
+void Soundtrack::PlayScarySoundtrack()
+{
+	StopPlayingSoundtrack();
+	if (!scaryMusic.openFromFile("../Assets/rpg-pack/soundtrack/Nocturnal Mysteries.wav"))
+	{
+		throw;
+	}
+	scaryMusic.play();
+	scaryMusic.setLoop(true);
 }
 
 bool Soundtrack::CheckIfSoundtrackIsPlayed() 
@@ -47,7 +53,8 @@ bool Soundtrack::CheckIfSoundtrackIsPlayed()
 
 void Soundtrack::StopPlayingSoundtrack()
 {
-	backgroundMusic.pause();
+	backgroundMusic.stop();
 	battleMusic.stop();
+	scaryMusic.stop();
 }
 

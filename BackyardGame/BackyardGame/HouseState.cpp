@@ -28,6 +28,8 @@ HouseState::HouseState(sf::RenderWindow * window): GameState(window)
 	skeleton.setSpritePosition(200, 100);
 	skeleton.getSprite().setTexture(textures[15]);
 	skeleton.getSprite().setScale(sf::Vector2f(4.f, 4.f));
+
+	music.PlayScarySoundtrack();
 }
 
 HouseState::~HouseState()
