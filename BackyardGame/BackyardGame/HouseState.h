@@ -1,11 +1,15 @@
 #pragma once
 #include "GameState.h"
+#include <vector>
 class HouseState : public GameState
 {
 private:
 	std::vector <sf::Sprite> miniGameSpritesToDraw;
 	void checkIfPlayerLeftHouse();
 	ArmWrestler skeleton;
+	ArmWrestler vampire;
+	ArmWrestler priest;
+	std::vector<Entity> flags;
 	void checkArmWrestlingAction();
 public:
 	HouseState();
