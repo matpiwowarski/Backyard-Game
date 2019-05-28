@@ -7,11 +7,14 @@ private:
 	sf::Clock NPCClock;
 	int bet = 0;
 	int cursorIndex = 0;
+	bool usedLadder = false;
+	bool showLadder = false;
 	std::vector <sf::Sprite> miniGameSpritesToDraw;
 	void checkIfPlayerLeftHouse();
 	ArmWrestler skeleton = ArmWrestler::getInstance();
 	ArmWrestler vampire = ArmWrestler::getInstance();
 	ArmWrestler priest = ArmWrestler::getInstance();
+	Entity ladder;
 	std::vector<Entity> flags;
 	sf::Text BoardInfo1;
 	sf::Text BoardInfo2;
@@ -26,7 +29,7 @@ private:
 	void drawMiniGameSprites();
 	void miniGameResults();
 	void fastClicking();
-	void updateNPCClock();
+	void checkIsLadderUsed();
 public:
 	HouseState();
 	HouseState(sf::RenderWindow* window);

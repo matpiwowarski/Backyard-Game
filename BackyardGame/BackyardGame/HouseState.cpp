@@ -10,6 +10,8 @@ HouseState::HouseState(sf::RenderWindow * window) : GameState(window)
 	this->map.LoadHouseMap(); // load map
 	this->player.setSpritePosition(420, 530);
 	this->player.getSprite().setTexture(textures[1]);
+	this->ladder.setSpritePosition(500, 100);
+	this->ladder.getSprite().setTexture(textures[19]);
 
 	initializeNPCs();
 	initializeFlags();
@@ -155,6 +157,14 @@ void HouseState::fastClicking()
 	}
 }
 
+void HouseState::checkIsLadderUsed()
+{
+	if (player.getSprite().getGlobalBounds().intersects(ladder.getSprite().getGlobalBounds()) && showLadder)
+	{
+		usedLadder = true;
+	}
+}
+
 void HouseState::playArmWrestling(ArmWrestler armwrestler)
 {
 	this->cursorIndex = 9;
@@ -233,6 +243,7 @@ void HouseState::update(const double & dt)
 	checkArmWrestlingAction(); // <-- function with whole RPS mini game
 	colisionPreventEverything(dt); // <-- preventing collisions with all objects
 	checkIfPlayerLeftHouse();
+	checkIsLadderUsed();
 }
 
 void HouseState::render(sf::RenderTarget * target)
@@ -253,6 +264,9 @@ void HouseState::render(sf::RenderTarget * target)
 	this->window->draw(BoardInfo2);
 	this->window->draw(NPCResultText);
 	this->score.render(this->window);
+
+	if(showLadder)
+		this->ladder.render(this->window);
 }
 
 void HouseState::drawMiniGameSprites()
@@ -278,6 +292,7 @@ void HouseState::miniGameResults()
 	{
 		this->NPCResultText.setString("YOU WON");
 		score.add(bet);
+		this->showLadder = true;
 	}
 	else
 	{
