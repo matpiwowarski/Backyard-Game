@@ -1,17 +1,18 @@
 #pragma once
 #include "NPC.h"
+
+// Singleton pattern
+
 class ArmWrestler : public NPC
 {
 private:
-	int level;
-	int bet;
-	void updateCursorSpritePosition();
+	ArmWrestler();
 public:
+	void updateCursorSpritePosition();
+	static ArmWrestler & getInstance();
 	void loadBoardTexture();
-	ArmWrestler(int level);
-	~ArmWrestler();
 	// setters / getters
-	int getLevel() const;
-	int getBet() const;
+	void setCursorIndex(int index);
+	int getCursorIndex() const;
 };
 

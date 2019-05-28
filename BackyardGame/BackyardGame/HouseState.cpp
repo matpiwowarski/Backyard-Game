@@ -1,5 +1,26 @@
 #include "HouseState.h"
 
+HouseState::HouseState()
+{
+}
+
+HouseState::HouseState(sf::RenderWindow * window) : GameState(window)
+{
+	this->NPCClock.restart();
+	this->map.LoadHouseMap(); // load map
+	this->player.setSpritePosition(420, 530);
+	this->player.getSprite().setTexture(textures[1]);
+
+	initializeNPCs();
+	initializeFlags();
+	initializeBoardInfo();
+}
+
+HouseState::~HouseState()
+{
+}
+
+
 void HouseState::checkIfPlayerLeftHouse()
 {
 	if (player.getPosition().x > 370 && player.getPosition().x < 450)
@@ -28,6 +49,12 @@ void HouseState::initializeBoardInfo()
 	sf::Vector2f position2(515.f, 365.f);
 	this->BoardInfo2.setPosition(position2);
 	this->BoardInfo2.setScale(sf::Vector2f(0.6, 0.6));
+
+	this->NPCResultText.setFont(BoardInfoFont);
+	this->NPCResultText.setFillColor(sf::Color::White);
+	sf::Vector2f position3(330.f, 420.f);
+	this->NPCResultText.setPosition(position3);
+	this->NPCResultText.setScale(sf::Vector2f(1, 1));
 }
 
 void HouseState::initializeFlags()
@@ -68,43 +95,69 @@ void HouseState::checkArmWrestlingAction()
 			finishArmWrestling();
 		}
 	}
-	if (player.getIsBlocked())
+	if (player.getIsBlocked() && !finishedMiniGame)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		if (this->cursorIndex == 0 || cursorIndex == 19)
 		{
 			miniGameResults();
 		}
-	}
-	if (player.getSprite().getGlobalBounds().intersects(skeleton.getSprite().getGlobalBounds()))
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		else
 		{
-			bet = skeleton.getBet();
-			playArmWrestling(skeleton);
+			if (NPCClock.getElapsedTime().asMilliseconds() >= 10000 / this->bet) // to change
+			{
+				cursorIndex--;
+				NPCClock.restart();
+			}
+			fastClicking();
+			this->priest.setCursorIndex(this->cursorIndex);
+			this->priest.updateCursorSpritePosition();
+			this->miniGameSpritesToDraw[1] = priest.getCursorSprite();
 		}
 	}
-	else
-	if (player.getSprite().getGlobalBounds().intersects(vampire.getSprite().getGlobalBounds()))
+	if (!player.getIsBlocked())
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		if (player.getSprite().getGlobalBounds().intersects(skeleton.getSprite().getGlobalBounds()))
 		{
-			bet = vampire.getBet();
-			playArmWrestling(vampire);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+			{
+				bet = 30; // to change
+				playArmWrestling(skeleton);
+			}
+		}
+		else
+		if (player.getSprite().getGlobalBounds().intersects(vampire.getSprite().getGlobalBounds()))
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+			{
+				bet = 20; // to change
+				playArmWrestling(vampire);
+			}
+		}
+		else
+		if (player.getSprite().getGlobalBounds().intersects(priest.getSprite().getGlobalBounds()))
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+			{
+				bet = 10; // to change
+				playArmWrestling(priest);
+			}
 		}
 	}
-	else
-	if (player.getSprite().getGlobalBounds().intersects(priest.getSprite().getGlobalBounds()))
+}
+
+
+void HouseState::fastClicking()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-		{
-			bet = priest.getBet();
-			playArmWrestling(priest);
-		}
+		while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
+  		cursorIndex++;
 	}
 }
 
 void HouseState::playArmWrestling(ArmWrestler armwrestler)
 {
+	this->cursorIndex = 9;
 	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
 	music.PlayBattleSoundtrack();
 	blockPlayer();
@@ -142,25 +195,6 @@ void HouseState::DisplayBoardAndPlay(ArmWrestler armwrestler)
 	this->miniGameSpritesToDraw.push_back(armwrestler.getCursorSprite());	// cursor to draw		1
 	this->BoardInfo2.setString("YOUR OPPONENT");
 	this->BoardInfo1.setString("YOU");
-}
-
-HouseState::HouseState()
-{
-}
-
-HouseState::HouseState(sf::RenderWindow * window): GameState(window)
-{
-	map.LoadHouseMap(); // load map
-	player.setSpritePosition(420, 530);
-	player.getSprite().setTexture(textures[1]);
-
-	initializeNPCs();
-	initializeFlags();
-	initializeBoardInfo();
-}
-
-HouseState::~HouseState()
-{
 }
 
 void HouseState::checkMovementLimits(const double & dt)
@@ -217,6 +251,7 @@ void HouseState::render(sf::RenderTarget * target)
 	this->window->draw(NPCResultText);
 	this->window->draw(BoardInfo1);
 	this->window->draw(BoardInfo2);
+	this->window->draw(NPCResultText);
 	this->score.render(this->window);
 }
 
@@ -231,12 +266,27 @@ void HouseState::drawMiniGameSprites()
 
 void HouseState::miniGameResults()
 {
+	this->miniGameSpritesToDraw.erase(miniGameSpritesToDraw.begin() + 1); // delete cursor
+
 	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
-	//this->NPCMessage = dice_guy.getNPCMessage(); // NPC message to draw
-	//this->NPCResultText = dice_guy.getNPCResultText(); // result to draw
-	if (this->NPCResultText.getString() == "YOU WON")
-		score.add(bet);
-	else if (this->NPCResultText.getString() == "YOU LOST")
+	if (cursorIndex == 0)
+	{
+		this->NPCResultText.setString("YOU LOST");
 		score.subtract(bet);
+	}
+	else if (cursorIndex == 19)
+	{
+		this->NPCResultText.setString("YOU WON");
+		score.add(bet);
+	}
+	else
+	{
+		throw; 
+	}
+
 	finishedMiniGame = true;
 }
+
+
+
+

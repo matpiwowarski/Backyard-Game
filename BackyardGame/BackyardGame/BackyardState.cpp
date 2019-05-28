@@ -7,7 +7,6 @@ BackyardState::BackyardState()
 
 BackyardState::BackyardState(sf::RenderWindow * window) : GameState(window)
 {
-	score.setScore(10);
 	map.LoadBackyardMap(); // load map
 	//entities settings
 	player.setSpritePosition(50, 150);

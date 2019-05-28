@@ -1,15 +1,8 @@
 #include "ArmWrestler.h"
 
-ArmWrestler::ArmWrestler(int level)
+ArmWrestler::ArmWrestler()
 {
 	this->cursorIndex = 9;
-	this->level = level;
-	if (level == 0)
-		bet = 1; /// to change
-	else if (level == 1)
-		bet = 5; /// to change
-	else
-		bet = 10; /// to change
 
 	loadCursorTexture();
 	cursorSprite.setTexture(cursorTexture);
@@ -29,11 +22,6 @@ ArmWrestler::ArmWrestler(int level)
 	boardSprite.setScale(sf::Vector2f(3.f, 3.f));
 	boardSprite.setPosition(sf::Vector2f(125.f, 250.f));
 	boardSprite.setScale(sf::Vector2f(2.f, 2.f));
-}
-
-ArmWrestler::~ArmWrestler()
-{
-
 }
 
 void ArmWrestler::updateCursorSpritePosition()
@@ -80,6 +68,12 @@ void ArmWrestler::updateCursorSpritePosition()
 		cursorSprite.setPosition(sf::Vector2f(585.f, 320.f));
 }
 
+ArmWrestler & ArmWrestler::getInstance()
+{
+	static ArmWrestler instance;
+	return instance;
+}
+
 void ArmWrestler::loadBoardTexture()
 {
 	if (!boardTexture.loadFromFile("../Assets/board_armwrestling.png"))
@@ -88,12 +82,12 @@ void ArmWrestler::loadBoardTexture()
 	}
 }
 
-int ArmWrestler::getLevel() const
+void ArmWrestler::setCursorIndex(int index)
 {
-	return this->level;
+	this->cursorIndex = index;
 }
 
-int ArmWrestler::getBet() const
+int ArmWrestler::getCursorIndex() const
 {
-	return this->bet;
+	return cursorIndex;
 }
