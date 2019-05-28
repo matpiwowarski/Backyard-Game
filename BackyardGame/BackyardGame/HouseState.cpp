@@ -105,7 +105,7 @@ void HouseState::checkArmWrestlingAction()
 		}
 		else
 		{
-			if (NPCClock.getElapsedTime().asMilliseconds() >= 10000 / this->bet) // to change
+			if (NPCClock.getElapsedTime().asMilliseconds() >= 10000 / this->bet) 
 			{
 				cursorIndex--;
 				NPCClock.restart();
@@ -122,7 +122,7 @@ void HouseState::checkArmWrestlingAction()
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 			{
-				bet = 30; // to change
+				bet = 30; 
 				playArmWrestling(skeleton);
 			}
 		}
@@ -131,7 +131,7 @@ void HouseState::checkArmWrestlingAction()
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 			{
-				bet = 20; // to change
+				bet = 20; 
 				playArmWrestling(vampire);
 			}
 		}
@@ -140,7 +140,7 @@ void HouseState::checkArmWrestlingAction()
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 			{
-				bet = 10; // to change
+				bet = 10; 
 				playArmWrestling(priest);
 			}
 		}
@@ -292,7 +292,10 @@ void HouseState::miniGameResults()
 	{
 		this->NPCResultText.setString("YOU WON");
 		score.add(bet);
-		this->showLadder = true;
+		if (bet == 30)
+		{
+			this->showLadder = true;
+		}
 	}
 	else
 	{
