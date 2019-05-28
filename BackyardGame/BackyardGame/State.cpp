@@ -8,7 +8,7 @@ State::State()
 State::State(sf::RenderWindow * window) : window(window), quit(false)
 {
 	sf::Texture house, player_right, player_left, lake, old_man, red_tree, open_house, fence_up, fence_left, fence_right,
-		fence_down, flowers, chest, rock, dice_guy, skeleton, vampire, priest, flag;
+		fence_down, flowers, chest, rock, dice_guy, skeleton, vampire, priest, flag, ladder;
 	if (!house.loadFromFile("../Assets/house.png") || !player_right.loadFromFile("../Assets/player_right.png") ||
 		!player_left.loadFromFile("../Assets/player_left.png") || !lake.loadFromFile("../Assets/lake.png")
 		|| !old_man.loadFromFile("../Assets/old_man.png") || !red_tree.loadFromFile("../Assets/red_tree.png")
@@ -17,7 +17,7 @@ State::State(sf::RenderWindow * window) : window(window), quit(false)
 		|| !fence_down.loadFromFile("../Assets/fence_down.png") || !flowers.loadFromFile("../Assets/flowers.png")
 		|| !chest.loadFromFile("../Assets/chest.png") || !rock.loadFromFile("../Assets/rock.png") || !dice_guy.loadFromFile("../Assets/dice_guy.png")
 		|| !skeleton.loadFromFile("../Assets/skeleton.png") || !vampire.loadFromFile("../Assets/vampire.png") || !priest.loadFromFile("../Assets/priest.png")
-		|| !flag.loadFromFile("../Assets/flag.png"))
+		|| !flag.loadFromFile("../Assets/flag.png") || !ladder.loadFromFile("../Assets/ladder.png"))
 	{
 		throw; //exception
 	}
@@ -40,6 +40,7 @@ State::State(sf::RenderWindow * window) : window(window), quit(false)
 	textures.push_back(vampire);		// 16
 	textures.push_back(priest);			// 17
 	textures.push_back(flag);			// 18
+	textures.push_back(ladder);			// 19
 }
 
 State::~State()

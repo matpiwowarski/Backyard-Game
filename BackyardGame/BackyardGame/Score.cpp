@@ -2,6 +2,7 @@
 
 Score::Score()
 {
+	score = 100;
 	if (!this->font.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
 	{
 		throw; // error;

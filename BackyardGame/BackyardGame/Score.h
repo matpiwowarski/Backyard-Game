@@ -15,7 +15,7 @@ private:
 	sf::Text text;
 	sf::Texture BoardTexture;
 	Entity board;
-	int score = 10;
+	int score;
 	Score();
 public:
 	static Score & getInstance();
