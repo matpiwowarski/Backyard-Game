@@ -145,27 +145,27 @@ void Dices::updateCursorSpritePosition()
 {
 	if (cursorIndex == 0)
 	{
-		cursorSprite.setPosition(sf::Vector2f(275.f, 525.f));
+		cursorSprite.setPosition(sf::Vector2f(265.f, 525.f));
 	}
 	else if (cursorIndex == 1)
 	{
-		cursorSprite.setPosition(sf::Vector2f(390.f, 525.f));
+		cursorSprite.setPosition(sf::Vector2f(325.f, 525.f));
 	}
 	else if (cursorIndex == 2)
 	{
-		cursorSprite.setPosition(sf::Vector2f(490.f, 525.f));
+		cursorSprite.setPosition(sf::Vector2f(385.f, 525.f));
 	}
 	else if (cursorIndex == 3)
 	{
-		cursorSprite.setPosition(sf::Vector2f(590.f, 525.f));
+		cursorSprite.setPosition(sf::Vector2f(445.f, 525.f));
 	}
 	else if (cursorIndex == 4)
 	{
-		cursorSprite.setPosition(sf::Vector2f(690.f, 525.f));
+		cursorSprite.setPosition(sf::Vector2f(505.f, 525.f));
 	}
 	else if (cursorIndex == 5)
 	{
-		cursorSprite.setPosition(sf::Vector2f(790.f, 525.f));
+		cursorSprite.setPosition(sf::Vector2f(565.f, 525.f));
 	}
 	
 }

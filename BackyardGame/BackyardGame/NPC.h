@@ -10,10 +10,10 @@ class NPC : public Entity
 protected: 
 	int choice;
 	int cursorIndex = 0;
-	sf::Texture boardTexture, oponnentBoardTexture;
+	sf::Texture boardTexture;
 	sf::Texture choiceTexture;
 	sf::Texture cursorTexture;
-	sf::Sprite boardSprite, oponnentBoardSprite;
+	sf::Sprite boardSprite;
 	sf::Sprite choiceSprite;
 	sf::Sprite cursorSprite;
 	sf::Text message;

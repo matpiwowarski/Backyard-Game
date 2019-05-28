@@ -8,6 +8,8 @@ protected:
 	void randomChoice();
 	void uploadNPCChoiceTexture();
 	void loadBoardTexture();
+	sf::Texture oponnentBoardTexture;
+	sf::Sprite oponnentBoardSprite;
 	void loadOponnentBoardTexture();
 	void updateCursorSpritePosition();
 	int playerScore, oponnentScore;
