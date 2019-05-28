@@ -67,10 +67,13 @@ void Game::update()
 			this->states.top()->setBackToBackyard(false);
 			this->states.top()->setEnetredHouse(false);
 			this->states.top()->setEnteredGarden(false);
+			this->states.top()->PlayOutsideSoundtrack();
 		}
 
-		this->states.top()->update(this->dt);
-
+		if (this->dt > 0.00025) // same speed on every computer
+		{
+			this->states.top()->update(this->dt);
+		}
 		if (this->states.top()->getQuit()) // if getQuit() == true
 		{
 			this->states.top()->endState();
