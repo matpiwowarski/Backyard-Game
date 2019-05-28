@@ -9,14 +9,21 @@ private:
 	void checkIfPlayerLeftGarden();
 	//Dices
 	std::vector <sf::Sprite> GameDicesToDraw;
+	std::vector <sf::Sprite> playersDicesToDraw;
+	std::vector <sf::Sprite> oponnentsDicesToDraw;
 	void moveCursor();
 	void activateDiceGuy();
 	void drawDiceGuyChoice();
 	void drawDicesSprites();
+	void drawPlayersDicesSprites();
+	void drawOponnentsDicesSprites();
 	void playDices();
 	void DicesResult();
 	void finishDices();
 	void checkDicesAction();
+	void fillDicesToDraw();
+	sf::Text buttonText;
+	sf::Text rerollsText;
 public:
 	GardenState();
 	GardenState(sf::RenderWindow* window);
