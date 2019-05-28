@@ -5,6 +5,7 @@ class ArmWrestler : public NPC
 private:
 	int level;
 	int bet;
+	void updateCursorSpritePosition();
 public:
 	void loadBoardTexture();
 	ArmWrestler(int level);

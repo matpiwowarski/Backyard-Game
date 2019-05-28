@@ -21,6 +21,7 @@ protected:
 	sf::Font messageFont;
 	void loadCursorTexture();
 	virtual void loadBoardTexture()=0;
+	virtual void updateCursorSpritePosition() = 0;
 public:
 	NPC();
 	~NPC();

@@ -138,7 +138,8 @@ void HouseState::finishArmWrestling()
 
 void HouseState::DisplayBoardAndPlay(ArmWrestler armwrestler)
 {
-	this->miniGameSpritesToDraw.push_back(armwrestler.getBoardSprite()); // board to draw		0
+	this->miniGameSpritesToDraw.push_back(armwrestler.getBoardSprite());	// board to draw		0
+	this->miniGameSpritesToDraw.push_back(armwrestler.getCursorSprite());	// cursor to draw		1
 	this->BoardInfo2.setString("YOUR OPPONENT");
 	this->BoardInfo1.setString("YOU");
 }
