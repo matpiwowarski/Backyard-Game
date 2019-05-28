@@ -6,11 +6,21 @@ class HouseState : public GameState
 private:
 	std::vector <sf::Sprite> miniGameSpritesToDraw;
 	void checkIfPlayerLeftHouse();
-	ArmWrestler skeleton;
-	ArmWrestler vampire;
-	ArmWrestler priest;
+	ArmWrestler skeleton = ArmWrestler::ArmWrestler(2);
+	ArmWrestler vampire = ArmWrestler::ArmWrestler(1);
+	ArmWrestler priest = ArmWrestler::ArmWrestler(0);
 	std::vector<Entity> flags;
+	sf::Text BoardInfo1;
+	sf::Text BoardInfo2;
+	sf::Font BoardInfoFont;
+	void initializeBoardInfo();
+	void initializeFlags();
+	void initializeNPCs();
 	void checkArmWrestlingAction();
+	void playArmWrestling(ArmWrestler armwrestler);
+	void finishArmWrestling();
+	void DisplayBoardAndPlay(ArmWrestler armwrestler);
+	void drawMiniGameSprites();
 public:
 	HouseState();
 	HouseState(sf::RenderWindow* window);

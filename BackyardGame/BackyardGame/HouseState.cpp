@@ -11,24 +11,41 @@ void HouseState::checkIfPlayerLeftHouse()
 	}
 }
 
-void HouseState::checkArmWrestlingAction()
+void HouseState::initializeBoardInfo()
 {
+	if (!BoardInfoFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+	{
+		throw; // error;
+	}
+	this->BoardInfo1.setFont(BoardInfoFont);
+	this->BoardInfo1.setString("YOU");
+	this->BoardInfo1.setFillColor(sf::Color::White);
+	sf::Vector2f position1(290.f, 450.f);
+	this->BoardInfo1.setPosition(position1);
+
+	this->BoardInfo2.setFont(BoardInfoFont);
+	this->BoardInfo2.setString("YOUR OPPONENT");
+	this->BoardInfo2.setFillColor(sf::Color::White);
+	sf::Vector2f position2(290.f, 300.f);
+	this->BoardInfo2.setPosition(position2);
 }
 
-HouseState::HouseState()
-{
-}
-
-HouseState::HouseState(sf::RenderWindow * window): GameState(window)
+void HouseState::initializeFlags()
 {
 	Entity flag;
 	flags.push_back(flag);
 	flags.push_back(flag);
 	flags.push_back(flag);
-	map.LoadHouseMap(); // load map
-	player.setSpritePosition(420, 530);
-	player.getSprite().setTexture(textures[1]);
+	flags[0].setSpritePosition(200, 150);
+	flags[1].setSpritePosition(200, 300);
+	flags[2].setSpritePosition(200, 450);
+	flags[0].getSprite().setTexture(textures[18]);
+	flags[1].getSprite().setTexture(textures[18]);
+	flags[2].getSprite().setTexture(textures[18]);
+}
 
+void HouseState::initializeNPCs()
+{
 	skeleton.setSpritePosition(250, 150);
 	skeleton.getSprite().setTexture(textures[15]);
 	skeleton.getSprite().setScale(sf::Vector2f(4.f, 4.f));
@@ -40,15 +57,91 @@ HouseState::HouseState(sf::RenderWindow * window): GameState(window)
 	priest.setSpritePosition(250, 450);
 	priest.getSprite().setTexture(textures[17]);
 	priest.getSprite().setScale(sf::Vector2f(2.5, 2.5));
+}
 
-	flags[0].setSpritePosition(200, 150);
-	flags[1].setSpritePosition(200, 300);
-	flags[2].setSpritePosition(200, 450);
-	flags[0].getSprite().setTexture(textures[18]);
-	flags[1].getSprite().setTexture(textures[18]);
-	flags[2].getSprite().setTexture(textures[18]);
+void HouseState::checkArmWrestlingAction()
+{
+	if (player.getIsBlocked() && finishedMiniGame)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			finishArmWrestling();
+		}
+	}
+	if (player.getSprite().getGlobalBounds().intersects(skeleton.getSprite().getGlobalBounds()))
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			playArmWrestling(skeleton);
+		}
+	}
+	else
+	if (player.getSprite().getGlobalBounds().intersects(vampire.getSprite().getGlobalBounds()))
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			playArmWrestling(vampire);
+		}
+	}
+	else
+	if (player.getSprite().getGlobalBounds().intersects(priest.getSprite().getGlobalBounds()))
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			playArmWrestling(priest);
+		}
+	}
+}
 
+void HouseState::playArmWrestling(ArmWrestler armwrestler)
+{
+	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
+	music.PlayBattleSoundtrack();
+	blockPlayer();
+	if (score.getScore() >= armwrestler.getBet())
+	{
+		blockPlayer();
+		DisplayBoardAndPlay(armwrestler);
+	}
+	else
+	{
+		armwrestler.notEnoughCoins();
+		this->NPCMessage = armwrestler.getNPCMessage();
+		finishedMiniGame = true;
+		music.PlayScarySoundtrack();
+	}
+
+}
+
+void HouseState::finishArmWrestling()
+{
+	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
+	//this->GameRPSToDraw.clear();
+	this->NPCMessage.setString("");
+	this->NPCResultText.setString("");
+	finishedMiniGame = false;
+	unblockPlayer();
 	music.PlayScarySoundtrack();
+}
+
+void HouseState::DisplayBoardAndPlay(ArmWrestler armwrestler)
+{
+	this->miniGameSpritesToDraw.push_back(armwrestler.getBoardSprite()); // board to draw		0
+}
+
+HouseState::HouseState()
+{
+}
+
+HouseState::HouseState(sf::RenderWindow * window): GameState(window)
+{
+	map.LoadHouseMap(); // load map
+	player.setSpritePosition(420, 530);
+	player.getSprite().setTexture(textures[1]);
+
+	initializeNPCs();
+	initializeFlags();
+	initializeBoardInfo();
 }
 
 HouseState::~HouseState()
@@ -88,9 +181,9 @@ void HouseState::update(const double & dt)
 	this->vampire.update(dt); // ?
 	this->priest.update(dt); // ?
 	rotatingPlayer(player, dt);
+	checkArmWrestlingAction(); // <-- function with whole RPS mini game
 	colisionPreventEverything(dt); // <-- preventing collisions with all objects
 	checkIfPlayerLeftHouse();
-	checkArmWrestlingAction(); // <-- function with whole RPS mini game
 }
 
 void HouseState::render(sf::RenderTarget * target)
@@ -100,11 +193,23 @@ void HouseState::render(sf::RenderTarget * target)
 	this->flags[0].render(this->window);
 	this->flags[1].render(this->window);
 	this->flags[2].render(this->window);
-	this->score.render(this->window);
-	this->window->draw(NPCMessage);
-	this->window->draw(NPCResultText);
 	this->skeleton.render(this->window);
 	this->vampire.render(this->window);
 	this->priest.render(this->window);
 	this->player.render(this->window);
+	drawMiniGameSprites();
+	this->window->draw(NPCMessage);
+	this->window->draw(NPCResultText);
+	this->window->draw(BoardInfo1);
+	this->window->draw(BoardInfo2);
+	this->score.render(this->window);
+}
+
+void HouseState::drawMiniGameSprites()
+{
+	std::vector<sf::Sprite>::iterator it = miniGameSpritesToDraw.begin();
+	for (it; it != miniGameSpritesToDraw.end(); it++)
+	{
+		this->window->draw(*it);
+	}
 }

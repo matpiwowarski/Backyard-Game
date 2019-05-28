@@ -108,11 +108,11 @@ void BackyardState::render(sf::RenderTarget * target)
 	this->lake.render(this->window);
 	this->old_man.render(this->window);
 	this->red_tree.render(this->window);
-	this->score.render(this->window);
 	drawRPSSprites();
+	this->player.render(this->window);
 	this->window->draw(NPCMessage);
 	this->window->draw(NPCResultText);
-	this->player.render(this->window);
+	this->score.render(this->window);
 }
 
 void BackyardState::checkIfPlayerEnteredGarden()
@@ -181,7 +181,6 @@ void BackyardState::playRPS()
 		old_man.notEnoughCoins();
 		this->NPCMessage = old_man.getNPCMessage();
 		finishedMiniGame = true;
-		music.PlayOutsideSoundtrack();
 	}
 }
 
