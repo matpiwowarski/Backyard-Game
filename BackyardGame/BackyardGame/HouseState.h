@@ -4,6 +4,7 @@
 class HouseState : public GameState
 {
 private:
+	int bet = 0;
 	std::vector <sf::Sprite> miniGameSpritesToDraw;
 	void checkIfPlayerLeftHouse();
 	ArmWrestler skeleton = ArmWrestler::ArmWrestler(2);
@@ -21,6 +22,7 @@ private:
 	void finishArmWrestling();
 	void DisplayBoardAndPlay(ArmWrestler armwrestler);
 	void drawMiniGameSprites();
+	void miniGameResults();
 public:
 	HouseState();
 	HouseState(sf::RenderWindow* window);

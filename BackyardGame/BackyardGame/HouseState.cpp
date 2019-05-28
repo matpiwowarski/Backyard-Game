@@ -18,16 +18,16 @@ void HouseState::initializeBoardInfo()
 		throw; // error;
 	}
 	this->BoardInfo1.setFont(BoardInfoFont);
-	this->BoardInfo1.setString("YOU");
 	this->BoardInfo1.setFillColor(sf::Color::White);
-	sf::Vector2f position1(290.f, 450.f);
+	sf::Vector2f position1(180.f, 365.f);
 	this->BoardInfo1.setPosition(position1);
+	this->BoardInfo1.setScale(sf::Vector2f(0.7, 0.7));
 
 	this->BoardInfo2.setFont(BoardInfoFont);
-	this->BoardInfo2.setString("YOUR OPPONENT");
 	this->BoardInfo2.setFillColor(sf::Color::White);
-	sf::Vector2f position2(290.f, 300.f);
+	sf::Vector2f position2(515.f, 365.f);
 	this->BoardInfo2.setPosition(position2);
+	this->BoardInfo2.setScale(sf::Vector2f(0.6, 0.6));
 }
 
 void HouseState::initializeFlags()
@@ -68,10 +68,18 @@ void HouseState::checkArmWrestlingAction()
 			finishArmWrestling();
 		}
 	}
+	if (player.getIsBlocked())
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			miniGameResults();
+		}
+	}
 	if (player.getSprite().getGlobalBounds().intersects(skeleton.getSprite().getGlobalBounds()))
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		{
+			bet = skeleton.getBet();
 			playArmWrestling(skeleton);
 		}
 	}
@@ -80,6 +88,7 @@ void HouseState::checkArmWrestlingAction()
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		{
+			bet = vampire.getBet();
 			playArmWrestling(vampire);
 		}
 	}
@@ -88,6 +97,7 @@ void HouseState::checkArmWrestlingAction()
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		{
+			bet = priest.getBet();
 			playArmWrestling(priest);
 		}
 	}
@@ -98,7 +108,7 @@ void HouseState::playArmWrestling(ArmWrestler armwrestler)
 	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
 	music.PlayBattleSoundtrack();
 	blockPlayer();
-	if (score.getScore() >= armwrestler.getBet())
+	if (score.getScore() >= this->bet)
 	{
 		blockPlayer();
 		DisplayBoardAndPlay(armwrestler);
@@ -116,9 +126,11 @@ void HouseState::playArmWrestling(ArmWrestler armwrestler)
 void HouseState::finishArmWrestling()
 {
 	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
-	//this->GameRPSToDraw.clear();
+	this->miniGameSpritesToDraw.clear();
 	this->NPCMessage.setString("");
 	this->NPCResultText.setString("");
+	this->BoardInfo1.setString("");
+	this->BoardInfo2.setString("");
 	finishedMiniGame = false;
 	unblockPlayer();
 	music.PlayScarySoundtrack();
@@ -127,6 +139,8 @@ void HouseState::finishArmWrestling()
 void HouseState::DisplayBoardAndPlay(ArmWrestler armwrestler)
 {
 	this->miniGameSpritesToDraw.push_back(armwrestler.getBoardSprite()); // board to draw		0
+	this->BoardInfo2.setString("YOUR OPPONENT");
+	this->BoardInfo1.setString("YOU");
 }
 
 HouseState::HouseState()
@@ -212,4 +226,16 @@ void HouseState::drawMiniGameSprites()
 	{
 		this->window->draw(*it);
 	}
+}
+
+void HouseState::miniGameResults()
+{
+	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
+	//this->NPCMessage = dice_guy.getNPCMessage(); // NPC message to draw
+	//this->NPCResultText = dice_guy.getNPCResultText(); // result to draw
+	if (this->NPCResultText.getString() == "YOU WON")
+		score.add(bet);
+	else if (this->NPCResultText.getString() == "YOU LOST")
+		score.subtract(bet);
+	finishedMiniGame = true;
 }
