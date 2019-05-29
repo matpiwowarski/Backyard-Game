@@ -1,11 +1,15 @@
 #include "HouseState.h"
 
+bool HouseState::hiddenLadder = true;
+
 HouseState::HouseState()
 {
 }
 
 HouseState::HouseState(sf::RenderWindow * window) : GameState(window)
 {
+	this->music.PlayScarySoundtrack();
+
 	this->NPCClock.restart();
 	this->map.LoadHouseMap(); // load map
 	this->player.setSpritePosition(420, 530);
@@ -159,7 +163,7 @@ void HouseState::fastClicking()
 
 void HouseState::checkIsLadderUsed()
 {
-	if (player.getSprite().getGlobalBounds().intersects(ladder.getSprite().getGlobalBounds()) && showLadder)
+	if (player.getSprite().getGlobalBounds().intersects(ladder.getSprite().getGlobalBounds()) && !hiddenLadder)
 	{
 		usedLadder = true;
 	}
@@ -265,7 +269,7 @@ void HouseState::render(sf::RenderTarget * target)
 	this->window->draw(NPCResultText);
 	this->score.render(this->window);
 
-	if(showLadder)
+	if(!hiddenLadder)
 		this->ladder.render(this->window);
 }
 
@@ -294,7 +298,7 @@ void HouseState::miniGameResults()
 		score.add(bet);
 		if (bet == 30)
 		{
-			this->showLadder = true;
+			this->hiddenLadder = false;
 		}
 	}
 	else

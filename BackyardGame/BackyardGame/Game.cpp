@@ -77,8 +77,13 @@ void Game::update()
 		if (this->states.top()->getQuit()) // if getQuit() == true
 		{
 			this->states.top()->endState();
-			delete this->states.top();
-			this->states.pop();
+			while (!states.empty())
+			{
+				delete this->states.top();
+				this->states.pop();
+			}
+			//delete this->states.top();
+			//this->states.pop();
 		}
 	}
 	else // end program

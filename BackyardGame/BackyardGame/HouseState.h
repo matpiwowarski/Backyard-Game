@@ -8,7 +8,7 @@ private:
 	int bet = 0;
 	int cursorIndex = 0;
 	bool usedLadder = false;
-	bool showLadder = false;
+	static bool hiddenLadder;
 	std::vector <sf::Sprite> miniGameSpritesToDraw;
 	void checkIfPlayerLeftHouse();
 	ArmWrestler skeleton = ArmWrestler::getInstance();
