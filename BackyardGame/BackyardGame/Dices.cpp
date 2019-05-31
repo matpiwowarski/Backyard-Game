@@ -66,7 +66,7 @@ void Dices::uploadNPCChoiceTexture()
 			if (this->oponnentDices[j].getChoice() + 1 == i) {
 				if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 				{
-					throw "ojojoj"; // error
+					throw "Problem with dice texture loading"; // error
 				}
 				else oponnentDices[j].setDiceTexture(textureForDice);
 			}
@@ -83,7 +83,7 @@ void Dices::uploadPlayersChoiceTexture()
 			if (this->playerDices[j].getChoice() + 1 == i) {
 				if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 				{
-					throw "ojojoj"; // error
+					throw "Problem with dice texture loading"; // error
 				}
 				else playerDices[j].setDiceTexture(textureForDice);
 			}
@@ -150,7 +150,7 @@ void Dices::loadBoardTexture()
 {
 	if (!boardTexture.loadFromFile("../Assets/board_dices_player.png"))
 	{
-		throw; // error;
+		throw "Problem with board texture loading"; // error;
 	}
 }
 
@@ -158,7 +158,7 @@ void Dices::loadOponnentBoardTexture()
 {
 	if (!oponnentBoardTexture.loadFromFile("../Assets/board_dices_oponnent.png"))
 	{
-		throw; // error;
+		throw "Problem with board texture loading"; // error;
 	}
 }
 
@@ -166,7 +166,7 @@ void Dices::loadDiceButtonTexture()
 {
 	if (!diceButtonTexture.loadFromFile("../Assets/dice_button.png"))
 	{
-		throw; // error;
+		throw "Problem with dice texture loading"; // error;
 	}
 }
 

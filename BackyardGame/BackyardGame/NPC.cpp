@@ -4,7 +4,7 @@ NPC::NPC()
 {
 	if (!this->messageFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
 	{
-		throw; // error;
+		throw "Problem with font loading"; // error;
 	}
 	else
 	{
@@ -20,7 +20,7 @@ void NPC::loadCursorTexture()
 {
 	if (!cursorTexture.loadFromFile("../Assets/cursor.png"))
 	{
-		throw; // error
+		throw "Problem with cursor texture loading"; // error
 	}
 }
 

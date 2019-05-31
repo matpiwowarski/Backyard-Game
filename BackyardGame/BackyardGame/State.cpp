@@ -19,7 +19,7 @@ State::State(sf::RenderWindow * window) : window(window), quit(false)
 		|| !skeleton.loadFromFile("../Assets/skeleton.png") || !vampire.loadFromFile("../Assets/vampire.png") || !priest.loadFromFile("../Assets/priest.png")
 		|| !flag.loadFromFile("../Assets/flag.png") || !ladder.loadFromFile("../Assets/ladder.png"))
 	{
-		throw; //exception
+		throw "Problem with textures opening"; //exception
 	}
 	textures.push_back(house);			// 0
 	textures.push_back(player_right);	// 1	

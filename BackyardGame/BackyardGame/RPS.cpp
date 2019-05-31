@@ -28,7 +28,7 @@ void RPS::uploadNPCChoiceTexture()
 {
 	if (!choiceTexture.loadFromFile("../Assets/" + std::to_string(choice) + ".png"))
 	{
-		throw; // error
+		throw "Problem with opening choice texture"; // error
 	}
 }
 
@@ -74,7 +74,7 @@ void RPS::loadBoardTexture()
 {
 	if (!boardTexture.loadFromFile("../Assets/board_rps.png"))
 	{
-		throw; // error;
+		throw "Problem with opening board texture"; // error;
 	}
 }
 

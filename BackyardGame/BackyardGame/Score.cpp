@@ -5,11 +5,11 @@ Score::Score()
 	score = 10;
 	if (!this->font.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
 	{
-		throw; // error;
+		throw "Problem with font loading"; // error;
 	}
 	else if(!this->BoardTexture.loadFromFile("../Assets/board.png"))
 	{
-		throw; // error;
+		throw "Problem with board texture loading"; // error;
 	}
 	else
 	{

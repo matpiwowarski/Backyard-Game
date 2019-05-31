@@ -78,7 +78,7 @@ void ArmWrestler::loadBoardTexture()
 {
 	if (!boardTexture.loadFromFile("../Assets/board_armwrestling.png"))
 	{
-		throw; // error;
+		throw "Problem with board texture loading"; // error;
 	}
 }
 

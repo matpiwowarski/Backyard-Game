@@ -43,7 +43,7 @@ void HouseState::initializeBoardInfo()
 {
 	if (!BoardInfoFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
 	{
-		throw; // error;
+		throw "Problem with font loading"; // error;
 	}
 	this->BoardInfo1.setFont(BoardInfoFont);
 	this->BoardInfo1.setFillColor(sf::Color::White);
@@ -327,7 +327,7 @@ void HouseState::miniGameResults()
 	}
 	else
 	{
-		throw; 
+		throw "Cursor index is out of range";
 	}
 
 	finishedMiniGame = true;
