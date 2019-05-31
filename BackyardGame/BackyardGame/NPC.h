@@ -26,6 +26,7 @@ public:
 	NPC();
 	~NPC();
 // getters / setters
+	sf::Text getEndGameMessage();
 	virtual sf::Sprite getBoardSprite() const;
 	virtual sf::Sprite getNPCChoiceSprite() const;
 	virtual sf::Texture getNPCChoiceTexture() const;

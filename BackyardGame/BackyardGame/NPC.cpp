@@ -39,6 +39,14 @@ sf::Font NPC::getMessageFont() const
 	return messageFont;
 }
 
+sf::Text NPC::getEndGameMessage() 
+{
+	this->message.setScale(sf::Vector2f(3, 3));
+	this->message.setPosition(sf::Vector2f(250, 215));
+	this->message.setString(" THE END ");
+	return message;
+}
+
 sf::Sprite NPC::getBoardSprite() const
 {
 	return boardSprite;

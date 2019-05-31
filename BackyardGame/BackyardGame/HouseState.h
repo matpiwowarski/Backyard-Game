@@ -25,11 +25,12 @@ private:
 	void checkArmWrestlingAction();
 	void playArmWrestling(ArmWrestler armwrestler);
 	void finishArmWrestling();
-	void DisplayBoardAndPlay(ArmWrestler armwrestler);
+	void DisplayBoard(ArmWrestler armwrestler);
 	void drawMiniGameSprites();
 	void miniGameResults();
 	void fastClicking();
 	void checkIsLadderUsed();
+	void checkEndGame();
 public:
 	HouseState();
 	HouseState(sf::RenderWindow* window);

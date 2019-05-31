@@ -1,4 +1,5 @@
 #include "HouseState.h"
+#define ClickingNPCTime 7000
 
 bool HouseState::hiddenLadder = true;
 
@@ -103,13 +104,14 @@ void HouseState::checkArmWrestlingAction()
 	}
 	if (player.getIsBlocked() && !finishedMiniGame)
 	{
-		if (this->cursorIndex == 0 || cursorIndex == 19)
+	
+		if (this->cursorIndex == 0 || cursorIndex == 19) 	// end game
 		{
 			miniGameResults();
 		}
 		else
 		{
-			if (NPCClock.getElapsedTime().asMilliseconds() >= 10000 / this->bet) 
+			if (NPCClock.getElapsedTime().asMilliseconds() >=  ClickingNPCTime / this->bet) 
 			{
 				cursorIndex--;
 				NPCClock.restart();
@@ -169,6 +171,20 @@ void HouseState::checkIsLadderUsed()
 	}
 }
 
+void HouseState::checkEndGame()
+{
+	if (usedLadder)
+	{
+		blockPlayer();
+		this->NPCMessage = skeleton.getEndGameMessage();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			quit = true;
+		}
+	}
+
+}
+
 void HouseState::playArmWrestling(ArmWrestler armwrestler)
 {
 	this->cursorIndex = 9;
@@ -178,7 +194,7 @@ void HouseState::playArmWrestling(ArmWrestler armwrestler)
 	if (score.getScore() >= this->bet)
 	{
 		blockPlayer();
-		DisplayBoardAndPlay(armwrestler);
+		DisplayBoard(armwrestler);
 	}
 	else
 	{
@@ -203,7 +219,7 @@ void HouseState::finishArmWrestling()
 	music.PlayScarySoundtrack();
 }
 
-void HouseState::DisplayBoardAndPlay(ArmWrestler armwrestler)
+void HouseState::DisplayBoard(ArmWrestler armwrestler)
 {
 	this->miniGameSpritesToDraw.push_back(armwrestler.getBoardSprite());	// board to draw		0
 	this->miniGameSpritesToDraw.push_back(armwrestler.getCursorSprite());	// cursor to draw		1
@@ -244,14 +260,21 @@ void HouseState::update(const double & dt)
 	this->vampire.update(dt); // ?
 	this->priest.update(dt); // ?
 	rotatingPlayer(player, dt);
-	checkArmWrestlingAction(); // <-- function with whole RPS mini game
+
+	if (!usedLadder)
+	{
+		checkArmWrestlingAction(); // <-- function with whole RPS mini game
+		checkIfPlayerLeftHouse();
+		checkIsLadderUsed();
+	}
+
+	this->checkEndGame(); // ending the game after using the ladder
 	colisionPreventEverything(dt); // <-- preventing collisions with all objects
-	checkIfPlayerLeftHouse();
-	checkIsLadderUsed();
 }
 
 void HouseState::render(sf::RenderTarget * target)
 {
+
 	// the order matters
 	this->map.render(this->window);
 	this->flags[0].render(this->window);
@@ -269,8 +292,9 @@ void HouseState::render(sf::RenderTarget * target)
 	this->window->draw(NPCResultText);
 	this->score.render(this->window);
 
-	if(!hiddenLadder)
+	if (!hiddenLadder)
 		this->ladder.render(this->window);
+
 }
 
 void HouseState::drawMiniGameSprites()
