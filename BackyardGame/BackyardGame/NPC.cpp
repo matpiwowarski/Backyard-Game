@@ -2,13 +2,14 @@
 
 NPC::NPC()
 {
-	if (!this->messageFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+	try
 	{
-		throw "Problem with font loading"; // error;
+		if (!this->messageFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+			throw - 1;
 	}
-	else
+	catch (int)
 	{
-		
+		std::cout << "Problem with font loading";
 	}
 }
 
@@ -18,9 +19,15 @@ NPC::~NPC()
 
 void NPC::loadCursorTexture()
 {
-	if (!cursorTexture.loadFromFile("../Assets/cursor.png"))
+
+	try
 	{
-		throw "Problem with cursor texture loading"; // error
+		if (!cursorTexture.loadFromFile("../Assets/cursor.png"))
+			throw - 1;
+	}
+	catch (int)
+	{
+		std::cout << "Problem with cursor texture loading";;
 	}
 }
 

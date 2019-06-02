@@ -17,6 +17,7 @@ void Soundtrack::PlayOutsideSoundtrack()
 	try
 	{
 		if (!backgroundMusic.openFromFile("../Assets/rpg-pack/soundtrack/WindlessSlopes.wav"))
+
 		throw -1;
 	}
 	catch (int)
@@ -30,10 +31,17 @@ void Soundtrack::PlayOutsideSoundtrack()
 void Soundtrack::PlayBattleSoundtrack()
 {
 	StopPlayingSoundtrack();
-	if (!battleMusic.openFromFile("../Assets/rpg-pack/soundtrack/The Arrival (BATTLE II).wav"))
+
+	try
 	{
-		throw "Problem with opening soundtrack file";
+		if (!battleMusic.openFromFile("../Assets/rpg-pack/soundtrack/The Arrival (BATTLE II).wav"))
+			throw - 1;
 	}
+	catch (int)
+	{
+		std::cout << "Problem with opening soundtrack file";
+	}
+
 	battleMusic.play();
 	battleMusic.setLoop(true);
 }
@@ -41,10 +49,17 @@ void Soundtrack::PlayBattleSoundtrack()
 void Soundtrack::PlayScarySoundtrack()
 {
 	StopPlayingSoundtrack();
-	if (!scaryMusic.openFromFile("../Assets/rpg-pack/soundtrack/Nocturnal Mysteries.wav"))
+
+	try
 	{
-		throw "Problem with opening soundtrack file";
+		if (!scaryMusic.openFromFile("../Assets/rpg-pack/soundtrack/Nocturnal Mysteries.wav"))
+			throw - 1;
 	}
+	catch (int)
+	{
+		std::cout << "Problem with opening soundtrack file";
+	}
+
 	scaryMusic.play();
 	scaryMusic.setLoop(true);
 }

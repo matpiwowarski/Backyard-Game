@@ -10,7 +10,6 @@ HouseState::HouseState()
 HouseState::HouseState(sf::RenderWindow * window) : GameState(window)
 {
 	this->music.PlayScarySoundtrack();
-
 	this->NPCClock.restart();
 	this->map.LoadHouseMap(); // load map
 	this->player.setSpritePosition(420, 530);
@@ -41,10 +40,17 @@ void HouseState::checkIfPlayerLeftHouse()
 
 void HouseState::initializeBoardInfo()
 {
-	if (!BoardInfoFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+
+	try
 	{
-		throw "Problem with font loading"; // error;
+		if (!BoardInfoFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+			throw - 1;
 	}
+	catch (int)
+	{
+		std::cout << "Problem with font loading";
+	}
+
 	this->BoardInfo1.setFont(BoardInfoFont);
 	this->BoardInfo1.setFillColor(sf::Color::White);
 	sf::Vector2f position1(180.f, 365.f);
@@ -311,24 +317,34 @@ void HouseState::miniGameResults()
 	this->miniGameSpritesToDraw.erase(miniGameSpritesToDraw.begin() + 1); // delete cursor
 
 	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
-	if (cursorIndex == 0)
+
+	try
 	{
-		this->NPCResultText.setString("YOU LOST");
-		score.subtract(bet);
-	}
-	else if (cursorIndex == 19)
-	{
-		this->NPCResultText.setString("YOU WON");
-		score.add(bet);
-		if (bet == 30)
+		if (cursorIndex == 0)
 		{
-			this->hiddenLadder = false;
+			this->NPCResultText.setString("YOU LOST");
+			score.subtract(bet);
+		}
+		else if (cursorIndex == 19)
+		{
+			this->NPCResultText.setString("YOU WON");
+			score.add(bet);
+			if (bet == 30)
+			{
+				this->hiddenLadder = false;
+			}
+		}
+		else
+		{
+
+			throw -1;
 		}
 	}
-	else
+	catch (int)
 	{
-		throw "Cursor index is out of range";
+		std::cout << "Cursor index is out of range";
 	}
+
 
 	finishedMiniGame = true;
 }
