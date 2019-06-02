@@ -26,10 +26,16 @@ RPS::~RPS()
 
 void RPS::uploadNPCChoiceTexture()
 {
-	if (!choiceTexture.loadFromFile("../Assets/" + std::to_string(choice) + ".png"))
+	try
 	{
-		throw; // error
+		if (!choiceTexture.loadFromFile("../Assets/" + std::to_string(choice) + ".png"))
+			throw - 1;
 	}
+	catch (int)
+	{
+		std::cout << "Problem with opening choice texture";
+	}
+
 }
 
 sf::Text RPS::getNPCResultText()
@@ -72,9 +78,14 @@ void RPS::randomChoice()
 
 void RPS::loadBoardTexture()
 {
-	if (!boardTexture.loadFromFile("../Assets/board_rps.png"))
+	try
 	{
-		throw; // error;
+		if (!boardTexture.loadFromFile("../Assets/board_rps.png"))
+			throw - 1;
+	}
+	catch (int)
+	{
+		std::cout << "Problem with opening board texture";
 	}
 }
 

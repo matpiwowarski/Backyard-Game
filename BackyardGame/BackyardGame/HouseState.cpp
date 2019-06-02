@@ -1,4 +1,5 @@
 #include "HouseState.h"
+#define ClickingNPCTime 7000
 
 bool HouseState::hiddenLadder = true;
 
@@ -9,13 +10,12 @@ HouseState::HouseState()
 HouseState::HouseState(sf::RenderWindow * window) : GameState(window)
 {
 	this->music.PlayScarySoundtrack();
-
 	this->NPCClock.restart();
 	this->map.LoadHouseMap(); // load map
 	this->player.setSpritePosition(420, 530);
-	this->player.getSprite().setTexture(textures[1]);
+	setTexture(player, 1);
 	this->ladder.setSpritePosition(500, 100);
-	this->ladder.getSprite().setTexture(textures[19]);
+	setTexture(ladder, 19);
 
 	initializeNPCs();
 	initializeFlags();
@@ -26,6 +26,10 @@ HouseState::~HouseState()
 {
 }
 
+template<typename Type> void HouseState::setTexture(Type & t, int i)
+{
+	t.getSprite().setTexture(this->textures[i]);
+}
 
 void HouseState::checkIfPlayerLeftHouse()
 {
@@ -40,10 +44,17 @@ void HouseState::checkIfPlayerLeftHouse()
 
 void HouseState::initializeBoardInfo()
 {
-	if (!BoardInfoFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+
+	try
 	{
-		throw; // error;
+		if (!BoardInfoFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+			throw - 1;
 	}
+	catch (int)
+	{
+		std::cout << "Problem with font loading";
+	}
+
 	this->BoardInfo1.setFont(BoardInfoFont);
 	this->BoardInfo1.setFillColor(sf::Color::White);
 	sf::Vector2f position1(180.f, 365.f);
@@ -72,23 +83,23 @@ void HouseState::initializeFlags()
 	flags[0].setSpritePosition(200, 150);
 	flags[1].setSpritePosition(200, 300);
 	flags[2].setSpritePosition(200, 450);
-	flags[0].getSprite().setTexture(textures[18]);
-	flags[1].getSprite().setTexture(textures[18]);
-	flags[2].getSprite().setTexture(textures[18]);
+	setTexture(flags[0], 18);
+	setTexture(flags[1], 18);
+	setTexture(flags[2], 18);
 }
 
 void HouseState::initializeNPCs()
 {
 	skeleton.setSpritePosition(250, 150);
-	skeleton.getSprite().setTexture(textures[15]);
+	setTexture(skeleton, 15);
 	skeleton.getSprite().setScale(sf::Vector2f(4.f, 4.f));
 
 	vampire.setSpritePosition(250, 300);
-	vampire.getSprite().setTexture(textures[16]);
+	setTexture(vampire, 16);
 	vampire.getSprite().setScale(sf::Vector2f(3.f, 3.f));
 
 	priest.setSpritePosition(250, 450);
-	priest.getSprite().setTexture(textures[17]);
+	setTexture(priest, 17);
 	priest.getSprite().setScale(sf::Vector2f(2.5, 2.5));
 }
 
@@ -103,13 +114,14 @@ void HouseState::checkArmWrestlingAction()
 	}
 	if (player.getIsBlocked() && !finishedMiniGame)
 	{
-		if (this->cursorIndex == 0 || cursorIndex == 19)
+	
+		if (this->cursorIndex == 0 || cursorIndex == 19) 	// end game
 		{
 			miniGameResults();
 		}
 		else
 		{
-			if (NPCClock.getElapsedTime().asMilliseconds() >= 10000 / this->bet) 
+			if (NPCClock.getElapsedTime().asMilliseconds() >=  ClickingNPCTime / this->bet) 
 			{
 				cursorIndex--;
 				NPCClock.restart();
@@ -169,6 +181,20 @@ void HouseState::checkIsLadderUsed()
 	}
 }
 
+void HouseState::checkEndGame()
+{
+	if (usedLadder)
+	{
+		blockPlayer();
+		this->NPCMessage = skeleton.getEndGameMessage();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			quit = true;
+		}
+	}
+
+}
+
 void HouseState::playArmWrestling(ArmWrestler armwrestler)
 {
 	this->cursorIndex = 9;
@@ -178,7 +204,7 @@ void HouseState::playArmWrestling(ArmWrestler armwrestler)
 	if (score.getScore() >= this->bet)
 	{
 		blockPlayer();
-		DisplayBoardAndPlay(armwrestler);
+		DisplayBoard(armwrestler);
 	}
 	else
 	{
@@ -203,7 +229,7 @@ void HouseState::finishArmWrestling()
 	music.PlayScarySoundtrack();
 }
 
-void HouseState::DisplayBoardAndPlay(ArmWrestler armwrestler)
+void HouseState::DisplayBoard(ArmWrestler armwrestler)
 {
 	this->miniGameSpritesToDraw.push_back(armwrestler.getBoardSprite());	// board to draw		0
 	this->miniGameSpritesToDraw.push_back(armwrestler.getCursorSprite());	// cursor to draw		1
@@ -221,6 +247,29 @@ void HouseState::checkMovementLimits(const double & dt)
 		this->player.move(dt, 0.f, 1.f);
 	if (this->player.getPosition().y >= 555)
 		this->player.move(dt, 0.f, -1.f);
+}
+
+template<typename a, typename b> void HouseState::colisionPreventing(a& t1, b& t2, const double & dt)
+{
+	if (t1.getSprite().getGlobalBounds().intersects(t2.getSprite().getGlobalBounds()))
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			t1.move(dt, 1.f, 0.f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			t1.move(dt, -1.f, 0.f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			t1.move(dt, 0.f, 1.f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			t1.move(dt, 0.f, -1.f);
+		}
+	}
 }
 
 void HouseState::colisionPreventEverything(const double & dt)
@@ -244,14 +293,21 @@ void HouseState::update(const double & dt)
 	this->vampire.update(dt); // ?
 	this->priest.update(dt); // ?
 	rotatingPlayer(player, dt);
-	checkArmWrestlingAction(); // <-- function with whole RPS mini game
+
+	if (!usedLadder)
+	{
+		checkArmWrestlingAction(); // <-- function with whole RPS mini game
+		checkIfPlayerLeftHouse();
+		checkIsLadderUsed();
+	}
+
+	this->checkEndGame(); // ending the game after using the ladder
 	colisionPreventEverything(dt); // <-- preventing collisions with all objects
-	checkIfPlayerLeftHouse();
-	checkIsLadderUsed();
 }
 
 void HouseState::render(sf::RenderTarget * target)
 {
+
 	// the order matters
 	this->map.render(this->window);
 	this->flags[0].render(this->window);
@@ -269,8 +325,9 @@ void HouseState::render(sf::RenderTarget * target)
 	this->window->draw(NPCResultText);
 	this->score.render(this->window);
 
-	if(!hiddenLadder)
+	if (!hiddenLadder)
 		this->ladder.render(this->window);
+
 }
 
 void HouseState::drawMiniGameSprites()
@@ -287,24 +344,34 @@ void HouseState::miniGameResults()
 	this->miniGameSpritesToDraw.erase(miniGameSpritesToDraw.begin() + 1); // delete cursor
 
 	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
-	if (cursorIndex == 0)
+
+	try
 	{
-		this->NPCResultText.setString("YOU LOST");
-		score.subtract(bet);
-	}
-	else if (cursorIndex == 19)
-	{
-		this->NPCResultText.setString("YOU WON");
-		score.add(bet);
-		if (bet == 30)
+		if (cursorIndex == 0)
 		{
-			this->hiddenLadder = false;
+			this->NPCResultText.setString("YOU LOST");
+			score.subtract(bet);
+		}
+		else if (cursorIndex == 19)
+		{
+			this->NPCResultText.setString("YOU WON");
+			score.add(bet);
+			if (bet == 30)
+			{
+				this->hiddenLadder = false;
+			}
+		}
+		else
+		{
+
+			throw -1;
 		}
 	}
-	else
+	catch (int)
 	{
-		throw; 
+		std::cout << "Cursor index is out of range";
 	}
+
 
 	finishedMiniGame = true;
 }

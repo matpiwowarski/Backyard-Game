@@ -76,9 +76,14 @@ ArmWrestler & ArmWrestler::getInstance()
 
 void ArmWrestler::loadBoardTexture()
 {
-	if (!boardTexture.loadFromFile("../Assets/board_armwrestling.png"))
+	try
 	{
-		throw; // error;
+		if (!boardTexture.loadFromFile("../Assets/board_armwrestling.png")) // PressStart2P-Regular.ttf
+			throw - 1;
+	}
+	catch (int)
+	{
+		std::cout << "Problem with board texture loading";
 	}
 }
 

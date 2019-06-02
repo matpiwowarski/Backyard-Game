@@ -2,13 +2,14 @@
 
 NPC::NPC()
 {
-	if (!this->messageFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+	try
 	{
-		throw; // error;
+		if (!this->messageFont.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+			throw - 1;
 	}
-	else
+	catch (int)
 	{
-		
+		std::cout << "Problem with font loading";
 	}
 }
 
@@ -18,9 +19,15 @@ NPC::~NPC()
 
 void NPC::loadCursorTexture()
 {
-	if (!cursorTexture.loadFromFile("../Assets/cursor.png"))
+
+	try
 	{
-		throw; // error
+		if (!cursorTexture.loadFromFile("../Assets/cursor.png"))
+			throw - 1;
+	}
+	catch (int)
+	{
+		std::cout << "Problem with cursor texture loading";;
 	}
 }
 
@@ -37,6 +44,14 @@ sf::Text NPC::getNPCResultText()
 sf::Font NPC::getMessageFont() const
 {
 	return messageFont;
+}
+
+sf::Text NPC::getEndGameMessage() 
+{
+	this->message.setScale(sf::Vector2f(3, 3));
+	this->message.setPosition(sf::Vector2f(250, 215));
+	this->message.setString(" THE END ");
+	return message;
 }
 
 sf::Sprite NPC::getBoardSprite() const

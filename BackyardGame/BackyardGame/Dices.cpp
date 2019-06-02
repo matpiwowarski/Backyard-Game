@@ -61,33 +61,49 @@ Dices::~Dices()
 void Dices::uploadNPCChoiceTexture()
 {
 	sf::Texture textureForDice;
-	for (int j = 0;j <= 4;j++) {
-		for (int i = 1;i <= 6;i++) {
-			if (this->oponnentDices[j].getChoice() + 1 == i) {
-				if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
-				{
-					throw "ojojoj"; // error
+	try
+	{
+		for (int j = 0; j <= 4; j++) {
+			for (int i = 1; i <= 6; i++) {
+				if (this->oponnentDices[j].getChoice() + 1 == i) {
+					if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
+					{
+						throw -1; // error
+					}
+					else oponnentDices[j].setDiceTexture(textureForDice);
 				}
-				else oponnentDices[j].setDiceTexture(textureForDice);
 			}
 		}
 	}
+	catch (int)
+	{
+		std::cout << "Problem with dice texture loading";
+	}
+
 }
 
 
 void Dices::uploadPlayersChoiceTexture()
 {
 	sf::Texture textureForDice;
-	for (int j = 0;j <= 4;j++) {
-		for (int i = 1;i <= 6;i++) {
-			if (this->playerDices[j].getChoice() + 1 == i) {
-				if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
-				{
-					throw "ojojoj"; // error
+
+	try
+	{
+		for (int j = 0; j <= 4; j++) {
+			for (int i = 1; i <= 6; i++) {
+				if (this->playerDices[j].getChoice() + 1 == i) {
+					if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
+					{
+						throw -1; // error
+					}
+					else playerDices[j].setDiceTexture(textureForDice);
 				}
-				else playerDices[j].setDiceTexture(textureForDice);
 			}
 		}
+	}
+	catch (int)
+	{
+		std::cout << "Problem with dice texture loading";
 	}
 }
 
@@ -213,26 +229,51 @@ void Dices::randomChoice()
 
 void Dices::loadBoardTexture()
 {
-	if (!boardTexture.loadFromFile("../Assets/board_dices_player.png"))
+	try
 	{
-		throw; // error;
+		if (!boardTexture.loadFromFile("../Assets/board_dices_player.png"))
+		{
+			throw -1; // error;
+		}
 	}
+	catch (int)
+	{
+		std::cout << "Problem with board texture loading";
+	}
+
+
 }
 
 void Dices::loadOponnentBoardTexture()
 {
-	if (!oponnentBoardTexture.loadFromFile("../Assets/board_dices_oponnent.png"))
+	try
 	{
-		throw; // error;
+		if (!oponnentBoardTexture.loadFromFile("../Assets/board_dices_oponnent.png"))
+		{
+			throw - 1; // error;
+		}
 	}
+	catch (int)
+	{
+		std::cout << "Problem with board texture loading";
+	}
+
 }
 
 void Dices::loadDiceButtonTexture()
 {
-	if (!diceButtonTexture.loadFromFile("../Assets/dice_button.png"))
+	try
 	{
-		throw; // error;
+		if (!diceButtonTexture.loadFromFile("../Assets/dice_button.png"))
+		{
+			throw - 1; // error;
+		}
 	}
+	catch (int)
+	{
+		std::cout << "Problem with dice texture loading";
+	}
+
 }
 
 void Dices::updateCursorSpritePosition()

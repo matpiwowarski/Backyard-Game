@@ -15,7 +15,6 @@ GardenState::GardenState()
 {
 }
 
-
 GardenState::GardenState(sf::RenderWindow * window) : GameState(window)
 {
 	map.LoadGardenMap(); // load map
@@ -36,17 +35,17 @@ GardenState::GardenState(sf::RenderWindow * window) : GameState(window)
 	dice_guy.setSpritePosition(380, 300);
 	player.setSpritePosition(10, 400);
 
-	fence_left.getSprite().setTexture(textures[9]);
-	fence_right.getSprite().setTexture(textures[10]);
-	fence_up.getSprite().setTexture(textures[7]);
-	fence_down1.getSprite().setTexture(textures[8]);
-	fence_down2.getSprite().setTexture(textures[8]);
-	flowers1.getSprite().setTexture(textures[11]);
-	flowers2.getSprite().setTexture(textures[11]);
-	chest.getSprite().setTexture(textures[12]);
-	rock.getSprite().setTexture(textures[13]);
-	dice_guy.getSprite().setTexture(textures[14]);
-	player.getSprite().setTexture(textures[1]);
+	setTexture(fence_left, 9);
+	setTexture(fence_right, 10);
+	setTexture(fence_up, 7);
+	setTexture(fence_down1, 8);
+	setTexture(fence_down2, 8);
+	setTexture(flowers1, 11);
+	setTexture(flowers2, 11);
+	setTexture(chest, 12);
+	setTexture(rock, 13);
+	setTexture(dice_guy, 14);
+	setTexture(player, 1);
 
 	this->dice_guy.setPlayersDicesSprites();
 	this->dice_guy.setOponnentsDicesSprites();
@@ -54,6 +53,11 @@ GardenState::GardenState(sf::RenderWindow * window) : GameState(window)
 
 GardenState::~GardenState()
 {
+}
+
+template<typename Type> void GardenState::setTexture(Type & t, int i)
+{
+	t.getSprite().setTexture(this->textures[i]);
 }
 
 void GardenState::checkMovementLimits(const double & dt)
@@ -66,6 +70,29 @@ void GardenState::checkMovementLimits(const double & dt)
 		this->player.move(dt, 0.f, 1.f);
 	if (this->player.getPosition().y >= 545)
 		this->player.move(dt, 0.f, -1.f);
+}
+
+template<typename a, typename b> void GardenState::colisionPreventing(a& t1, b& t2, const double& dt)
+{
+	if (t1.getSprite().getGlobalBounds().intersects(t2.getSprite().getGlobalBounds()))
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			t1.move(dt, 1.f, 0.f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			t1.move(dt, -1.f, 0.f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			t1.move(dt, 0.f, 1.f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			t1.move(dt, 0.f, -1.f);
+		}
+	}
 }
 
 void GardenState::colisionPreventEverything(const double & dt)

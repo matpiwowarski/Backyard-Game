@@ -2,27 +2,41 @@
 
 Score::Score()
 {
-	score = 100;
-	if (!this->font.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+	score = 10;
+
+	try
 	{
-		throw; // error;
+		if (!this->font.loadFromFile("../Assets/fonts/CarterOne.ttf")) // PressStart2P-Regular.ttf
+		{
+			throw -1; // error;
+		}
+		else if (!this->BoardTexture.loadFromFile("../Assets/board.png"))
+		{
+			throw -2; // error;
+		}
 	}
-	else if(!this->BoardTexture.loadFromFile("../Assets/board.png"))
+	catch (int i)
 	{
-		throw; // error;
+		if (i == -1)
+		{
+			std::cout << "Problem with font loading";
+		}
+		else
+		{
+			std::cout << "Problem with board texture loading";
+		}
 	}
-	else
-	{
-		this->board.getSprite().setTexture(BoardTexture);
-		this->board.getSprite().setPosition(sf::Vector2f(688.f, 0.f));
-		this->board.getSprite().scale(sf::Vector2f(0.5, 0.5));
-		this->text.setFont(this->font);
-		this->text.setString(std::to_string(this->score));
-		this->text.setCharacterSize(24);
-		this->text.setFillColor(sf::Color::White);
-		sf::Vector2f position(730.f, 0.f);
-		this->text.setPosition(position);
-	}
+
+	this->board.getSprite().setTexture(BoardTexture);
+	this->board.getSprite().setPosition(sf::Vector2f(688.f, 0.f));
+	this->board.getSprite().scale(sf::Vector2f(0.5, 0.5));
+	this->text.setFont(this->font);
+	this->text.setString(std::to_string(this->score));
+	this->text.setCharacterSize(24);
+	this->text.setFillColor(sf::Color::White);
+	sf::Vector2f position(730.f, 0.f);
+	this->text.setPosition(position);
+
 }
 
 Score & Score::getInstance()
