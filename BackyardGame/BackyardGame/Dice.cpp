@@ -23,6 +23,17 @@ void Dice::setDiceSprite(const sf::Sprite sprite)
 	diceSprite = sprite;
 }
 
+void Dice::setIsChosenToReroll(const bool & choice)
+{
+	this->isChosenToReroll = choice;
+	std::cout << "elo";
+}
+
+
+bool Dice::getIsChosenToReroll()
+{
+	return this->isChosenToReroll;
+}
 
 int Dice::getChoice()
 {

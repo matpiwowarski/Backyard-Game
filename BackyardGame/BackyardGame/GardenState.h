@@ -24,6 +24,7 @@ private:
 	void fillDicesToDraw();
 	sf::Text buttonText;
 	sf::Text rerollsText;
+	bool wereBoardsDrawn = false;
 public:
 	GardenState();
 	GardenState(sf::RenderWindow* window);

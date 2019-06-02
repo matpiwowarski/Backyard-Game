@@ -21,7 +21,7 @@ protected:
 	std::vector<Dice> oponnentDices;
 	sf::Text rerollsText;
 	sf::Text buttonText;
-	int rerollsNumber;
+	int rerollsNumber=2;
 public:
 	Dices();
 	~Dices();
@@ -30,6 +30,7 @@ public:
 	void setDicesTexts(int reroll);
 	void setOponnentsDicesSprites();
 	void setPlayersDicesSprites();
+	void setRerollsNumber(int number);
 
 	sf::Text getNPCResultText();
 	sf::Text getButtonText() const;
@@ -37,12 +38,17 @@ public:
 
 	sf::Sprite getOponnentBoardSprite() const;
 	sf::Sprite getDiceButtonSprite() const;
+	
+	int getCursorIndex();
+	int getRerollsNumber();
 
-	Dice getPlayerDice(int diceNumber);
-	Dice getOponnentDice(int diceNumber);
+	Dice & getPlayerDice(int diceNumber);
+	Dice & getOponnentDice(int diceNumber);
+	
 	//methods
 	void fillDicesVector();
 	void drawNPCChoice();
+	void redrawDices();
 
 	sf::Sprite rightPressed(); // return cursor sprite
 	sf::Sprite leftPressed(); // return cursor sprite
