@@ -50,6 +50,9 @@
     <ClCompile Include="Dice.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="FileSaver.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackyardState.h">
@@ -99,6 +102,9 @@
     </ClInclude>
     <ClInclude Include="Dice.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="FileSaver.h">
+      <Filter>Other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

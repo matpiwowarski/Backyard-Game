@@ -1,0 +1,4 @@
+Mateusz	70
+App	10
+short	 	15
+longlonglong	 	10

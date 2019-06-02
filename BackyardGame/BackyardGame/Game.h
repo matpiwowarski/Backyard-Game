@@ -2,6 +2,8 @@
 #include "BackyardState.h"
 #include "HouseState.h"
 #include "GardenState.h"
+#include "FileSaver.h"
+#include <Windows.h>
 
 class Game
 {

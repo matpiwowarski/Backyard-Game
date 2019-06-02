@@ -114,6 +114,15 @@ void Game::run()
 
 void Game::endGame()
 {
+	this->window->close();
+;	Score s = Score::getInstance();
+	FileSaver saver(s.getScore());
+	saver.askToSaveFile();
+	saver.askForName();
+	saver.saveFile();
+
+	system("CLS");
+	std::cout << "Your score is saved in highscore.txt file" << std::endl;
 	std::cout << "GAME OVER" << std::endl;
 	this->window->close();
 }
