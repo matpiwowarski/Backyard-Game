@@ -25,6 +25,7 @@ private:
 	sf::Text buttonText;
 	sf::Text rerollsText;
 	template<typename Type> void setTexture(Type & t, int i);
+	template<typename a, typename b> void colisionPreventing(a& t1, b& t2, const double& dt);
 public:
 	GardenState();
 	GardenState(sf::RenderWindow* window);

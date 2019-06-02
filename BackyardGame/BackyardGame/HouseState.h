@@ -32,6 +32,7 @@ private:
 	void checkIsLadderUsed();
 	void checkEndGame();
 	template<typename Type> void setTexture(Type & t, int i);
+	template<typename a, typename b> void colisionPreventing(a& t1, b& t2, const double & dt);
 public:
 	HouseState();
 	HouseState(sf::RenderWindow* window);

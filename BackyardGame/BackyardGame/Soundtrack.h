@@ -12,6 +12,7 @@ protected:
 sf::Music backgroundMusic;
 sf::Music battleMusic;
 sf::Music scaryMusic;
+
 public:
 	static Soundtrack & getInstance();
 	void PlayOutsideSoundtrack();

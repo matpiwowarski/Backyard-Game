@@ -249,6 +249,29 @@ void HouseState::checkMovementLimits(const double & dt)
 		this->player.move(dt, 0.f, -1.f);
 }
 
+template<typename a, typename b> void HouseState::colisionPreventing(a& t1, b& t2, const double & dt)
+{
+	if (t1.getSprite().getGlobalBounds().intersects(t2.getSprite().getGlobalBounds()))
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			t1.move(dt, 1.f, 0.f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			t1.move(dt, -1.f, 0.f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			t1.move(dt, 0.f, 1.f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			t1.move(dt, 0.f, -1.f);
+		}
+	}
+}
+
 void HouseState::colisionPreventEverything(const double & dt)
 {
 	colisionPreventing(player, skeleton, dt);

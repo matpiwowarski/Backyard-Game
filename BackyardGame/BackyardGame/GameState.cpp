@@ -28,7 +28,7 @@ void GameState::unblockPlayer()
 {
 	player.unblock();
 }
-
+/*
 void GameState::colisionPreventing(Player & player, Entity & object, const double &dt)
 {
 	if (player.getSprite().getGlobalBounds().intersects(object.getSprite().getGlobalBounds()))
@@ -51,6 +51,7 @@ void GameState::colisionPreventing(Player & player, Entity & object, const doubl
 		}
 	}
 }
+*/
 
 void GameState::rotatingPlayer(Player & player, const double& dt)
 {

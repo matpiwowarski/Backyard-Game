@@ -76,7 +76,7 @@ void BackyardState::checkDoor(Player & player, const double & dt)
 		}
 }
 
-void BackyardState::colisionPreventEverything(const double & dt)
+void BackyardState::colisionPreventEverything(const double& dt)
 {
 	colisionPreventing(player, house, dt);
 	colisionPreventing(player, lake, dt);
@@ -84,6 +84,31 @@ void BackyardState::colisionPreventEverything(const double & dt)
 	colisionPreventing(player, red_tree, dt);
 	colisionPreventing(player, score.getEntity(), dt);
 }
+
+template<typename a, typename b> void BackyardState::colisionPreventing(a& t1, b& t2, const double& dt)
+{
+	if (t1.getSprite().getGlobalBounds().intersects(t2.getSprite().getGlobalBounds()))
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			t1.move(dt, 1.f, 0.f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			t1.move(dt, -1.f, 0.f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			t1.move(dt, 0.f, 1.f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			t1.move(dt, 0.f, -1.f);
+		}
+	}
+}
+
+
 
 void BackyardState::update(const double & dt)
 {
