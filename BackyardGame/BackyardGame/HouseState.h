@@ -31,6 +31,7 @@ private:
 	void fastClicking();
 	void checkIsLadderUsed();
 	void checkEndGame();
+	template<typename Type> void setTexture(Type & t, int i);
 public:
 	HouseState();
 	HouseState(sf::RenderWindow* window);

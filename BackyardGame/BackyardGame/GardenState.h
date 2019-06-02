@@ -24,6 +24,7 @@ private:
 	void fillDicesToDraw();
 	sf::Text buttonText;
 	sf::Text rerollsText;
+	template<typename Type> void setTexture(Type & t, int i);
 public:
 	GardenState();
 	GardenState(sf::RenderWindow* window);

@@ -17,6 +17,7 @@ private:
 	void RPSResult();
 	void finishRPS();
 	void checkRPSAction();
+	template<typename Type> void setTexture(Type & t, int i);
 public:
 	BackyardState();
 	BackyardState(sf::RenderWindow* window);

@@ -13,9 +13,9 @@ HouseState::HouseState(sf::RenderWindow * window) : GameState(window)
 	this->NPCClock.restart();
 	this->map.LoadHouseMap(); // load map
 	this->player.setSpritePosition(420, 530);
-	this->player.getSprite().setTexture(textures[1]);
+	setTexture(player, 1);
 	this->ladder.setSpritePosition(500, 100);
-	this->ladder.getSprite().setTexture(textures[19]);
+	setTexture(ladder, 19);
 
 	initializeNPCs();
 	initializeFlags();
@@ -26,6 +26,10 @@ HouseState::~HouseState()
 {
 }
 
+template<typename Type> void HouseState::setTexture(Type & t, int i)
+{
+	t.getSprite().setTexture(this->textures[i]);
+}
 
 void HouseState::checkIfPlayerLeftHouse()
 {
@@ -79,23 +83,23 @@ void HouseState::initializeFlags()
 	flags[0].setSpritePosition(200, 150);
 	flags[1].setSpritePosition(200, 300);
 	flags[2].setSpritePosition(200, 450);
-	flags[0].getSprite().setTexture(textures[18]);
-	flags[1].getSprite().setTexture(textures[18]);
-	flags[2].getSprite().setTexture(textures[18]);
+	setTexture(flags[0], 18);
+	setTexture(flags[1], 18);
+	setTexture(flags[2], 18);
 }
 
 void HouseState::initializeNPCs()
 {
 	skeleton.setSpritePosition(250, 150);
-	skeleton.getSprite().setTexture(textures[15]);
+	setTexture(skeleton, 15);
 	skeleton.getSprite().setScale(sf::Vector2f(4.f, 4.f));
 
 	vampire.setSpritePosition(250, 300);
-	vampire.getSprite().setTexture(textures[16]);
+	setTexture(vampire, 16);
 	vampire.getSprite().setScale(sf::Vector2f(3.f, 3.f));
 
 	priest.setSpritePosition(250, 450);
-	priest.getSprite().setTexture(textures[17]);
+	setTexture(priest, 17);
 	priest.getSprite().setScale(sf::Vector2f(2.5, 2.5));
 }
 

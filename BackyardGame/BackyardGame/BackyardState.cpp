@@ -16,11 +16,11 @@ BackyardState::BackyardState(sf::RenderWindow * window) : GameState(window)
 	old_man.setSpritePosition(655, 525);
 	red_tree.setSpritePosition(620, 100);
 
-	house.getSprite().setTexture(textures[0]);
-	player.getSprite().setTexture(textures[1]);
-	lake.getSprite().setTexture(textures[3]);
-	old_man.getSprite().setTexture(textures[4]);
-	red_tree.getSprite().setTexture(textures[5]);
+	setTexture(house, 0);
+	setTexture(player, 1);
+	setTexture(lake, 3);
+	setTexture(old_man, 4);
+	setTexture(red_tree, 5);
 
 	//setting music
 	music.PlayOutsideSoundtrack();
@@ -29,6 +29,11 @@ BackyardState::BackyardState(sf::RenderWindow * window) : GameState(window)
 
 BackyardState::~BackyardState()
 {
+}
+
+template<typename Type> void BackyardState::setTexture(Type & t, int i)
+{
+	t.getSprite().setTexture(this->textures[i]);
 }
 
 void BackyardState::checkMovementLimits(const double& dt)
