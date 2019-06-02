@@ -25,7 +25,7 @@ private:
 	void DicesAction1Rerolls();  //ungrammatical name for constency in naming
 	void DiceAction0Rerolls();
 	void DicesPack();           //some dices function that are being used few times
-	void fillDicesToDraw();     //fills dices vectors
+	void fillDicesToDraw();     //fills dices vectors(takes them for vectors made in "Dices" class)
 	sf::Text buttonText;
 	sf::Text rerollsText;
 	bool wereBoardsDrawn = false;

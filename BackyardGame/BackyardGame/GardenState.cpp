@@ -197,11 +197,11 @@ void GardenState::activateDiceGuy()
 void GardenState::fillDicesToDraw()
 {
 	for (int i = 0;i < 5;i++) {
-		this->oponnentsDicesToDraw.push_back(dice_guy.getOponnentDice(i).getDiceSprite()); // NPC choice to draw
+		this->oponnentsDicesToDraw.push_back(dice_guy.getOponnentDice(i).getDiceSprite()); 
 	}
 
 	for (int i = 0;i < 5;i++) {
-		this->playersDicesToDraw.push_back(dice_guy.getPlayerDice(i).getDiceSprite()); // NPC choice to draw
+		this->playersDicesToDraw.push_back(dice_guy.getPlayerDice(i).getDiceSprite()); 
 	}
 }
 
