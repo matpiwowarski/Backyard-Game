@@ -24,7 +24,8 @@ private:
 	void DicesAction2Rerolls();
 	void DicesAction1Rerolls();  //ungrammatical name for constency in naming
 	void DiceAction0Rerolls();
-	void fillDicesToDraw();
+	void DicesPack();           //some dices function that are being used few times
+	void fillDicesToDraw();     //fills dices vectors
 	sf::Text buttonText;
 	sf::Text rerollsText;
 	bool wereBoardsDrawn = false;
@@ -38,7 +39,7 @@ public:
 	//setters/getters
 
 	//methods
-	void checkMovementLimits(const double& dt); /// TO DO
+	void checkMovementLimits(const double& dt); 
 	void colisionPreventEverything(const double &dt);
 	void update(const double& dt);
 	void render(sf::RenderTarget* target = nullptr);
