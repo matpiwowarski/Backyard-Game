@@ -21,6 +21,9 @@ private:
 	void DicesResult();
 	void finishDices();
 	void checkDicesAction();
+	void DicesAction2Rerolls();
+	void DicesAction1Rerolls();  //ungrammatical name for constency in naming
+	void DiceAction0Rerolls();
 	void fillDicesToDraw();
 	sf::Text buttonText;
 	sf::Text rerollsText;

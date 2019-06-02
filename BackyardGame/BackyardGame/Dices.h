@@ -49,6 +49,12 @@ public:
 	void fillDicesVector();
 	void drawNPCChoice();
 	void redrawDices();
+	void redrawOponnentsDicesFirstTime();  
+	void redrawOponnentsDicesSecondTime();  //NPC's tactic changes between rerools runs
+	void helpForRedrawing(int i); //i is a number taken from "for" loop
+	void countScore();
+	void changeTexture();  //change dice texture if is chosen to be redrawn
+
 
 	sf::Sprite rightPressed(); // return cursor sprite
 	sf::Sprite leftPressed(); // return cursor sprite

@@ -15,8 +15,8 @@ public:
 	~Dice();
 
 	//getters/setters
-	void setDiceTexture(const sf::Texture texture);
-	void setDiceSprite(const sf::Sprite sprite);
+	void setDiceTexture(const sf::Texture & texture);
+	void setDiceSprite(const sf::Sprite & sprite);
 	void setIsChosenToReroll(const bool & choice);
 
 	bool getIsChosenToReroll();

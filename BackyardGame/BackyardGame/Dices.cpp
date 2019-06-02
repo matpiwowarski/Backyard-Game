@@ -68,7 +68,7 @@ void Dices::uploadNPCChoiceTexture()
 				if (this->oponnentDices[j].getChoice() + 1 == i) {
 					if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 					{
-						throw -1; // error
+						throw - 1; // error
 					}
 					else oponnentDices[j].setDiceTexture(textureForDice);
 				}
@@ -94,7 +94,7 @@ void Dices::uploadPlayersChoiceTexture()
 				if (this->playerDices[j].getChoice() + 1 == i) {
 					if (!textureForDice.loadFromFile("../Assets/dice_" + std::to_string(i) + ".png"))
 					{
-						throw -1; // error
+						throw - 1; // error
 					}
 					else playerDices[j].setDiceTexture(textureForDice);
 				}
@@ -201,7 +201,7 @@ sf::Sprite Dices::getDiceButtonSprite() const
 
 int Dices::getCursorIndex()
 {
-     	return this->cursorIndex;
+	return this->cursorIndex;
 }
 
 int Dices::getRerollsNumber()
@@ -233,7 +233,7 @@ void Dices::loadBoardTexture()
 	{
 		if (!boardTexture.loadFromFile("../Assets/board_dices_player.png"))
 		{
-			throw -1; // error;
+			throw - 1; // error;
 		}
 	}
 	catch (int)
@@ -302,7 +302,7 @@ void Dices::updateCursorSpritePosition()
 	{
 		cursorSprite.setPosition(sf::Vector2f(655.f, 500.f));
 	}
-	
+
 }
 
 void Dices::fillDicesVector()
@@ -330,28 +330,117 @@ void Dices::drawNPCChoice()
 void Dices::redrawDices()
 {
 	sf::Texture textureForDice;
-	sf::Sprite spriteForDice;
-	float xForVector = 0.f;
 
 	for (int i = 0;i < 5;i++) {
 		if (this->getPlayerDice(i).getIsChosenToReroll() == true) {
 			this->playerDices[i].randomChoice();
 			for (int j = 1;j <= 6;j++) {
 				if (this->playerDices[i].getChoice() + 1 == j) {
-					std::string diceTexturePath = "../Assets/dice_" + std::to_string(j)+ ".png";
+					std::string diceTexturePath = "../Assets/dice_" + std::to_string(j) + ".png";
 					if (!textureForDice.loadFromFile(diceTexturePath))
 					{
-						throw "ojojoj"; // error
+						throw ; // error
 					}
 					else playerDices[i].setDiceTexture(textureForDice);
+					this->playerDices[i].setIsChosenToReroll(false);
 				}
 
 			}
-			spriteForDice.setTexture(oponnentDices[i].getDiceTexture());
-			spriteForDice.setScale(sf::Vector2f(3.f, 3.f));
-			spriteForDice.setPosition(sf::Vector2f(xForVector + 255.f, 208.f));
-			oponnentDices[i].setDiceSprite(spriteForDice);
-			this->getPlayerDice(i).setIsChosenToReroll(false);
+		}
+	}
+}
+
+
+void Dices::helpForRedrawing(int i)
+{
+	sf::Texture textureForDice;
+
+	this->oponnentDices[i].randomChoice();
+	for (int j = 1;j <= 6;j++) {
+		if (this->oponnentDices[i].getChoice() + 1 == j) {
+			std::string diceTexturePath = "../Assets/dice_" + std::to_string(j) + ".png";
+			if (!textureForDice.loadFromFile(diceTexturePath))
+			{
+				throw; // error
+			}
+			else oponnentDices[i].setDiceTexture(textureForDice);
+		}
+
+	}
+
+}
+
+void Dices::countScore()
+{
+	playerScore = 0;
+	oponnentScore = 0;
+	for (int i = 0;i < 5;i++) {
+		playerScore += this->playerDices[i].getChoice() + 1;
+		oponnentScore += this->oponnentDices[i].getChoice() + 1;
+	}
+}
+
+void Dices::changeTexture()
+{
+	sf::Texture textureForDice;
+
+	for (int i = 0;i < 5;i++) {
+		if (this->getPlayerDice(i).getIsChosenToReroll() == true) {
+			for (int j = 1;j <= 6;j++) {
+				if (this->playerDices[i].getChoice() + 1 == j) {
+					std::string diceTexturePath = "../Assets/dice_" + std::to_string(j) + "_to_reroll.png";
+					if (!textureForDice.loadFromFile(diceTexturePath))
+					{
+						throw; // error
+					}
+					else playerDices[i].setDiceTexture(textureForDice);
+				}
+			}
+		}
+		else {
+			for (int j = 1;j <= 6;j++) {
+				if (this->playerDices[i].getChoice() + 1 == j) {
+					std::string diceTexturePath = "../Assets/dice_" + std::to_string(j) + ".png";
+					if (!textureForDice.loadFromFile(diceTexturePath))
+					{
+						throw; // error
+					}
+					else playerDices[i].setDiceTexture(textureForDice);
+				}
+			}
+		}
+	}
+}
+
+void Dices::redrawOponnentsDicesFirstTime()
+{
+
+	for (int i = 0;i < 5;i++)
+	{
+		if (this->getOponnentDice(i).getChoice() + 1 < 4)
+		{
+			helpForRedrawing(i);
+		}
+
+	}
+}
+
+void Dices::redrawOponnentsDicesSecondTime()
+{
+	for (int i = 0;i < 5;i++)
+	{
+		if (this->playerScore > this->oponnentScore)
+		{
+			if (this->getOponnentDice(i).getChoice() + 1 < 5)
+			{
+				helpForRedrawing(i);
+			}
+		}
+		else if (this->playerScore <= this->oponnentScore) {
+			if (this->getOponnentDice(i).getChoice() + 1 < 3)
+			{
+				helpForRedrawing(i);
+			}
 		}
 	}
 }
