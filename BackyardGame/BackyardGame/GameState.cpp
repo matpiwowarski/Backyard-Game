@@ -16,7 +16,7 @@ GameState::~GameState()
 
 void GameState::endState()
 {
-	std::cout << "THE END" << std::endl;
+
 }
 
 void GameState::blockPlayer()
