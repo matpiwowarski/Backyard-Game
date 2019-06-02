@@ -46,13 +46,13 @@ public:
 	Dice & getOponnentDice(int diceNumber);
 	
 	//methods
-	void fillDicesVector();
-	void drawNPCChoice();
-	void redrawDices();
+	void fillDicesVector();		//makes 'Dice' class objects and putting them in playerDices vector and oponnentDices vector
+	void drawNPCChoice();		//setting NPC's string
+	void redrawDices();      //redraws dices that player choosed to do so
 	void redrawOponnentsDicesFirstTime();  
-	void redrawOponnentsDicesSecondTime();  //NPC's tactic changes between rerools runs
+	void redrawOponnentsDicesSecondTime();  //NPC's tactic changes between round of dices(second time is re-rollng more agressive if loosing, and more passive if winning)
 	void helpForRedrawing(int i); //i is a number taken from "for" loop
-	void countScore();
+	void countScore();		
 	void changeTexture();  //change dice texture if is chosen to be redrawn
 
 

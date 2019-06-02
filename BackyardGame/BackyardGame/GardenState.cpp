@@ -207,7 +207,7 @@ void GardenState::fillDicesToDraw()
 
 void GardenState::drawDiceGuyChoice()
 {
-	this->dice_guy.drawNPCChoice(); // draw NPC's choice	
+	this->dice_guy.drawNPCChoice(); // draw NPC's message	
 }
 
 void GardenState::drawDicesSprites()
