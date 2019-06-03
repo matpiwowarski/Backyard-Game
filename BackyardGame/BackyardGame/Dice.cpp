@@ -13,16 +13,26 @@ Dice::~Dice()
 
 //getters/setters
 
-void  Dice::setDiceTexture(const sf::Texture texture)
+void  Dice::setDiceTexture(const sf::Texture & texture)
 {
 	diceTexture = texture;
 }
 
-void Dice::setDiceSprite(const sf::Sprite sprite)
+void Dice::setDiceSprite(const sf::Sprite & sprite)
 {
 	diceSprite = sprite;
 }
 
+void Dice::setIsChosenToReroll(const bool & choice)
+{
+	this->isChosenToReroll = choice;
+}
+
+
+bool Dice::getIsChosenToReroll()
+{
+	return this->isChosenToReroll;
+}
 
 int Dice::getChoice()
 {

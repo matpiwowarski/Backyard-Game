@@ -155,17 +155,17 @@ void BackyardState::moveCursor()
 {
 	if (this->player.getIsBlocked())
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
 				// to ignore long time press
 			}
 			GameRPSToDraw[1] = old_man.rightPressed();
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
 				// to ignore long time press
 			}

@@ -4,7 +4,7 @@
 
 void GardenState::checkIfPlayerLeftGarden()
 {
-	if (player.getPosition().x < 5) 
+	if (player.getPosition().x < 5)
 	{
 		music.StopPlayingSoundtrack();
 		backToBackyard = true;
@@ -33,7 +33,7 @@ GardenState::GardenState(sf::RenderWindow * window) : GameState(window)
 	rock.setSpritePosition(600, 450);
 	rock.getSprite().setScale(6.f, 6.f);
 	dice_guy.setSpritePosition(380, 300);
-	player.setSpritePosition(10, 400);
+	player.setSpritePosition(10, 360);
 
 	setTexture(fence_left, 9);
 	setTexture(fence_right, 10);
@@ -46,6 +46,7 @@ GardenState::GardenState(sf::RenderWindow * window) : GameState(window)
 	setTexture(rock, 13);
 	setTexture(dice_guy, 14);
 	setTexture(player, 1);
+
 
 	this->dice_guy.setPlayersDicesSprites();
 	this->dice_guy.setOponnentsDicesSprites();
@@ -114,7 +115,7 @@ void GardenState::update(const double & dt)
 	checkMovementLimits(dt); // works ///NEW
 	this->map.update(dt); // ?
 	this->player.update(dt); // works
-	this->score.update(dt); 
+	this->score.update(dt);
 	this->fence_left.update(dt);
 	this->fence_up.update(dt);
 	this->fence_right.update(dt);
@@ -165,17 +166,17 @@ void GardenState::moveCursor()
 {
 	if (this->player.getIsBlocked())
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)|| sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)|| sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
 				// to ignore long time press
 			}
 			GameDicesToDraw[1] = dice_guy.rightPressed();
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)|| sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
 				// to ignore long time press
 			}
@@ -185,7 +186,7 @@ void GardenState::moveCursor()
 }
 
 void GardenState::activateDiceGuy()
-{	
+{
 	this->GameDicesToDraw.push_back(this->dice_guy.getBoardSprite()); // board to draw						0
 	this->GameDicesToDraw.push_back(this->dice_guy.getCursorSprite()); // cursor to draw					1
 	this->GameDicesToDraw.push_back(this->dice_guy.getOponnentBoardSprite()); // oponnent board to draw		2
@@ -196,18 +197,17 @@ void GardenState::activateDiceGuy()
 void GardenState::fillDicesToDraw()
 {
 	for (int i = 0;i < 5;i++) {
-		this->oponnentsDicesToDraw.push_back(dice_guy.getOponnentDice(i).getDiceSprite()); // NPC choice to draw
+		this->oponnentsDicesToDraw.push_back(dice_guy.getOponnentDice(i).getDiceSprite()); 
 	}
-	
+
 	for (int i = 0;i < 5;i++) {
-		this->playersDicesToDraw.push_back(dice_guy.getPlayerDice(i).getDiceSprite()); // NPC choice to draw
+		this->playersDicesToDraw.push_back(dice_guy.getPlayerDice(i).getDiceSprite()); 
 	}
 }
 
 void GardenState::drawDiceGuyChoice()
 {
-	activateDiceGuy();
-	this->dice_guy.drawNPCChoice(); // draw NPC's choice	
+	this->dice_guy.drawNPCChoice(); // draw NPC's message	
 }
 
 void GardenState::drawDicesSprites()
@@ -239,33 +239,28 @@ void GardenState::drawOponnentsDicesSprites()
 
 void GardenState::playDices()
 {
-	int number = 2;//to change later
-
+	
 	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {} // to ignore long time press
-	music.PlayBattleSoundtrack();
+
 	blockPlayer();
 
-	dice_guy.setDicesTexts(number);	//will change later
-	fillDicesToDraw();				//might change later
+	dice_guy.setDicesTexts(this->dice_guy.getRerollsNumber());	//2
+
 	this->dice_guy.setOponnentsDicesSprites();
 	this->dice_guy.setPlayersDicesSprites();
 
 	this->buttonText = dice_guy.getButtonText();
 	this->rerollsText = dice_guy.getRerollsText();
-	if (score.getScore() >= 5)
-	{
-		blockPlayer();
-		drawPlayersDicesSprites();
-		drawOponnentsDicesSprites();
-		drawDiceGuyChoice();
-	}
-	else
-	{
-		dice_guy.notEnoughCoins();
-		this->NPCMessage = dice_guy.getNPCMessage();
-		finishedMiniGame = true;
-		music.PlayOutsideSoundtrack();
-	}
+	this->window->draw(rerollsText);
+
+	activateDiceGuy();
+
+	music.PlayBattleSoundtrack();
+	blockPlayer();
+	drawPlayersDicesSprites();
+	drawOponnentsDicesSprites();
+	drawDiceGuyChoice();
+
 }
 
 void GardenState::DicesResult()
@@ -275,12 +270,17 @@ void GardenState::DicesResult()
 	for (int i = 0;i < 5;i++) {
 		this->GameDicesToDraw.push_back(dice_guy.getOponnentDice(i).getDiceSprite()); // NPC choice to draw
 	}
+	this->dice_guy.countScore();
 	this->NPCMessage = dice_guy.getNPCMessage(); // NPC message to draw
 	this->NPCResultText = dice_guy.getNPCResultText(); // result to draw
 	if (this->NPCResultText.getString() == "YOU WON")
+	{
 		score.add(10);
+	}
 	else if (this->NPCResultText.getString() == "YOU LOST")
-		score.subtract(10);
+		if (score.getScore() > 0) {
+			score.subtract(10);
+		}
 	finishedMiniGame = true;
 }
 
@@ -292,38 +292,128 @@ void GardenState::finishDices()
 	this->oponnentsDicesToDraw.clear();
 	this->playersDicesToDraw.clear();
 	this->NPCMessage.setString("");
-	this->NPCResultText.setString("");
 	this->buttonText.setString("");
 	this->rerollsText.setString("");
+	this->dice_guy.setRerollsNumber(2);
 	finishedMiniGame = false;
+	if (this->NPCResultText.getString() == "YOU WON")
+	{
+		this->dice_guy.setSpritePosition(328, 300);
+	}
+	this->NPCResultText.setString("");
 	unblockPlayer();
 	music.PlayOutsideSoundtrack();
 }
 
 void GardenState::checkDicesAction()
 {
-	if (player.getIsBlocked() && finishedMiniGame)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-		{
-			finishDices();
-		}
-	}
-	if (player.getIsBlocked())
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-		{
-			DicesResult();
-		}
-	}
+	DiceAction0Rerolls();
+
 	if (player.getIsBlocked() && !finishedMiniGame)
 		moveCursor();
 	if (player.getSprite().getGlobalBounds().intersects(dice_guy.getSprite().getGlobalBounds()))
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		if (this->dice_guy.getRerollsNumber() == 1 &&
+			(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)))
 		{
-			playDices();
+			DicesAction1Rerolls();
+		}
+		if (this->dice_guy.getRerollsNumber() == 2)
+		{
+			DicesAction2Rerolls();
 		}
 	}
 }
 
+
+void GardenState::DiceAction0Rerolls()
+{
+	if (player.getIsBlocked() && finishedMiniGame)
+	{
+		if (dice_guy.getCursorIndex() == 5 && this->dice_guy.getRerollsNumber() == 0 &&
+			(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)))
+		{
+			this->dice_guy.setRerollsNumber(2);
+			wereBoardsDrawn = false;
+			finishDices();
+		}
+		else if (dice_guy.getCursorIndex() != 5 &&
+			(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))) {
+			//text you can't reroll
+		}
+	}
+	if (player.getIsBlocked())
+	{
+		if (dice_guy.getCursorIndex() == 5 && this->dice_guy.getRerollsNumber() == 0 &&
+			(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)))
+		{
+			DicesResult();
+		}
+	}
+}
+
+
+
+void GardenState::DicesAction1Rerolls()
+{
+	if (this->dice_guy.getCursorIndex() < 5 &&
+		(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)))  //for not leaving vector range
+	{
+		while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {}
+		if (this->dice_guy.getPlayerDice(this->dice_guy.getCursorIndex()).getIsChosenToReroll() == false()) {
+			this->dice_guy.getPlayerDice(this->dice_guy.getCursorIndex()).setIsChosenToReroll(true);
+		}
+		else this->dice_guy.getPlayerDice(this->dice_guy.getCursorIndex()).setIsChosenToReroll(false);
+		this->dice_guy.changeTexture();   //lighting up dices that are choosen to re-roll
+	}
+
+	if (this->dice_guy.getCursorIndex() == 5 && (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)))
+	{
+	
+		this->dice_guy.redrawOponnentsDicesSecondTime();
+		this->dice_guy.setRerollsNumber(0);
+		DicesPack();
+		this->buttonText.setString("    End!");
+	}
+}
+
+
+void GardenState::DicesAction2Rerolls()
+{
+	if (wereBoardsDrawn == false &&
+		(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)))
+	{
+		fillDicesToDraw();
+		playDices();
+		wereBoardsDrawn = true;
+	}
+
+	if (this->dice_guy.getCursorIndex() < 5 &&
+		(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)))  //for not leaving vector range
+	{
+		while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {}
+		if (this->dice_guy.getPlayerDice(this->dice_guy.getCursorIndex()).getIsChosenToReroll() == false()) {
+			this->dice_guy.getPlayerDice(this->dice_guy.getCursorIndex()).setIsChosenToReroll(true);
+		}
+		else this->dice_guy.getPlayerDice(this->dice_guy.getCursorIndex()).setIsChosenToReroll(false);
+		this->dice_guy.changeTexture();  //lighting up dices that are choosen to re-roll
+	}
+
+
+	if (this->dice_guy.getCursorIndex() == 5 && (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)))
+	{
+		this->dice_guy.redrawOponnentsDicesFirstTime();
+		this->dice_guy.setRerollsNumber(1);
+		DicesPack();
+	}
+}
+
+void GardenState::DicesPack()
+{
+	while (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {}
+	this->dice_guy.countScore();
+	this->dice_guy.redrawDices();
+	this->rerollsText.setString("");
+	this->dice_guy.setDicesTexts(this->dice_guy.getRerollsNumber());
+	rerollsText = dice_guy.getRerollsText();
+}

@@ -17,6 +17,8 @@ bool Player::getIsBlocked() const
 	return isBlocked;
 }
 
+
+
 void Player::move(const double &dt, const double xDirection, const double yDirection)
 {
 	if(!this->isBlocked)
