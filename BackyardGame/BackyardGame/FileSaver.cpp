@@ -7,6 +7,7 @@ FileSaver::FileSaver(int score)
 
 void FileSaver::askToSaveFile()
 {
+	
 	std::string choice;
 	system("CLS");
 	std::cout << "Do you want to save your score? (y/n)" << std::endl;
@@ -15,7 +16,7 @@ void FileSaver::askToSaveFile()
 	{
 		this->save = true;
 	}
-	else
+	else 
 	{
 		this->save = false;
 	}
@@ -62,6 +63,8 @@ void FileSaver::saveFile()
 			myfile.open("../../highscore.txt", std::ios_base::app);
 			if (myfile.is_open())
 			{
+				system("CLS");
+				std::cout << "Your score is saved in highscore.txt file" << std::endl;
 				std::string line;				// name + score
 				line = this->name + "\t \t";
 				line += std::to_string(this->score);

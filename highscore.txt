@@ -1,3 +1,4 @@
 Test	 	70
 test	 	20
 Mateusz	 	15
+Nie	 	10

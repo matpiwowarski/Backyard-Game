@@ -128,8 +128,6 @@ void Game::endGame()
 	saver.saveFile();
 
 	// end program
-	system("CLS");
-	std::cout << "Your score is saved in highscore.txt file" << std::endl;
 	std::cout << "GAME OVER" << std::endl;
 	this->window->close();
 }

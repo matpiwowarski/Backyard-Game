@@ -74,6 +74,7 @@ void State::checkQuit()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
+		music.StopPlayingSoundtrack();
 		this->quit = true;
 	}
 }
