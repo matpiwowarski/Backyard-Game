@@ -24,9 +24,17 @@ void Map::LoadBackyardMap()
 		0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	30,	0,	0,	0,	0,	0,	0,	0,	0,	6,	15,	0,	0,	0,
 		27,	26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27
 	};
-	if (!this->load(2, "../Assets/backyardmap.png", sf::Vector2u(16, 16), map, 25, 19))    //path to file, dimension of one tile, table with map, width, height
+	try
+	{
+		if (!this->load(2, "../Assets/backyardmap.png", sf::Vector2u(16, 16), map, 25, 19))    //path to file, dimension of one tile, table with map, width, height
+		{
+			throw - 1;
+		}
+	}
+	catch (int)
 	{
 		std::cout << " The map hasn't been loaded correctly";
+		system("CLS");
 	}
 }
 
@@ -54,9 +62,17 @@ void Map::LoadGardenMap()
 		0,	0,	0,	0,	0,	0,	30,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	30,	0,	0,	0,	0,
 	    27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27, 26, 27
 	};
-	if (!this->load(2, "../Assets/backyardmap.png", sf::Vector2u(16, 16), map, 25, 19))    //path to file, dimension of one tile, table with map, width, height
+	try
+	{
+		if (!this->load(2, "../Assets/backyardmap.png", sf::Vector2u(16, 16), map, 25, 19))    //path to file, dimension of one tile, table with map, width, height
+		{
+			throw - 1;
+		}
+	}
+	catch (int)
 	{
 		std::cout << " The map hasn't been loaded correctly";
+		system("CLS");
 	}
 }
 
@@ -84,9 +100,17 @@ void Map::LoadHouseMap()
 		19,	15,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	18,
 		19,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	23,	24,	25,	0,	0,	0,	0,	0,	0,	0,	0,	0,	18,
 	};
-	if (!this->load(1, "../Assets/housemap.png", sf::Vector2u(32, 32), map, 25, 19))    //path to file, dimension of one tile, table with map, width, height
+	try
+	{
+		if (!this->load(1, "../Assets/housemap.png", sf::Vector2u(32, 32), map, 25, 19))    //path to file, dimension of one tile, table with map, width, height
+		{
+			throw - 1;
+		}
+	}
+	catch (int)
 	{
 		std::cout << " The map hasn't been loaded correctly";
+		system("CLS");
 	}
 }
 
@@ -149,11 +173,6 @@ void Map::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 	// draw the vertex array
 	target.draw(m_vertices, states);
-}
-
-void Map::update(const double & dt)
-{
-	// here we change the details of the map or the entire map
 }
 
 void Map::render(sf::RenderTarget * target)

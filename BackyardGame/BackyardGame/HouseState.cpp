@@ -1,5 +1,8 @@
 #include "HouseState.h"
 #define ClickingNPCTime 7000
+#define firstLevelBet 10
+#define secondLevelBet 20
+#define thirdLevelBet 30
 
 bool HouseState::hiddenLadder = true;
 
@@ -139,7 +142,7 @@ void HouseState::checkArmWrestlingAction()
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 			{
-				bet = 30; 
+				bet = thirdLevelBet; 
 				playArmWrestling(skeleton);
 			}
 		}
@@ -148,7 +151,7 @@ void HouseState::checkArmWrestlingAction()
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 			{
-				bet = 20; 
+				bet = secondLevelBet; 
 				playArmWrestling(vampire);
 			}
 		}
@@ -157,7 +160,7 @@ void HouseState::checkArmWrestlingAction()
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 			{
-				bet = 10; 
+				bet = firstLevelBet; 
 				playArmWrestling(priest);
 			}
 		}
@@ -287,12 +290,8 @@ void HouseState::update(const double & dt)
 {
 	this->updateKeybinds(dt); // works
 	this->checkMovementLimits(dt); // works
-	this->map.update(dt); // ?
 	this->player.update(dt); // works
 	this->score.update(dt); // works
-	this->skeleton.update(dt); // ?
-	this->vampire.update(dt); // ?
-	this->priest.update(dt); // ?
 	rotatingPlayer(player, dt);
 
 	if (!usedLadder)
@@ -364,7 +363,6 @@ void HouseState::miniGameResults()
 		}
 		else
 		{
-
 			throw -1;
 		}
 	}

@@ -24,7 +24,5 @@ public:
 	sf::Vector2f getPosition() const;
 
 	// methods
-	virtual void update(const double& dt);
-	virtual void render(sf::RenderTarget * target);// = 0;
+	virtual void render(sf::RenderTarget * target);
 };
-

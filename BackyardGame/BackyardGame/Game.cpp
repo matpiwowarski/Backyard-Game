@@ -1,10 +1,14 @@
 #include "Game.h"
+#define WindowX 800
+#define WindowY 600
+#define WindowLabel "BACKYARD GAME"
+#define timeToWaitOnEveryComputer 0.00025
 
 // initialization
 
 void Game::initWindow()
 {
-	this->window = new sf::RenderWindow(sf::VideoMode(800, 600), "BACKYARD GAME");
+	this->window = new sf::RenderWindow(sf::VideoMode(WindowX, WindowY), WindowLabel);
 }
 
 void Game::initStates()
@@ -70,7 +74,7 @@ void Game::update()
 			this->states.top()->PlayOutsideSoundtrack();
 		}
 
-		if (this->dt > 0.00025) // same speed on every computer
+		if (this->dt > timeToWaitOnEveryComputer) // same speed on every computer
 		{
 			this->states.top()->update(this->dt);
 		}
@@ -116,11 +120,14 @@ void Game::endGame()
 {
 	this->window->close();
 ;	Score s = Score::getInstance();
+
+	// save score
 	FileSaver saver(s.getScore());
 	saver.askToSaveFile();
 	saver.askForName();
 	saver.saveFile();
 
+	// end program
 	system("CLS");
 	std::cout << "Your score is saved in highscore.txt file" << std::endl;
 	std::cout << "GAME OVER" << std::endl;

@@ -113,19 +113,9 @@ void GardenState::update(const double & dt)
 {
 	this->updateKeybinds(dt); // works
 	checkMovementLimits(dt); // works ///NEW
-	this->map.update(dt); // ?
 	this->player.update(dt); // works
 	this->score.update(dt);
-	this->fence_left.update(dt);
-	this->fence_up.update(dt);
-	this->fence_right.update(dt);
-	this->fence_down1.update(dt);
-	this->fence_down2.update(dt);
-	this->flowers1.update(dt);
-	this->flowers2.update(dt);
-	this->chest.update(dt);
-	this->rock.update(dt);
-	this->dice_guy.update(dt);
+	//this->dice_guy.update(dt);
 	rotatingPlayer(player, dt);
 	checkDicesAction();
 	colisionPreventEverything(dt); // <-- preventing collisions with all objects

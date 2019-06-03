@@ -20,8 +20,7 @@ public:
 
 	// methods
 	void endState();
-//	void colisionPreventing(Player & player, Entity & object, const double &dt);;
-	void rotatingPlayer(Player & player, const double& dt);
+	void rotatingPlayer(Player & player, const double& dt); // right and left player texture
 	void updateKeybinds(const double& dt);
 	virtual void checkMovementLimits(const double& dt) = 0;
 	virtual void colisionPreventEverything(const double &dt) = 0;

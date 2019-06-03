@@ -24,7 +24,6 @@ public:
 	~Map();
 
 	// methods
-	void update(const double& dt);
 	void render(sf::RenderTarget * target);
 	bool load(int scale, const std::string& tileset, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height);
 };

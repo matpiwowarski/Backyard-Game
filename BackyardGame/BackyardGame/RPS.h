@@ -4,7 +4,7 @@ class RPS :
 	public NPC
 {
 private:
-	void randomChoice();
+	void randomChoice(); // this-> choice = 0/1/2
 	void uploadNPCChoiceTexture();
 	void loadBoardTexture();
 	void updateCursorSpritePosition();

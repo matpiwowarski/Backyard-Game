@@ -62,7 +62,7 @@ void FileSaver::saveFile()
 			myfile.open("../../highscore.txt", std::ios_base::app);
 			if (myfile.is_open())
 			{
-				std::string line; // name + current date
+				std::string line;				// name + score
 				line = this->name + "\t \t";
 				line += std::to_string(this->score);
 				myfile << line << std::endl;

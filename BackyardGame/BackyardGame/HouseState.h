@@ -4,7 +4,7 @@
 class HouseState : public GameState
 {
 private:
-	sf::Clock NPCClock;
+	sf::Clock NPCClock;									// to move cursor every x seconds while armwrestling
 	int bet = 0;
 	int cursorIndex = 0;
 	bool usedLadder = false;
@@ -37,8 +37,6 @@ public:
 	HouseState();
 	HouseState(sf::RenderWindow* window);
 	~HouseState();
-
-	// setters/getters
 
 	// methods
 	void checkMovementLimits(const double& dt); /// TO DO

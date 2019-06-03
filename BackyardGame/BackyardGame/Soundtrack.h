@@ -20,6 +20,5 @@ public:
 	void PlayScarySoundtrack();
 	bool CheckIfSoundtrackIsPlayed();
 	void StopPlayingSoundtrack();
-
 };
 

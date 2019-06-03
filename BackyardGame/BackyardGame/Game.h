@@ -34,6 +34,5 @@ public:
 	// other
 	void run();
 	void endGame();
-
 };
 

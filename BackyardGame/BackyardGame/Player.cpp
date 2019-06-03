@@ -1,10 +1,10 @@
 #include "Player.h"
-
+#define movementSpeedValue 300
 
 
 Player::Player()
 {
-	this->movementSpeed = 300.f;
+	this->movementSpeed = movementSpeedValue;
 }
 
 

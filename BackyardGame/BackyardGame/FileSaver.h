@@ -6,9 +6,9 @@
 class FileSaver
 {
 private:
-	bool save;
-	int score;
-	std::string name;
+	bool save;			// true => save file
+	int score;			// score to save
+	std::string name;	// player name
 public:
 	FileSaver(int score);
 	void askToSaveFile();

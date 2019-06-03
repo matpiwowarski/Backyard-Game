@@ -2,7 +2,7 @@
 
 ArmWrestler::ArmWrestler()
 {
-	this->cursorIndex = 9;
+	this->cursorIndex = 9; // center position
 
 	loadCursorTexture();
 	cursorSprite.setTexture(cursorTexture);
@@ -26,6 +26,7 @@ ArmWrestler::ArmWrestler()
 
 void ArmWrestler::updateCursorSpritePosition()
 {
+	// check index and move cursor 
 	if (cursorIndex == 0)
 		cursorSprite.setPosition(sf::Vector2f(190.f, 320.f));
 	else if (cursorIndex == 1)

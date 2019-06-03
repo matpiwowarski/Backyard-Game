@@ -1,11 +1,8 @@
 #include "Dice.h"
 
-
-
 Dice::Dice()
 {
 }
-
 
 Dice::~Dice()
 {
@@ -61,3 +58,4 @@ void Dice::randomChoice()
 	int random = distribution(engine) * 100;
 	this->choice = random % 6;
 }
+

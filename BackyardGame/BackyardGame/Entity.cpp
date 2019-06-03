@@ -29,11 +29,6 @@ sf::Vector2f Entity::getPosition() const
 	return sprite.getPosition();
 }
 
-void Entity::update(const double & dt)
-{
-
-}
-
 void Entity::render(sf::RenderTarget * target)
 {
 	target->draw(this->sprite);

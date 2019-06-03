@@ -20,7 +20,6 @@ NPC::~NPC()
 
 void NPC::loadCursorTexture()
 {
-
 	try
 	{
 		if (!cursorTexture.loadFromFile("../Assets/cursor.png"))
@@ -69,7 +68,6 @@ sf::Texture NPC::getNPCChoiceTexture() const
 {
 	return this->choiceTexture;
 }
-//to change later, maybe by using templates
 
 sf::Sprite NPC::getCursorSprite() const
 {

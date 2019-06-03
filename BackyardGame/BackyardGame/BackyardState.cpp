@@ -108,19 +108,12 @@ template<typename a, typename b> void BackyardState::colisionPreventing(a& t1, b
 	}
 }
 
-
-
 void BackyardState::update(const double & dt)
 {
 	this->updateKeybinds(dt); // works
 	this->checkMovementLimits(dt); // works
-	this->map.update(dt); // ?
-	this->house.update(dt); // ?
-	this->lake.update(dt); // ?
 	this->player.update(dt); // works
-	this->old_man.update(dt); // ?
-	this->red_tree.update(dt); // ?
-	this->score.update(dt); // works
+	this->score.update(dt); // works 
 	// other
 	rotatingPlayer(player, dt);
 	checkDoor(player, dt);
