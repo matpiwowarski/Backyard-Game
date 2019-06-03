@@ -53,6 +53,7 @@ void HouseState::initializeBoardInfo()
 	catch (int)
 	{
 		std::cout << "Problem with font loading";
+		exit(0);
 	}
 
 	this->BoardInfo1.setFont(BoardInfoFont);
@@ -370,6 +371,7 @@ void HouseState::miniGameResults()
 	catch (int)
 	{
 		std::cout << "Cursor index is out of range";
+		exit(0);
 	}
 
 

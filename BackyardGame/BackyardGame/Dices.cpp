@@ -78,6 +78,7 @@ void Dices::uploadNPCChoiceTexture()
 	catch (int)
 	{
 		std::cout << "Problem with dice texture loading";
+		exit(0);
 	}
 
 }
@@ -104,6 +105,7 @@ void Dices::uploadPlayersChoiceTexture()
 	catch (int)
 	{
 		std::cout << "Problem with dice texture loading";
+		exit(0);
 	}
 }
 
@@ -174,6 +176,7 @@ void Dices::loadBoardTexture()
 	catch (int)
 	{
 		std::cout << "Problem with board texture loading";
+		exit(0);
 	}
 
 
@@ -191,6 +194,7 @@ void Dices::loadOponnentBoardTexture()
 	catch (int)
 	{
 		std::cout << "Problem with board texture loading";
+		exit(0);
 	}
 
 }
@@ -207,6 +211,7 @@ void Dices::loadDiceButtonTexture()
 	catch (int)
 	{
 		std::cout << "Problem with dice texture loading";
+		exit(0);
 	}
 
 }

@@ -26,6 +26,7 @@ State::State(sf::RenderWindow * window) : window(window), quit(false)
 	catch (int)
 	{
 		std::cout << "Problem with textures opening";
+		exit(0);
 	}
 
 	textures.push_back(house);			// 0

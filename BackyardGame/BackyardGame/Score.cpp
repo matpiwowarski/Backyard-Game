@@ -25,6 +25,7 @@ Score::Score()
 		{
 			std::cout << "Problem with board texture loading";
 		}
+		exit(0);
 	}
 
 	this->board.getSprite().setTexture(BoardTexture);

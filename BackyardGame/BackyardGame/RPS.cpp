@@ -34,6 +34,7 @@ void RPS::uploadNPCChoiceTexture()
 	catch (int)
 	{
 		std::cout << "Problem with opening choice texture";
+		exit(0);
 	}
 
 }
@@ -86,6 +87,7 @@ void RPS::loadBoardTexture()
 	catch (int)
 	{
 		std::cout << "Problem with opening board texture";
+		exit(0);
 	}
 }
 

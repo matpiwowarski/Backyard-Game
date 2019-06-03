@@ -84,6 +84,7 @@ void ArmWrestler::loadBoardTexture()
 	catch (int)
 	{
 		std::cout << "Problem with board texture loading";
+		exit(0);
 	}
 }
 

@@ -10,6 +10,7 @@ NPC::NPC()
 	catch (int)
 	{
 		std::cout << "Problem with font loading";
+		exit(0);
 	}
 }
 
@@ -28,6 +29,7 @@ void NPC::loadCursorTexture()
 	catch (int)
 	{
 		std::cout << "Problem with cursor texture loading";;
+		exit(0);
 	}
 }
 
