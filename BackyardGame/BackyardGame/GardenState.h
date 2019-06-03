@@ -29,6 +29,7 @@ private:
 	sf::Text buttonText;
 	sf::Text rerollsText;
 	bool wereBoardsDrawn = false;
+	static bool wasDiceGuyMoved;
 	template<typename Type> void setTexture(Type & t, int i);
 	template<typename a, typename b> void colisionPreventing(a& t1, b& t2, const double& dt);
 public:

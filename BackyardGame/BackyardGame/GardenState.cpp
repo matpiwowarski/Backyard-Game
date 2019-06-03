@@ -1,6 +1,6 @@
 #include "GardenState.h"
 
-
+bool GardenState::wasDiceGuyMoved = false;
 
 void GardenState::checkIfPlayerLeftGarden()
 {
@@ -32,7 +32,11 @@ GardenState::GardenState(sf::RenderWindow * window) : GameState(window)
 	chest.getSprite().setScale(3.f, 3.f);
 	rock.setSpritePosition(600, 450);
 	rock.getSprite().setScale(6.f, 6.f);
-	dice_guy.setSpritePosition(380, 300);
+	if (wasDiceGuyMoved == false) {
+		dice_guy.setSpritePosition(380, 300);
+	}
+	else dice_guy.setSpritePosition(328, 300);
+
 	player.setSpritePosition(10, 360);
 
 	setTexture(fence_left, 9);
@@ -288,6 +292,7 @@ void GardenState::finishDices()
 	finishedMiniGame = false;
 	if (this->NPCResultText.getString() == "YOU WON")
 	{
+		wasDiceGuyMoved = true;
 		this->dice_guy.setSpritePosition(328, 300);
 	}
 	this->NPCResultText.setString("");
