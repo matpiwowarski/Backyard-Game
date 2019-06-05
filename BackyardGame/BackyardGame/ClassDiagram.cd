@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ArmWrestler" Collapsed="true">
+    <Position X="6.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAACAAAAAAAAQAQAAABAAAEAA=</HashCode>
+      <FileName>ArmWrestler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dice" Collapsed="true">
+    <Position X="4.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAIAAAAAIAAAQAYIBAAAIAACAhAAAAMAAAA=</HashCode>
+      <FileName>Dice.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dices" Collapsed="true">
+    <Position X="4.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABBAAAAAoADCADAQQpAICCIAAaAEJKCYhAySAKQIEA=</HashCode>
+      <FileName>Dices.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entity" Collapsed="true">
+    <Position X="4.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAIAAAAAAAAAAAABACAAAAADAAAAAgAAAAAAAQAAA=</HashCode>
+      <FileName>Entity.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NPC" Collapsed="true">
+    <Position X="4.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAAAACAAoAlBAAIBAAAACAIMAJAAIIAAEAAAgQCACA=</HashCode>
+      <FileName>NPC.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="8.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAACAAAAAAAAAAAAAAAAIAAIgAQAEBBA=</HashCode>
+      <FileName>Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPS" Collapsed="true">
+    <Position X="2.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAACAAAIAAAABAAQAAACAAAACBAIACAAAAAAAAAAA=</HashCode>
+      <FileName>RPS.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game" Collapsed="true">
+    <Position X="12" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAABAAAAAACEAAAAAAAAAiAEAAMQBQAAAQUAAA=</HashCode>
+      <FileName>Game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FileSaver" Collapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAQAAAAIAAAAAAAEAACAAAABAAAAAAA=</HashCode>
+      <FileName>FileSaver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Map" Collapsed="true">
+    <Position X="14.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAABJAAAAAAIEIAAAAAAAAAAAAAAAAIAAAYAAA=</HashCode>
+      <FileName>Map.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Score" Collapsed="true">
+    <Position X="16.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAgAAAAIAACAAwAACASKIAAAAAAWAAA=</HashCode>
+      <FileName>Score.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Soundtrack" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABQAABAAAAAAEAAAAAAAAAAMAQAACABAAAAAAA=</HashCode>
+      <FileName>Soundtrack.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackyardState" Collapsed="true">
+    <Position X="10.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAkAIEgIIAQAAAAAAQwAAgAAMAIAEXACA=</HashCode>
+      <FileName>BackyardState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameState" Collapsed="true">
+    <Position X="12" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAUAAAAAAIgIAAIAAIAAAAAAgAQQABAAAAIAAUIAA=</HashCode>
+      <FileName>GameState.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="map" />
+      <Field Name="player" />
+      <Field Name="score" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GardenState" Collapsed="true">
+    <Position X="12" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wACAAAhAQAAAggQAAAgKABRBACQAggIhIAMiMgwcAgQ=</HashCode>
+      <FileName>GardenState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HouseState" Collapsed="true">
+    <Position X="13.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAEAAABAAAAggCEhUAAggAAMBhAUACgBEEAIQDUAAQ=</HashCode>
+      <FileName>HouseState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="State" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAECAUIDAAIAAAAAAAAgAEAASAAIEAABBBAUAAg=</HashCode>
+      <FileName>State.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="music" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
