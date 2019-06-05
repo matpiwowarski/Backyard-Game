@@ -9,7 +9,7 @@ BackyardState::BackyardState(sf::RenderWindow * window) : GameState(window)
 {
 	map.LoadBackyardMap(); // load map
 	//entities settings
-	player.setSpritePosition(50, 150);
+	player.setSpritePosition(50, 160);
 	house.setSpritePosition(350, 115);
 	lake.setSpritePosition(80, 450);
 	lake.getSprite().setScale(6.f, 3.5f);
